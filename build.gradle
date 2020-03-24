@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+}
+
+group 'minek'
+version '1.0'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+task initSourceFolders {
+    sourceSets*.java.srcDirs*.each {
+        if (!it.exists()) {
+            it.mkdirs()
+        }
+    }
+    sourceSets*.resources.srcDirs*.each {
+        if (!it.exists()) {
+            it.mkdirs()
+        }
+    }
+}
+
+tasks {
+    test {
+        useJUnitPlatform()
+    }
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    compile group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.7.2'
+    compile group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.7.2'
+    compile group: 'com.squareup.retrofit2', name: 'converter-jackson', version: '2.7.2'
+    compile group: 'org.functionaljava', name: 'functionaljava', version: '4.8.1'
+
+    testCompile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.14.7'
+
+    testCompile "org.junit.jupiter:junit-jupiter:5.5.2"
+}
