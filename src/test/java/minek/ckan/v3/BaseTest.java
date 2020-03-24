@@ -3,6 +3,7 @@ package minek.ckan.v3;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import minek.ckan.gson.LocalDateTimeJsonDeserializer;
+import minek.ckan.gson.MemberJsonDeserializer;
 import minek.ckan.retrofit.ConverterFactory;
 import minek.ckan.retrofit.ResponseBodyInterceptor;
 import minek.ckan.v3.service.ActionGetService;
@@ -27,6 +28,7 @@ public class BaseTest {
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeJsonDeserializer())
+                .registerTypeAdapter(Member.class, new MemberJsonDeserializer())
                 .create();
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

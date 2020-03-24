@@ -1,8 +1,12 @@
 package minek.ckan.v3.service;
 
+import lombok.NonNull;
+import minek.ckan.v3.Member;
 import minek.ckan.v3.Package;
 import minek.ckan.v3.PackageRevision;
-import minek.ckan.v3.enums.Sort;
+import minek.ckan.v3.enums.Capacity;
+import minek.ckan.v3.enums.ObjectType;
+import minek.ckan.v3.enums.RevisionListSort;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -33,9 +37,17 @@ public interface ActionGetService {
     Call<List<UUID>> revisionList();
 
     @GET("api/3/action/revision_list")
-    Call<List<UUID>> revisionList(@Query("since_id") UUID sinceId, @Query("since_time") LocalDateTime sinceTime, @Query("sort") Sort sort);
+    Call<List<UUID>> revisionList(@Query("since_id") UUID sinceId, @Query("since_time") LocalDateTime sinceTime, @Query("sort") RevisionListSort sort);
 
     @GET("api/3/action/package_revision_list")
-    Call<List<PackageRevision>> packageRevisionList(@Query("id") UUID id);
+    Call<List<PackageRevision>> packageRevisionList(@NonNull @Query("id") UUID id);
+
+    @GET("api/3/action/member_list")
+    Call<List<Member>> memberList(@NonNull @Query("id") UUID id);
+
+    @GET("api/3/action/member_list")
+    Call<List<Member>> memberList(@NonNull @Query("id") UUID id, @Query("type") ObjectType type, @Query("capacity") Capacity capacity);
+
+//    group_list
 
 }
