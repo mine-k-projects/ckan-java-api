@@ -5,4 +5,4 @@ CKAN java client
 https://github.com/ckan/ckan/blob/master/ckan/logic/action/get.py
 
 # todo
-https://docs.ckan.org/en/2.8/api/#ckan.logic.action.get.package_autocomplete
+https://docs.ckan.org/en/2.8/api/#ckan.logic.action.get.package_search

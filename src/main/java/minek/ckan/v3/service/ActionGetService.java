@@ -180,5 +180,34 @@ public interface ActionGetService {
                         @Query("include_num_followers") Boolean includeNumFollowers,
                         @Query("include_password_hash") Boolean includePasswordHash);
 
+    @GET("api/3/action/package_autocomplete")
+    Call<List<PackageAutocomplete>> packageAutocomplete(@NonNull @Query("q") String q);
+
+    @GET("api/3/action/package_autocomplete")
+    Call<List<PackageAutocomplete>> packageAutocomplete(@NonNull @Query("q") String q, @Query("limit") Integer limit);
+
+    @GET("api/3/action/format_autocomplete")
+    Call<List<String>> formatAutocomplete(@NonNull @Query("q") String q);
+
+    @GET("api/3/action/format_autocomplete")
+    Call<List<String>> formatAutocomplete(@NonNull @Query("q") String q, @Query("limit") Integer limit);
+
+    @GET("api/3/action/user_autocomplete")
+    Call<List<UserAutocomplete>> userAutocomplete(@NonNull @Query("q") String q);
+
+    @GET("api/3/action/user_autocomplete")
+    Call<List<UserAutocomplete>> userAutocomplete(@NonNull @Query("q") String q, @Query("limit") Integer limit);
+
+    @GET("api/3/action/group_autocomplete")
+    Call<List<GroupAutocomplete>> groupAutocomplete(@NonNull @Query("q") String q);
+
+    @GET("api/3/action/group_autocomplete")
+    Call<List<GroupAutocomplete>> groupAutocomplete(@NonNull @Query("q") String q, @Query("limit") Integer limit);
+
+    @GET("api/3/action/organization_autocomplete")
+    Call<List<GroupAutocomplete>> organizationAutocomplete(@NonNull @Query("q") String q);
+
+    @GET("api/3/action/organization_autocomplete")
+    Call<List<GroupAutocomplete>> organizationAutocomplete(@NonNull @Query("q") String q, @Query("limit") Integer limit);
 
 }
