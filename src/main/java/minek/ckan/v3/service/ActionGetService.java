@@ -1,12 +1,11 @@
 package minek.ckan.v3.service;
 
 import lombok.NonNull;
+import minek.ckan.v3.Group;
 import minek.ckan.v3.Member;
 import minek.ckan.v3.Package;
 import minek.ckan.v3.PackageRevision;
-import minek.ckan.v3.enums.Capacity;
-import minek.ckan.v3.enums.ObjectType;
-import minek.ckan.v3.enums.RevisionListSort;
+import minek.ckan.v3.enums.*;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -37,7 +36,9 @@ public interface ActionGetService {
     Call<List<UUID>> revisionList();
 
     @GET("api/3/action/revision_list")
-    Call<List<UUID>> revisionList(@Query("since_id") UUID sinceId, @Query("since_time") LocalDateTime sinceTime, @Query("sort") RevisionListSort sort);
+    Call<List<UUID>> revisionList(@Query("since_id") UUID sinceId,
+                                  @Query("since_time") LocalDateTime sinceTime,
+                                  @Query("sort") Sort<RevisionListSortField> sort);
 
     @GET("api/3/action/package_revision_list")
     Call<List<PackageRevision>> packageRevisionList(@NonNull @Query("id") UUID id);
@@ -46,8 +47,25 @@ public interface ActionGetService {
     Call<List<Member>> memberList(@NonNull @Query("id") UUID id);
 
     @GET("api/3/action/member_list")
-    Call<List<Member>> memberList(@NonNull @Query("id") UUID id, @Query("type") ObjectType type, @Query("capacity") Capacity capacity);
+    Call<List<Member>> memberList(@NonNull @Query("id") UUID id,
+                                  @Query("type") ObjectType type,
+                                  @Query("capacity") Capacity capacity);
 
-//    group_list
+    @GET("api/3/action/group_list")
+    Call<List<String>> groupNameList(@Query("sort") Sort<GroupListSortField> sort,
+                                     @Query("limit") Integer limit,
+                                     @Query("offset") Integer offset,
+                                     @Query("groups") List<String> groups);
+
+    @GET("api/3/action/group_list?all_fields=true")
+    Call<List<Group>> groupList(@Query("sort") Sort<GroupListSortField> sort,
+                                @Query("limit") Integer limit,
+                                @Query("offset") Integer offset,
+                                @Query("groups") List<String> groups,
+                                @Query("include_dataset_count") Boolean includeDatasetCount,
+                                @Query("include_extras") Boolean includeExtras,
+                                @Query("include_tags") Boolean includeTags,
+                                @Query("include_groups") Boolean includeGroups,
+                                @Query("include_users") Boolean includeUsers);
 
 }
