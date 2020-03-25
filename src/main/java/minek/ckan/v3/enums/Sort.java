@@ -15,14 +15,14 @@ public class Sort<E extends Enum<?>> {
     }
 
     public static <E extends Enum<?>> Sort<E> of(@NonNull E field, @NonNull Sort.Direction direction) {
-        return new Sort<E>(field, direction);
+        return new Sort<>(field, direction);
     }
 
     public static <E extends Enum<?>> Sort<E> asc(@NonNull E field) {
-        return new Sort<E>(field, Direction.asc);
+        return new Sort<>(field, Direction.asc);
     }
 
     public static <E extends Enum<?>> Sort<E> desc(@NonNull E field) {
-        return new Sort<E>(field, Direction.desc);
+        return new Sort<>(field, Direction.desc);
     }
 }

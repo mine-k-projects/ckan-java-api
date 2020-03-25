@@ -38,8 +38,10 @@ public class Package {
     private List<Resource> resources;
     @SerializedName("num_resources")
     private int numResources;
+    @SerializedName("tracking_summary")
+    private TrackingSummary trackingSummary;
     private List<Tag> tags;
-    private List<String> groups;
+    private List<Group> groups;
     @SerializedName("license_id")
     private String licenseId;
     @SerializedName("relationships_as_subject")

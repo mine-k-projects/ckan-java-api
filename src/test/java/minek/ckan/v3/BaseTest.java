@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import minek.ckan.gson.LocalDateTimeJsonDeserializer;
 import minek.ckan.gson.MemberJsonDeserializer;
+import minek.ckan.retrofit.AuthorizationInterceptor;
 import minek.ckan.retrofit.ConverterFactory;
 import minek.ckan.retrofit.ResponseBodyInterceptor;
 import minek.ckan.v3.service.ActionGetService;
@@ -33,6 +34,7 @@ public class BaseTest {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
+        httpClient.addInterceptor(new AuthorizationInterceptor("71e8708e-9cf5-4a4d-ac9e-769cee359995"));
         httpClient.addInterceptor(new ResponseBodyInterceptor());
 
         retrofit = new Retrofit.Builder()

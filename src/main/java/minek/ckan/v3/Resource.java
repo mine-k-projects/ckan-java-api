@@ -10,7 +10,10 @@ import java.util.UUID;
 @Data
 public class Resource {
     private String mimetype;
-    private String cache_url;
+    @SerializedName("cache_url")
+    private String cacheUrl;
+    @SerializedName("tracking_summary")
+    private TrackingSummary trackingSummary;
     private String hash;
     private String description;
     private String name;
