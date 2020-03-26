@@ -321,4 +321,48 @@ public interface ActionGetService {
     Call<String> recentlyChangedPackagesActivityListHtml(@Query("offset") Integer offset,
                                                          @Query("limit") Integer limit);
 
+
+    @GET("api/3/action/user_follower_count")
+    Call<Integer> userFollowerCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/dataset_follower_count")
+    Call<Integer> datasetFollowerCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/group_follower_count")
+    Call<Integer> groupFollowerCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/organization_follower_count")
+    Call<Integer> organizationFollowerCount(@Query("id") String idOrName);
+
+    // 아래 4개는 api 하나만 확인 되면......
+
+    // TODO : user_follower_list. api 는 리턴 데이터 확인 못함
+
+    // TODO : dataset_follower_list. api 는 리턴 데이터 확인 못함
+
+    // TODO : group_follower_list. api 는 리턴 데이터 확인 못함
+
+    // TODO : organization_follower_list. api 는 리턴 데이터 확인 못함
+
+    @GET("api/3/action/am_following_user")
+    Call<Boolean> amFollowingUser(@Query("id") String idOrName);
+
+    @GET("api/3/action/am_following_dataset")
+    Call<Boolean> amFollowingDataset(@Query("id") String idOrName);
+
+    @GET("api/3/action/am_following_group")
+    Call<Boolean> amFollowingGroup(@Query("id") String idOrName);
+
+    @GET("api/3/action/followee_count")
+    Call<Integer> followeeCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/user_followee_count")
+    Call<Integer> userFolloweeCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/dataset_followee_count")
+    Call<Integer> datasetFolloweeCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/group_followee_count")
+    Call<Integer> groupFolloweeCount(@Query("id") String idOrName);
+
 }

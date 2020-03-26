@@ -37,7 +37,7 @@ public class BaseTest {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
-        httpClient.addInterceptor(new AuthorizationInterceptor("71e8708e-9cf5-4a4d-ac9e-769cee359995"));
+        httpClient.addInterceptor(new AuthorizationInterceptor("ee761722-6d84-44b5-b304-d2c8b24e4ac4"));
         httpClient.addInterceptor(new ResponseBodyInterceptor());
 
         retrofit = new Retrofit.Builder()
