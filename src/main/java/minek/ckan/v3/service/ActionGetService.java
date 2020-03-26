@@ -115,7 +115,7 @@ public interface ActionGetService {
     @GET("api/3/action/user_list?all_fields=true")
     Call<List<User>> userList(@Query("q") String q/*, @Query("order_by") String orderBy*/);
 
-    // package_relationships_list api 는 리턴 데이터 확인 못함
+    // TODO : package_relationships_list. api 는 리턴 데이터 확인 못함
 
     // NOTE : use_default_schema 는 IDatasetForm 플러그인에 의존성을 가진다. 샘플 데이터 찾기가 어렵...
     @GET("api/3/action/package_show")
@@ -209,5 +209,116 @@ public interface ActionGetService {
 
     @GET("api/3/action/organization_autocomplete")
     Call<List<GroupAutocomplete>> organizationAutocomplete(@NonNull @Query("q") String q, @Query("limit") Integer limit);
+
+    // NOTE : facet.field 파라미터는
+    // facet.field=1&facet.field=2 로 보내면 안되고 facet.field=["1", "2"] 로 보내야 한다 -_-...
+    // sort 역시 마찬가지로 sort=relevance asc, metadata_modified desc
+    // q, fq, sort 에 대해서 파라미터 고도화를 해야 한다.
+    @GET("api/3/action/package_search")
+    Call<PackageSearch> packageSearch(@Query("q") String q,
+                                      @Query("fq") String fq,
+                                      @Query("sort") String sort,
+                                      @Query("rows") Integer rows,
+                                      @Query("start") Integer start,
+                                      @Query("facet") Boolean facet,
+                                      @Query("facet.mincount") Integer facetMincount,
+                                      @Query("facet.limit") Integer facetLimit,
+                                      @Query("facet.field") String facetField,
+                                      @Query("include_drafts") Boolean includeDrafts,
+                                      @Query("include_private") Boolean includePrivate,
+                                      @Query("use_default_schema") Boolean useDefaultSchema);
+
+    // NOTE : query 의 표현식이 {field}:{term} 이기 때문에 파라미터 고도화 필요
+    @GET("api/3/action/resource_search")
+    Call<ResourceSearch> resourceSearch(@Query("query") String query,
+                                        @Deprecated @Query("fields") String fields,
+                                        @Query("order_by") String orderBy,
+                                        @Query("offset") Integer offset,
+                                        @Query("limit") Integer limit);
+
+    @GET("api/3/action/tag_search")
+    Call<TagSearch> tagSearch(@Query("query") String query,
+                              @Query("vocabulary_id") String vocabularyIdOrName,
+                              @Deprecated @Query("fields") String fields,
+                              @Query("offset") Integer offset,
+                              @Query("limit") Integer limit);
+
+    @GET("api/3/action/tag_autocomplete")
+    Call<List<String>> tagAutocomplete(@Query("query") String query,
+                                       @Query("vocabulary_id") String vocabularyIdOrName,
+                                       @Deprecated @Query("fields") String fields,
+                                       @Query("offset") Integer offset,
+                                       @Query("limit") Integer limit);
+
+    // TODO : task_status_show. api 는 리턴 데이터 확인 못함
+
+    // TODO : term_translation_show. api 는 리턴 데이터 확인 못함
+
+    /**
+     * Only internal services are allowed to call get_site_user
+     *
+     * @param deferCommit
+     * @return
+     */
+    @GET("api/3/action/get_site_user")
+    Call<SiteUser> getSiteUser(@Query("defer_commit") Boolean deferCommit);
+
+    @GET("api/3/action/status_show")
+    Call<SiteStatus> statusShow();
+
+    // TODO : vocabulary_list. api 는 리턴 데이터 확인 못함
+
+    // TODO : vocabulary_show. api 는 리턴 데이터 확인 못함
+
+    @GET("api/3/action/user_activity_list")
+    Call<List<UserActivity>> userActivityList(@Query("id") String idOrName,
+                                              @Query("offset") Integer offset,
+                                              @Query("limit") Integer limit);
+
+    @GET("api/3/action/package_activity_list")
+    Call<List<PackageActivity>> packageActivityList(@Query("id") String idOrName,
+                                                    @Query("offset") Integer offset,
+                                                    @Query("limit") Integer limit);
+
+    @GET("api/3/action/group_activity_list")
+    Call<List<GroupActivity>> groupActivityList(@Query("id") String idOrName,
+                                                @Query("offset") Integer offset,
+                                                @Query("limit") Integer limit);
+
+    @GET("api/3/action/organization_activity_list")
+    Call<List<OrganizationActivity>> organizationActivityList(@Query("id") String idOrName,
+                                                              @Query("offset") Integer offset,
+                                                              @Query("limit") Integer limit);
+
+    @GET("api/3/action/recently_changed_packages_activity_list")
+    Call<List<PackageActivity>> recentlyChangedPackagesActivityList(@Query("offset") Integer offset,
+                                                                    @Query("limit") Integer limit);
+
+    @GET("api/3/action/activity_detail_list")
+    Call<List<ActivityDetail>> activityDetailList(@Query("id") UUID id);
+
+    @GET("api/3/action/user_activity_list_html")
+    Call<String> userActivityListHtml(@Query("id") String idOrName,
+                                      @Query("offset") Integer offset,
+                                      @Query("limit") Integer limit);
+
+    @GET("api/3/action/package_activity_list_html")
+    Call<String> packageActivityListHtml(@Query("id") String idOrName,
+                                         @Query("offset") Integer offset,
+                                         @Query("limit") Integer limit);
+
+    @GET("api/3/action/group_activity_list_html")
+    Call<String> groupActivityListHtml(@Query("id") String idOrName,
+                                       @Query("offset") Integer offset,
+                                       @Query("limit") Integer limit);
+
+    @GET("api/3/action/organization_activity_list_html")
+    Call<String> organizationActivityListHtml(@Query("id") String idOrName,
+                                              @Query("offset") Integer offset,
+                                              @Query("limit") Integer limit);
+
+    @GET("api/3/action/recently_changed_packages_activity_list_html")
+    Call<String> recentlyChangedPackagesActivityListHtml(@Query("offset") Integer offset,
+                                                         @Query("limit") Integer limit);
 
 }

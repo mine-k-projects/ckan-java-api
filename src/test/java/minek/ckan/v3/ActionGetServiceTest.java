@@ -263,4 +263,135 @@ class ActionGetServiceTest extends BaseTest {
         System.out.println();
     }
 
+    @Test
+    void packageSearch() throws IOException {
+        Call<PackageSearch> b = action().packageSearch(
+                "test",
+                "tags:test",
+                null,
+                100,
+                0,
+                null,
+                null,
+                null,
+                "[\"tags\"]",
+                true,
+                true,
+                true);
+        Response<PackageSearch> execute = b.execute();
+        PackageSearch body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void resourceSearch() throws IOException {
+        Call<ResourceSearch> b = action().resourceSearch(
+                "name:test",
+                null,
+                null,
+                0,
+                10);
+        Response<ResourceSearch> execute = b.execute();
+        ResourceSearch body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void tagSearch() throws IOException {
+        Call<TagSearch> b = action().tagSearch(
+                "test",
+                null,
+                null,
+                0,
+                10);
+        Response<TagSearch> execute = b.execute();
+        TagSearch body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void tagAutocomplete() throws IOException {
+        Call<List<String>> b = action().tagAutocomplete(
+                "test",
+                null,
+                null,
+                0,
+                10);
+        Response<List<String>> execute = b.execute();
+        List<String> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void statusShow() throws IOException {
+        Call<SiteStatus> b = action().statusShow();
+        Response<SiteStatus> execute = b.execute();
+        SiteStatus body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void userActivityList() throws IOException {
+        Call<List<UserActivity>> b = action().userActivityList("allbegray", 0, 10);
+        Response<List<UserActivity>> execute = b.execute();
+        List<UserActivity> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void packageActivityList() throws IOException {
+        Call<List<PackageActivity>> b = action().packageActivityList("test", 0, 10);
+        Response<List<PackageActivity>> execute = b.execute();
+        List<PackageActivity> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void groupActivityList() throws IOException {
+        Call<List<GroupActivity>> b = action().groupActivityList("test", 0, 10);
+        Response<List<GroupActivity>> execute = b.execute();
+        List<GroupActivity> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void organizationActivityList() throws IOException {
+        Call<List<OrganizationActivity>> b = action().organizationActivityList("mine-k", 0, 10);
+        Response<List<OrganizationActivity>> execute = b.execute();
+        List<OrganizationActivity> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void recentlyChangedPackagesActivityList() throws IOException {
+        Call<List<PackageActivity>> b = action().recentlyChangedPackagesActivityList(0, 10);
+        Response<List<PackageActivity>> execute = b.execute();
+        List<PackageActivity> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void activityDetailList_package() throws IOException {
+        Call<List<ActivityDetail>> b = action().activityDetailList(UUID.fromString("4d094867-5311-4b9c-b1ce-9c5d94a26af0"));
+        Response<List<ActivityDetail>> execute = b.execute();
+        List<ActivityDetail> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void activityDetailList_resources() throws IOException {
+        Call<List<ActivityDetail>> b = action().activityDetailList(UUID.fromString("cac31002-ca56-4a7f-96cb-ffe8ce2e1263"));
+        Response<List<ActivityDetail>> execute = b.execute();
+        List<ActivityDetail> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void userActivityListHtml() throws IOException {
+        Call<String> b = action().userActivityListHtml("allbegray", 0, 10);
+        Response<String> execute = b.execute();
+        String body = execute.body();
+        System.out.println(body);
+    }
+
 }
