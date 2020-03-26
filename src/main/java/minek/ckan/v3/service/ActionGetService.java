@@ -367,4 +367,19 @@ public interface ActionGetService {
     @GET("api/3/action/group_followee_count")
     Call<Integer> groupFolloweeCount(@Query("id") String idOrName);
 
+    // TODO. followee_list.
+
+    @GET("api/3/action/user_followee_list")
+    Call<List<UserFollowee>> userFolloweeList(@Query("id") String idOrName);
+
+    @GET("api/3/action/dataset_followee_list")
+    Call<List<DatasetFollowee>> datasetFolloweeList(@Query("id") String idOrName);
+
+    @GET("api/3/action/group_followee_list")
+    Call<List<GroupFollowee>> groupFolloweeList(@Query("id") String idOrName);
+
+    @GET("api/3/action/organization_followee_list")
+    Call<List<OrganizationFollowee>> organizationFolloweeList(@Query("id") String idOrName);
+
+
 }
