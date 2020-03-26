@@ -1,8 +1,9 @@
 package minek.ckan.retrofit;
 
-import minek.ckan.v3.enums.Sort;
+import minek.ckan.v3.sort.Sort;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
@@ -20,7 +21,7 @@ public class ConverterFactory extends Converter.Factory {
         if (type == LocalDateTime.class) {
             return localDateTimeConverter;
         } else if (type instanceof ParameterizedType) {
-            if (((ParameterizedType) type).getRawType() == Sort.class) {
+            if (Sort.class.isAssignableFrom(((ParameterizedTypeImpl) type).getRawType())) {
                 return sortConverter;
             }
         } else if (((Class<?>) type).isEnum()) {

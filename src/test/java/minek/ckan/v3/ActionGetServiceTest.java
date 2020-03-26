@@ -3,7 +3,9 @@ package minek.ckan.v3;
 import minek.ckan.v3.enums.GroupListSortField;
 import minek.ckan.v3.enums.RevisionListSortField;
 import minek.ckan.v3.enums.Role;
-import minek.ckan.v3.enums.Sort;
+import minek.ckan.v3.sort.BlankSpaceSort;
+import minek.ckan.v3.sort.Sort;
+import minek.ckan.v3.sort.UnderscoreSort;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -57,7 +59,11 @@ class ActionGetServiceTest extends BaseTest {
 
     @Test
     void revisionList2() throws IOException {
-        Call<List<UUID>> b = action().revisionList(null, LocalDateTime.of(2020, 3, 24, 0, 0, 0), Sort.of(RevisionListSortField.time, Sort.Direction.asc));
+        Call<List<UUID>> b = action().revisionList(
+                null,
+                LocalDateTime.of(2020, 3, 24, 0, 0, 0),
+                UnderscoreSort.of(RevisionListSortField.time, Sort.Direction.asc)
+        );
         Response<List<UUID>> execute = b.execute();
         List<UUID> body = execute.body();
         System.out.println();
@@ -89,7 +95,16 @@ class ActionGetServiceTest extends BaseTest {
 
     @Test
     void groupList() throws IOException {
-        Call<List<GroupDetail>> b = action().groupList(Sort.desc(GroupListSortField.name), 10, 20, null, true, true, true, true, true);
+        Call<List<GroupDetail>> b = action().groupList(
+                BlankSpaceSort.of(GroupListSortField.name, Sort.Direction.desc),
+                10,
+                20,
+                null,
+                true,
+                true,
+                true,
+                true,
+                true);
         Response<List<GroupDetail>> execute = b.execute();
         List<GroupDetail> body = execute.body();
         System.out.println();

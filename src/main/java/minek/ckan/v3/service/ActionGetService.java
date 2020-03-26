@@ -4,6 +4,8 @@ import lombok.NonNull;
 import minek.ckan.v3.Package;
 import minek.ckan.v3.*;
 import minek.ckan.v3.enums.*;
+import minek.ckan.v3.sort.BlankSpaceSort;
+import minek.ckan.v3.sort.UnderscoreSort;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -36,7 +38,7 @@ public interface ActionGetService {
     @GET("api/3/action/revision_list")
     Call<List<UUID>> revisionList(@Query("since_id") UUID sinceId,
                                   @Query("since_time") LocalDateTime sinceTime,
-                                  @Query("sort") Sort<RevisionListSortField> sort);
+                                  @Query("sort") UnderscoreSort<RevisionListSortField> sort);
 
     @GET("api/3/action/package_revision_list")
     Call<List<Revision>> packageRevisionList(@NonNull @Query("id") UUID id);
@@ -50,13 +52,13 @@ public interface ActionGetService {
                                   @Query("capacity") Capacity capacity);
 
     @GET("api/3/action/group_list")
-    Call<List<String>> groupNameList(@Query("sort") Sort<GroupListSortField> sort,
+    Call<List<String>> groupNameList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
                                      @Query("limit") Integer limit,
                                      @Query("offset") Integer offset,
                                      @Query("groups") List<String> groups);
 
     @GET("api/3/action/group_list?all_fields=true")
-    Call<List<GroupDetail>> groupList(@Query("sort") Sort<GroupListSortField> sort,
+    Call<List<GroupDetail>> groupList(@Query("sort") BlankSpaceSort<GroupListSortField> sorts,
                                       @Query("limit") Integer limit,
                                       @Query("offset") Integer offset,
                                       @Query("groups") List<String> groups,
@@ -67,13 +69,13 @@ public interface ActionGetService {
                                       @Query("include_users") Boolean includeUsers);
 
     @GET("api/3/action/organization_list")
-    Call<List<String>> organizationNameList(@Query("sort") Sort<GroupListSortField> sort,
+    Call<List<String>> organizationNameList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
                                             @Query("limit") Integer limit,
                                             @Query("offset") Integer offset,
                                             @Query("organizations") List<String> organizations);
 
     @GET("api/3/action/organization_list?all_fields=true")
-    Call<List<GroupDetail>> organizationList(@Query("sort") Sort<GroupListSortField> sort,
+    Call<List<GroupDetail>> organizationList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
                                              @Query("limit") Integer limit,
                                              @Query("offset") Integer offset,
                                              @Query("organizations") List<String> organizations,
