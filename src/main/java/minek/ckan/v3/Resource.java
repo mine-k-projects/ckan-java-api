@@ -37,7 +37,7 @@ public class Resource {
     @SerializedName("url_type")
     private String urlType;
     private UUID id;
-    @SerializedName("resourceType")
-    private String resource_type;
+    @SerializedName("resource_type")
+    private String resourceType;
     private Integer size;
 }

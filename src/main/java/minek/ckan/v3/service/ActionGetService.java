@@ -4,6 +4,8 @@ import lombok.NonNull;
 import minek.ckan.v3.Package;
 import minek.ckan.v3.*;
 import minek.ckan.v3.enums.*;
+import minek.ckan.v3.sort.BlankSpaceSort;
+import minek.ckan.v3.sort.UnderscoreSort;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -36,7 +38,7 @@ public interface ActionGetService {
     @GET("api/3/action/revision_list")
     Call<List<UUID>> revisionList(@Query("since_id") UUID sinceId,
                                   @Query("since_time") LocalDateTime sinceTime,
-                                  @Query("sort") Sort<RevisionListSortField> sort);
+                                  @Query("sort") UnderscoreSort<RevisionListSortField> sort);
 
     @GET("api/3/action/package_revision_list")
     Call<List<Revision>> packageRevisionList(@NonNull @Query("id") UUID id);
@@ -50,13 +52,13 @@ public interface ActionGetService {
                                   @Query("capacity") Capacity capacity);
 
     @GET("api/3/action/group_list")
-    Call<List<String>> groupNameList(@Query("sort") Sort<GroupListSortField> sort,
+    Call<List<String>> groupNameList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
                                      @Query("limit") Integer limit,
                                      @Query("offset") Integer offset,
                                      @Query("groups") List<String> groups);
 
     @GET("api/3/action/group_list?all_fields=true")
-    Call<List<GroupDetail>> groupList(@Query("sort") Sort<GroupListSortField> sort,
+    Call<List<GroupDetail>> groupList(@Query("sort") BlankSpaceSort<GroupListSortField> sorts,
                                       @Query("limit") Integer limit,
                                       @Query("offset") Integer offset,
                                       @Query("groups") List<String> groups,
@@ -67,13 +69,13 @@ public interface ActionGetService {
                                       @Query("include_users") Boolean includeUsers);
 
     @GET("api/3/action/organization_list")
-    Call<List<String>> organizationNameList(@Query("sort") Sort<GroupListSortField> sort,
+    Call<List<String>> organizationNameList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
                                             @Query("limit") Integer limit,
                                             @Query("offset") Integer offset,
                                             @Query("organizations") List<String> organizations);
 
     @GET("api/3/action/organization_list?all_fields=true")
-    Call<List<GroupDetail>> organizationList(@Query("sort") Sort<GroupListSortField> sort,
+    Call<List<GroupDetail>> organizationList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
                                              @Query("limit") Integer limit,
                                              @Query("offset") Integer offset,
                                              @Query("organizations") List<String> organizations,
@@ -115,7 +117,7 @@ public interface ActionGetService {
     @GET("api/3/action/user_list?all_fields=true")
     Call<List<User>> userList(@Query("q") String q/*, @Query("order_by") String orderBy*/);
 
-    // package_relationships_list api 는 리턴 데이터 확인 못함
+    // TODO : package_relationships_list. api 는 리턴 데이터 확인 못함
 
     // NOTE : use_default_schema 는 IDatasetForm 플러그인에 의존성을 가진다. 샘플 데이터 찾기가 어렵...
     @GET("api/3/action/package_show")
@@ -209,5 +211,160 @@ public interface ActionGetService {
 
     @GET("api/3/action/organization_autocomplete")
     Call<List<GroupAutocomplete>> organizationAutocomplete(@NonNull @Query("q") String q, @Query("limit") Integer limit);
+
+    // NOTE : facet.field 파라미터는
+    // facet.field=1&facet.field=2 로 보내면 안되고 facet.field=["1", "2"] 로 보내야 한다 -_-...
+    // sort 역시 마찬가지로 sort=relevance asc, metadata_modified desc
+    // q, fq, sort 에 대해서 파라미터 고도화를 해야 한다.
+    @GET("api/3/action/package_search")
+    Call<PackageSearch> packageSearch(@Query("q") String q,
+                                      @Query("fq") String fq,
+                                      @Query("sort") String sort,
+                                      @Query("rows") Integer rows,
+                                      @Query("start") Integer start,
+                                      @Query("facet") Boolean facet,
+                                      @Query("facet.mincount") Integer facetMincount,
+                                      @Query("facet.limit") Integer facetLimit,
+                                      @Query("facet.field") String facetField,
+                                      @Query("include_drafts") Boolean includeDrafts,
+                                      @Query("include_private") Boolean includePrivate,
+                                      @Query("use_default_schema") Boolean useDefaultSchema);
+
+    // NOTE : query 의 표현식이 {field}:{term} 이기 때문에 파라미터 고도화 필요
+    @GET("api/3/action/resource_search")
+    Call<ResourceSearch> resourceSearch(@Query("query") String query,
+                                        @Deprecated @Query("fields") String fields,
+                                        @Query("order_by") String orderBy,
+                                        @Query("offset") Integer offset,
+                                        @Query("limit") Integer limit);
+
+    @GET("api/3/action/tag_search")
+    Call<TagSearch> tagSearch(@Query("query") String query,
+                              @Query("vocabulary_id") String vocabularyIdOrName,
+                              @Deprecated @Query("fields") String fields,
+                              @Query("offset") Integer offset,
+                              @Query("limit") Integer limit);
+
+    @GET("api/3/action/tag_autocomplete")
+    Call<List<String>> tagAutocomplete(@Query("query") String query,
+                                       @Query("vocabulary_id") String vocabularyIdOrName,
+                                       @Deprecated @Query("fields") String fields,
+                                       @Query("offset") Integer offset,
+                                       @Query("limit") Integer limit);
+
+    // TODO : task_status_show. api 는 리턴 데이터 확인 못함
+
+    // TODO : term_translation_show. api 는 리턴 데이터 확인 못함
+
+    /**
+     * Only internal services are allowed to call get_site_user
+     *
+     * @param deferCommit
+     * @return
+     */
+    @GET("api/3/action/get_site_user")
+    Call<SiteUser> getSiteUser(@Query("defer_commit") Boolean deferCommit);
+
+    @GET("api/3/action/status_show")
+    Call<SiteStatus> statusShow();
+
+    // TODO : vocabulary_list. api 는 리턴 데이터 확인 못함
+
+    // TODO : vocabulary_show. api 는 리턴 데이터 확인 못함
+
+    @GET("api/3/action/user_activity_list")
+    Call<List<UserActivity>> userActivityList(@Query("id") String idOrName,
+                                              @Query("offset") Integer offset,
+                                              @Query("limit") Integer limit);
+
+    @GET("api/3/action/package_activity_list")
+    Call<List<PackageActivity>> packageActivityList(@Query("id") String idOrName,
+                                                    @Query("offset") Integer offset,
+                                                    @Query("limit") Integer limit);
+
+    @GET("api/3/action/group_activity_list")
+    Call<List<GroupActivity>> groupActivityList(@Query("id") String idOrName,
+                                                @Query("offset") Integer offset,
+                                                @Query("limit") Integer limit);
+
+    @GET("api/3/action/organization_activity_list")
+    Call<List<OrganizationActivity>> organizationActivityList(@Query("id") String idOrName,
+                                                              @Query("offset") Integer offset,
+                                                              @Query("limit") Integer limit);
+
+    @GET("api/3/action/recently_changed_packages_activity_list")
+    Call<List<PackageActivity>> recentlyChangedPackagesActivityList(@Query("offset") Integer offset,
+                                                                    @Query("limit") Integer limit);
+
+    @GET("api/3/action/activity_detail_list")
+    Call<List<ActivityDetail>> activityDetailList(@Query("id") UUID id);
+
+    @GET("api/3/action/user_activity_list_html")
+    Call<String> userActivityListHtml(@Query("id") String idOrName,
+                                      @Query("offset") Integer offset,
+                                      @Query("limit") Integer limit);
+
+    @GET("api/3/action/package_activity_list_html")
+    Call<String> packageActivityListHtml(@Query("id") String idOrName,
+                                         @Query("offset") Integer offset,
+                                         @Query("limit") Integer limit);
+
+    @GET("api/3/action/group_activity_list_html")
+    Call<String> groupActivityListHtml(@Query("id") String idOrName,
+                                       @Query("offset") Integer offset,
+                                       @Query("limit") Integer limit);
+
+    @GET("api/3/action/organization_activity_list_html")
+    Call<String> organizationActivityListHtml(@Query("id") String idOrName,
+                                              @Query("offset") Integer offset,
+                                              @Query("limit") Integer limit);
+
+    @GET("api/3/action/recently_changed_packages_activity_list_html")
+    Call<String> recentlyChangedPackagesActivityListHtml(@Query("offset") Integer offset,
+                                                         @Query("limit") Integer limit);
+
+
+    @GET("api/3/action/user_follower_count")
+    Call<Integer> userFollowerCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/dataset_follower_count")
+    Call<Integer> datasetFollowerCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/group_follower_count")
+    Call<Integer> groupFollowerCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/organization_follower_count")
+    Call<Integer> organizationFollowerCount(@Query("id") String idOrName);
+
+    // 아래 4개는 api 하나만 확인 되면......
+
+    // TODO : user_follower_list. api 는 리턴 데이터 확인 못함
+
+    // TODO : dataset_follower_list. api 는 리턴 데이터 확인 못함
+
+    // TODO : group_follower_list. api 는 리턴 데이터 확인 못함
+
+    // TODO : organization_follower_list. api 는 리턴 데이터 확인 못함
+
+    @GET("api/3/action/am_following_user")
+    Call<Boolean> amFollowingUser(@Query("id") String idOrName);
+
+    @GET("api/3/action/am_following_dataset")
+    Call<Boolean> amFollowingDataset(@Query("id") String idOrName);
+
+    @GET("api/3/action/am_following_group")
+    Call<Boolean> amFollowingGroup(@Query("id") String idOrName);
+
+    @GET("api/3/action/followee_count")
+    Call<Integer> followeeCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/user_followee_count")
+    Call<Integer> userFolloweeCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/dataset_followee_count")
+    Call<Integer> datasetFolloweeCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/group_followee_count")
+    Call<Integer> groupFolloweeCount(@Query("id") String idOrName);
 
 }
