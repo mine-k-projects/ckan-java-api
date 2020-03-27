@@ -409,4 +409,22 @@ class ActionGetServiceTest extends BaseTest {
         System.out.println(body);
     }
 
+    @Test
+    void organizationFolloweeList() throws IOException {
+        Call<List<OrganizationFollowee>> b = action().organizationFolloweeList("allbegray");
+        Response<List<OrganizationFollowee>> execute = b.execute();
+        List<OrganizationFollowee> body = execute.body();
+        System.out.println(body);
+    }
+
+    @Test
+    void dashboardActivityList() throws IOException {
+        Call<List<DashboardActivity>> b = action().dashboardActivityList(0, 100);
+        Response<List<DashboardActivity>> execute = b.execute();
+        List<DashboardActivity> body = execute.body();
+        System.out.println(body);
+    }
+
+
+
 }

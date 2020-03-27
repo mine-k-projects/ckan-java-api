@@ -381,5 +381,29 @@ public interface ActionGetService {
     @GET("api/3/action/organization_followee_list")
     Call<List<OrganizationFollowee>> organizationFolloweeList(@Query("id") String idOrName);
 
+    @GET("api/3/action/dashboard_activity_list")
+    Call<List<DashboardActivity>> dashboardActivityList(@Query("offset") Integer offset,
+                                                        @Query("limit") Integer limit);
+
+    @GET("api/3/action/dashboard_activity_list_html")
+    Call<String> dashboardActivityListHtml(@Query("offset") Integer offset,
+                                           @Query("limit") Integer limit);
+
+    @GET("api/3/action/dashboard_new_activities_count")
+    Call<Integer> dashboardNewActivitiesCount(@Query("id") String idOrName);
+
+    @GET("api/3/action/member_roles_list")
+    Call<List<MemberRole>> memberRolesList(@Query("group_type") GroupType groupType);
+
+    @GET("api/3/action/help_show")
+    Call<String> helpShow(@Query("name") String name);
+
+    // TODO. config_option_show.
+
+    // TODO. config_option_list
+
+    // TODO. job_list
+
+    // TODO. job_show
 
 }
