@@ -3,7 +3,7 @@ package minek.ckan.v3.enums;
 import lombok.Getter;
 
 // https://github.com/ckan/ckan/blob/master/ckan/logic/validators.py#L279
-public enum ActivityType {
+public enum ActivityType implements EnumCode {
     new_package("new package"),
     changed_package("changed package"),
     deleted_package("deleted package"),

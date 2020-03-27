@@ -2,7 +2,7 @@ package minek.ckan.v3.enums;
 
 import lombok.Getter;
 
-public enum ObjectType {
+public enum ObjectType implements EnumCode {
     user("user"),
     package_("package");
 

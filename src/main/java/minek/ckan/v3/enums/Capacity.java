@@ -2,7 +2,7 @@ package minek.ckan.v3.enums;
 
 import lombok.Getter;
 
-public enum Capacity {
+public enum Capacity implements EnumCode {
     member("member"),
     editor("editor"),
     admin("admin"),
