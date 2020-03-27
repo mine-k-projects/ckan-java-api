@@ -18,7 +18,7 @@ import minek.ckan.retrofit.ResponseBodyInterceptor;
 import minek.ckan.v3.enums.ActivityType;
 import minek.ckan.v3.enums.Capacity;
 import minek.ckan.v3.enums.ObjectType;
-import minek.ckan.v3.service.ActionGetService;
+import minek.ckan.v3.service.*;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -31,8 +31,36 @@ import java.util.UUID;
 
 public class BaseTest {
 
-    public ActionGetService action() {
-        return retrofit.create(ActionGetService.class);
+    public ActivityService activityService() {
+        return retrofit.create(ActivityService.class);
+    }
+
+    public AutocompleteService autocompleteService() {
+        return retrofit.create(AutocompleteService.class);
+    }
+
+    public GroupService groupService() {
+        return retrofit.create(GroupService.class);
+    }
+
+    public PackageService packageService() {
+        return retrofit.create(PackageService.class);
+    }
+
+    public RevisionService revisionService() {
+        return retrofit.create(RevisionService.class);
+    }
+
+    public SiteService siteService() {
+        return retrofit.create(SiteService.class);
+    }
+
+    public TagService tagService() {
+        return retrofit.create(TagService.class);
+    }
+
+    public UserService userService() {
+        return retrofit.create(UserService.class);
     }
 
     private Retrofit retrofit;
