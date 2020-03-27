@@ -123,6 +123,20 @@ public class BaseTest {
                 return null;
             }
         });
+        module.addDeserializer(ObjectType.class, new JsonDeserializer<ObjectType>() {
+            @Override
+            public ObjectType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+                ObjectCodec objectCodec = p.getCodec();
+                JsonNode jsonNode = objectCodec.readTree(p);
+                String s = jsonNode.asText();
+                for (ObjectType value : ObjectType.values()) {
+                    if (value.getCode().equals(s)) {
+                        return value;
+                    }
+                }
+                return null;
+            }
+        });
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(module);
