@@ -48,16 +48,16 @@ public interface UserService {
     Call<SiteUser> getSiteUser(@Query("defer_commit") Boolean deferCommit);
 
     @GET("api/3/action/followee_count")
-    Call<Integer> followeeCount(@Query("id") String idOrName);
+    Call<Integer> followeeCount(@NonNull @Query("id") String idOrName);
 
     @GET("api/3/action/user_followee_count")
-    Call<Integer> userFolloweeCount(@Query("id") String idOrName);
+    Call<Integer> userFolloweeCount(@NonNull @Query("id") String idOrName);
 
     @GET("api/3/action/dataset_followee_count")
-    Call<Integer> datasetFolloweeCount(@Query("id") String idOrName);
+    Call<Integer> datasetFolloweeCount(@NonNull @Query("id") String idOrName);
 
     @GET("api/3/action/group_followee_count")
-    Call<Integer> groupFolloweeCount(@Query("id") String idOrName);
+    Call<Integer> groupFolloweeCount(@NonNull @Query("id") String idOrName);
 
     // TODO. followee_list.
 
@@ -74,10 +74,10 @@ public interface UserService {
     Call<List<Group>> organizationFolloweeList(@Query("id") String idOrName);
 
     @GET("api/3/action/am_following_user")
-    Call<Boolean> amFollowingUser(@Query("id") String idOrName);
+    Call<Boolean> amFollowingUser(@NonNull @Query("id") String idOrName);
 
     @GET("api/3/action/user_follower_count")
-    Call<Integer> userFollowerCount(@Query("id") String idOrName);
+    Call<Integer> userFollowerCount(@NonNull @Query("id") String idOrName);
 
     // TODO : user_follower_list. api 는 리턴 데이터 확인 못함
 

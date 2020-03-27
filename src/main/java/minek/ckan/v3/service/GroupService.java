@@ -3,6 +3,7 @@ package minek.ckan.v3.service;
 import lombok.NonNull;
 import minek.ckan.v3.Group;
 import minek.ckan.v3.Package;
+import minek.ckan.v3.User;
 import minek.ckan.v3.enums.GroupListSortField;
 import minek.ckan.v3.enums.Role;
 import minek.ckan.v3.sort.BlankSpaceSort;
@@ -95,16 +96,17 @@ public interface GroupService {
 
 
     @GET("api/3/action/am_following_group")
-    Call<Boolean> amFollowingGroup(@Query("id") String idOrName);
+    Call<Boolean> amFollowingGroup(@NonNull @Query("id") String idOrName);
 
     @GET("api/3/action/group_follower_count")
-    Call<Integer> groupFollowerCount(@Query("id") String idOrName);
+    Call<Integer> groupFollowerCount(@NonNull @Query("id") String idOrName);
 
     @GET("api/3/action/organization_follower_count")
-    Call<Integer> organizationFollowerCount(@Query("id") String idOrName);
+    Call<Integer> organizationFollowerCount(@NonNull @Query("id") String idOrName);
 
-    // TODO : group_follower_list. api 는 리턴 데이터 확인 못함
+    @GET("api/3/action/group_follower_list")
+    Call<List<User>> groupFollowerList(@NonNull @Query("id") String idOrName);
 
-    // TODO : organization_follower_list. api 는 리턴 데이터 확인 못함
-
+    @GET("api/3/action/organization_follower_list")
+    Call<List<User>> organizationFollowerList(@NonNull @Query("id") String idOrName);
 }

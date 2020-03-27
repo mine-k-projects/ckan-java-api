@@ -1,5 +1,6 @@
 package minek.ckan.v3.service;
 
+import lombok.NonNull;
 import minek.ckan.v3.Package;
 import minek.ckan.v3.*;
 import retrofit2.Call;
@@ -29,19 +30,18 @@ public interface PackageService {
 
     // NOTE : use_default_schema 는 IDatasetForm 플러그인에 의존성을 가진다. 샘플 데이터 찾기가 어렵...
     @GET("api/3/action/package_show")
-    Call<Package> packageShow(@Query("id") String idOrName,
+    Call<Package> packageShow(@NonNull @Query("id") String idOrName,
             /*@Query("use_default_schema") Boolean useDefaultSchema,*/
                               @Query("include_tracking") Boolean includeTracking);
 
     @GET("api/3/action/resource_show")
-    Call<Resource> resourceShow(@Query("id") UUID id, @Query("include_tracking") Boolean includeTracking);
+    Call<Resource> resourceShow(@NonNull @Query("id") UUID id, @Query("include_tracking") Boolean includeTracking);
 
     @GET("api/3/action/resource_view_show")
-    Call<ResourceView> resourceViewShow(@Query("id") UUID id);
+    Call<ResourceView> resourceViewShow(@NonNull @Query("id") UUID id);
 
     @GET("api/3/action/resource_view_list")
-    Call<List<ResourceView>> resourceViewList(@Query("id") UUID id);
-
+    Call<List<ResourceView>> resourceViewList(@NonNull @Query("id") UUID id);
 
     // NOTE : facet.field 파라미터는
     // facet.field=1&facet.field=2 로 보내면 안되고 facet.field=["1", "2"] 로 보내야 한다 -_-...
@@ -70,11 +70,12 @@ public interface PackageService {
                                         @Query("limit") Integer limit);
 
     @GET("api/3/action/am_following_dataset")
-    Call<Boolean> amFollowingDataset(@Query("id") String idOrName);
+    Call<Boolean> amFollowingDataset(@NonNull @Query("id") String idOrName);
 
     @GET("api/3/action/dataset_follower_count")
-    Call<Integer> datasetFollowerCount(@Query("id") String idOrName);
+    Call<Integer> datasetFollowerCount(@NonNull @Query("id") String idOrName);
 
-    // TODO : dataset_follower_list. api 는 리턴 데이터 확인 못함
+    @GET("api/3/action/dataset_follower_list")
+    Call<List<User>> datasetFollowerList(@NonNull @Query("id") String idOrName);
 
 }

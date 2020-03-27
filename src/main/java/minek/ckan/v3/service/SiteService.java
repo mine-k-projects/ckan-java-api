@@ -1,5 +1,6 @@
 package minek.ckan.v3.service;
 
+import lombok.NonNull;
 import minek.ckan.v3.License;
 import minek.ckan.v3.MemberRole;
 import minek.ckan.v3.SiteStatus;
@@ -25,7 +26,7 @@ public interface SiteService {
     Call<List<MemberRole>> memberRolesList(@Query("group_type") GroupType groupType);
 
     @GET("api/3/action/help_show")
-    Call<String> helpShow(@Query("name") String name);
+    Call<String> helpShow(@NonNull @Query("name") String name);
 
 
     // TODO : task_status_show. api 는 리턴 데이터 확인 못함
