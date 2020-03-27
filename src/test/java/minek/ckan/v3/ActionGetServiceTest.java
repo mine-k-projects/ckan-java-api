@@ -95,7 +95,7 @@ class ActionGetServiceTest extends BaseTest {
 
     @Test
     void groupList() throws IOException {
-        Call<List<GroupDetail>> b = action().groupList(
+        Call<List<Group>> b = action().groupList(
                 BlankSpaceSort.of(GroupListSortField.name, Sort.Direction.desc),
                 10,
                 20,
@@ -105,24 +105,24 @@ class ActionGetServiceTest extends BaseTest {
                 true,
                 true,
                 true);
-        Response<List<GroupDetail>> execute = b.execute();
-        List<GroupDetail> body = execute.body();
+        Response<List<Group>> execute = b.execute();
+        List<Group> body = execute.body();
         System.out.println();
     }
 
     @Test
     void groupListAuthz() throws IOException {
-        Call<List<UserAuthorizedGroup>> b = action().groupListAuthz(null, null);
-        Response<List<UserAuthorizedGroup>> execute = b.execute();
-        List<UserAuthorizedGroup> body = execute.body();
+        Call<List<Group>> b = action().groupListAuthz(null, null);
+        Response<List<Group>> execute = b.execute();
+        List<Group> body = execute.body();
         System.out.println();
     }
 
     @Test
     void organizationListForUser() throws IOException {
-        Call<List<UserAuthorizedOrganization>> b = action().organizationListForUser(null, Role.Member.manage_group, null);
-        Response<List<UserAuthorizedOrganization>> execute = b.execute();
-        List<UserAuthorizedOrganization> body = execute.body();
+        Call<List<Group>> b = action().organizationListForUser(null, Role.Member.manage_group, null);
+        Response<List<Group>> execute = b.execute();
+        List<Group> body = execute.body();
         System.out.println();
     }
 
@@ -208,41 +208,41 @@ class ActionGetServiceTest extends BaseTest {
 
     @Test
     void groupShow() throws IOException {
-        Call<GroupDetail> b = action().groupShow("2aa1fb99-27f9-4b0b-93df-de3793dbfe6c", true);
-        Response<GroupDetail> execute = b.execute();
-        GroupDetail body = execute.body();
+        Call<Group> b = action().groupShow("2aa1fb99-27f9-4b0b-93df-de3793dbfe6c", true);
+        Response<Group> execute = b.execute();
+        Group body = execute.body();
         System.out.println();
     }
 
     @Test
     void organizationShow() throws IOException {
-        Call<GroupDetail> b = action().organizationShow("9dbbdacc-51d1-4f6b-ae61-3e38963bbac3", true);
-        Response<GroupDetail> execute = b.execute();
-        GroupDetail body = execute.body();
+        Call<Group> b = action().organizationShow("9dbbdacc-51d1-4f6b-ae61-3e38963bbac3", true);
+        Response<Group> execute = b.execute();
+        Group body = execute.body();
         System.out.println();
     }
 
     @Test
     void groupPackageShow() throws IOException {
-        Call<List<GroupPackageShow>> b = action().groupPackageShow("2aa1fb99-27f9-4b0b-93df-de3793dbfe6c", 10);
-        Response<List<GroupPackageShow>> execute = b.execute();
-        List<GroupPackageShow> body = execute.body();
+        Call<List<Package>> b = action().groupPackageShow("2aa1fb99-27f9-4b0b-93df-de3793dbfe6c", 10);
+        Response<List<Package>> execute = b.execute();
+        List<Package> body = execute.body();
         System.out.println();
     }
 
     @Test
     void tagShow() throws IOException {
-        Call<TagShow> b = action().tagShow("0f0d9b61-b103-486c-bbd7-bec98bfcf406", null, true);
-        Response<TagShow> execute = b.execute();
-        TagShow body = execute.body();
+        Call<Tag> b = action().tagShow("0f0d9b61-b103-486c-bbd7-bec98bfcf406", null, true);
+        Response<Tag> execute = b.execute();
+        Tag body = execute.body();
         System.out.println();
     }
 
     @Test
     void userShow() throws IOException {
-        Call<UserShow> b = action().userShow("allbegray", true, true, true);
-        Response<UserShow> execute = b.execute();
-        UserShow body = execute.body();
+        Call<User> b = action().userShow("allbegray", true, true, true);
+        Response<User> execute = b.execute();
+        User body = execute.body();
         System.out.println();
     }
 
@@ -347,57 +347,57 @@ class ActionGetServiceTest extends BaseTest {
 
     @Test
     void userActivityList() throws IOException {
-        Call<List<UserActivity>> b = action().userActivityList("allbegray", 0, 10);
-        Response<List<UserActivity>> execute = b.execute();
-        List<UserActivity> body = execute.body();
+        Call<List<Activity>> b = action().userActivityList("allbegray", 0, 10);
+        Response<List<Activity>> execute = b.execute();
+        List<Activity> body = execute.body();
         System.out.println();
     }
 
     @Test
     void packageActivityList() throws IOException {
-        Call<List<PackageActivity>> b = action().packageActivityList("test", 0, 10);
-        Response<List<PackageActivity>> execute = b.execute();
-        List<PackageActivity> body = execute.body();
+        Call<List<Activity>> b = action().packageActivityList("test", 0, 10);
+        Response<List<Activity>> execute = b.execute();
+        List<Activity> body = execute.body();
         System.out.println();
     }
 
     @Test
     void groupActivityList() throws IOException {
-        Call<List<GroupActivity>> b = action().groupActivityList("test", 0, 10);
-        Response<List<GroupActivity>> execute = b.execute();
-        List<GroupActivity> body = execute.body();
+        Call<List<Activity>> b = action().groupActivityList("test", 0, 10);
+        Response<List<Activity>> execute = b.execute();
+        List<Activity> body = execute.body();
         System.out.println();
     }
 
     @Test
     void organizationActivityList() throws IOException {
-        Call<List<OrganizationActivity>> b = action().organizationActivityList("mine-k", 0, 10);
-        Response<List<OrganizationActivity>> execute = b.execute();
-        List<OrganizationActivity> body = execute.body();
+        Call<List<Activity>> b = action().organizationActivityList("mine-k", 0, 10);
+        Response<List<Activity>> execute = b.execute();
+        List<Activity> body = execute.body();
         System.out.println();
     }
 
     @Test
     void recentlyChangedPackagesActivityList() throws IOException {
-        Call<List<PackageActivity>> b = action().recentlyChangedPackagesActivityList(0, 10);
-        Response<List<PackageActivity>> execute = b.execute();
-        List<PackageActivity> body = execute.body();
+        Call<List<Activity>> b = action().recentlyChangedPackagesActivityList(0, 10);
+        Response<List<Activity>> execute = b.execute();
+        List<Activity> body = execute.body();
         System.out.println();
     }
 
     @Test
     void activityDetailList_package() throws IOException {
-        Call<List<ActivityDetail>> b = action().activityDetailList(UUID.fromString("4d094867-5311-4b9c-b1ce-9c5d94a26af0"));
-        Response<List<ActivityDetail>> execute = b.execute();
-        List<ActivityDetail> body = execute.body();
+        Call<List<Activity>> b = action().activityDetailList(UUID.fromString("4d094867-5311-4b9c-b1ce-9c5d94a26af0"));
+        Response<List<Activity>> execute = b.execute();
+        List<Activity> body = execute.body();
         System.out.println();
     }
 
     @Test
     void activityDetailList_resources() throws IOException {
-        Call<List<ActivityDetail>> b = action().activityDetailList(UUID.fromString("cac31002-ca56-4a7f-96cb-ffe8ce2e1263"));
-        Response<List<ActivityDetail>> execute = b.execute();
-        List<ActivityDetail> body = execute.body();
+        Call<List<Activity>> b = action().activityDetailList(UUID.fromString("cac31002-ca56-4a7f-96cb-ffe8ce2e1263"));
+        Response<List<Activity>> execute = b.execute();
+        List<Activity> body = execute.body();
         System.out.println();
     }
 
@@ -411,17 +411,17 @@ class ActionGetServiceTest extends BaseTest {
 
     @Test
     void organizationFolloweeList() throws IOException {
-        Call<List<OrganizationFollowee>> b = action().organizationFolloweeList("allbegray");
-        Response<List<OrganizationFollowee>> execute = b.execute();
-        List<OrganizationFollowee> body = execute.body();
+        Call<List<Group>> b = action().organizationFolloweeList("allbegray");
+        Response<List<Group>> execute = b.execute();
+        List<Group> body = execute.body();
         System.out.println(body);
     }
 
     @Test
     void dashboardActivityList() throws IOException {
-        Call<List<DashboardActivity>> b = action().dashboardActivityList(0, 100);
-        Response<List<DashboardActivity>> execute = b.execute();
-        List<DashboardActivity> body = execute.body();
+        Call<List<Activity>> b = action().dashboardActivityList(0, 100);
+        Response<List<Activity>> execute = b.execute();
+        List<Activity> body = execute.body();
         System.out.println(body);
     }
 

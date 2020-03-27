@@ -1,9 +1,21 @@
 package minek.ckan.v3;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import minek.ckan.v3.enums.State;
+
+import java.util.UUID;
 
 @Data
 public class Extra {
-    private String key;
+    private State state;
     private String value;
+    @JsonProperty("package_id")
+    private UUID packageId;
+    private String key;
+    @JsonProperty("revision_id")
+    private UUID revisionId;
+    private UUID id;
+    @JsonProperty("datastore_active")
+    private Boolean datastoreActive;
 }

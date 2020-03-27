@@ -1,6 +1,6 @@
 package minek.ckan.v3;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import minek.ckan.v3.enums.State;
 
@@ -9,10 +9,10 @@ import java.util.UUID;
 
 @Data
 public class Tag {
-    @SerializedName("vocabulary_id")
+    @JsonProperty("vocabulary_id")
     private UUID vocabularyId;
     private State state;
-    @SerializedName("display_name")
+    @JsonProperty("display_name")
     private String displayName;
     private UUID id;
     private String name;

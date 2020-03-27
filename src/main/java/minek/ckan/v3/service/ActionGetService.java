@@ -62,15 +62,15 @@ public interface ActionGetService {
                                      @Query("groups") List<String> groups);
 
     @GET("api/3/action/group_list?all_fields=true")
-    Call<List<GroupDetail>> groupList(@Query("sort") BlankSpaceSort<GroupListSortField> sorts,
-                                      @Query("limit") Integer limit,
-                                      @Query("offset") Integer offset,
-                                      @Query("groups") List<String> groups,
-                                      @Query("include_dataset_count") Boolean includeDatasetCount,
-                                      @Query("include_extras") Boolean includeExtras,
-                                      @Query("include_tags") Boolean includeTags,
-                                      @Query("include_groups") Boolean includeGroups,
-                                      @Query("include_users") Boolean includeUsers);
+    Call<List<Group>> groupList(@Query("sort") BlankSpaceSort<GroupListSortField> sorts,
+                                @Query("limit") Integer limit,
+                                @Query("offset") Integer offset,
+                                @Query("groups") List<String> groups,
+                                @Query("include_dataset_count") Boolean includeDatasetCount,
+                                @Query("include_extras") Boolean includeExtras,
+                                @Query("include_tags") Boolean includeTags,
+                                @Query("include_groups") Boolean includeGroups,
+                                @Query("include_users") Boolean includeUsers);
 
     @GET("api/3/action/organization_list")
     Call<List<String>> organizationNameList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
@@ -79,26 +79,26 @@ public interface ActionGetService {
                                             @Query("organizations") List<String> organizations);
 
     @GET("api/3/action/organization_list?all_fields=true")
-    Call<List<GroupDetail>> organizationList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
-                                             @Query("limit") Integer limit,
-                                             @Query("offset") Integer offset,
-                                             @Query("organizations") List<String> organizations,
-                                             @Query("include_dataset_count") Boolean includeDatasetCount,
-                                             @Query("include_extras") Boolean includeExtras,
-                                             @Query("include_tags") Boolean includeTags,
-                                             @Query("include_groups") Boolean includeGroups,
-                                             @Query("include_users") Boolean includeUsers);
+    Call<List<Group>> organizationList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
+                                       @Query("limit") Integer limit,
+                                       @Query("offset") Integer offset,
+                                       @Query("organizations") List<String> organizations,
+                                       @Query("include_dataset_count") Boolean includeDatasetCount,
+                                       @Query("include_extras") Boolean includeExtras,
+                                       @Query("include_tags") Boolean includeTags,
+                                       @Query("include_groups") Boolean includeGroups,
+                                       @Query("include_users") Boolean includeUsers);
 
     @GET("api/3/action/group_list_authz")
-    Call<List<UserAuthorizedGroup>> groupListAuthz(@Query("available_only") Boolean availableOnly,
+    Call<List<Group>> groupListAuthz(@Query("available_only") Boolean availableOnly,
                                                    @Query("am_member") Boolean amMember);
 
     @GET("api/3/action/organization_list_for_user")
-    Call<List<UserAuthorizedOrganization>> organizationListForUser(@Query("id") String idOrName,
+    Call<List<Group>> organizationListForUser(@Query("id") String idOrName,
                                                                    @Query("permission") Role.Permission permission,
                                                                    @Query("include_dataset_count") Boolean includeDatasetCount);
 
-    default Call<List<UserAuthorizedOrganization>> organizationListForUser() {
+    default Call<List<Group>> organizationListForUser() {
         return organizationListForUser(null, null, null);
     }
 
@@ -145,45 +145,45 @@ public interface ActionGetService {
     Call<Revision> revisionShow(@Query("id") UUID id);
 
     @GET("api/3/action/group_show")
-    Call<GroupDetail> groupShow(@NonNull @Query("id") String idOrName,
-                                @Query("include_datasets") Boolean includeDatasets);
+    Call<Group> groupShow(@NonNull @Query("id") String idOrName,
+                          @Query("include_datasets") Boolean includeDatasets);
 
     @GET("api/3/action/group_show")
-    Call<GroupDetail> groupShow(@NonNull @Query("id") String idOrName,
-                                @Query("include_datasets") Boolean includeDatasets,
-                                @Query("include_dataset_count") Boolean includeDatasetCount,
-                                @Query("include_extras") Boolean includeExtras,
-                                @Query("include_users") Boolean includeUsers,
-                                @Query("include_groups") Boolean includeGroups,
-                                @Query("include_tags") Boolean includeTags,
-                                @Query("include_followers") Boolean includeFollowers);
+    Call<Group> groupShow(@NonNull @Query("id") String idOrName,
+                          @Query("include_datasets") Boolean includeDatasets,
+                          @Query("include_dataset_count") Boolean includeDatasetCount,
+                          @Query("include_extras") Boolean includeExtras,
+                          @Query("include_users") Boolean includeUsers,
+                          @Query("include_groups") Boolean includeGroups,
+                          @Query("include_tags") Boolean includeTags,
+                          @Query("include_followers") Boolean includeFollowers);
 
     @GET("api/3/action/organization_show")
-    Call<GroupDetail> organizationShow(@NonNull @Query("id") String idOrName,
-                                       @Query("include_datasets") Boolean includeDatasets);
+    Call<Group> organizationShow(@NonNull @Query("id") String idOrName,
+                                 @Query("include_datasets") Boolean includeDatasets);
 
     @GET("api/3/action/organization_show")
-    Call<GroupDetail> organizationShow(@NonNull @Query("id") String idOrName,
-                                       @Query("include_datasets") Boolean includeDatasets,
-                                       @Query("include_dataset_count") Boolean includeDatasetCount,
-                                       @Query("include_extras") Boolean includeExtras,
-                                       @Query("include_users") Boolean includeUsers,
-                                       @Query("include_groups") Boolean includeGroups,
-                                       @Query("include_tags") Boolean includeTags,
-                                       @Query("include_followers") Boolean includeFollowers);
+    Call<Group> organizationShow(@NonNull @Query("id") String idOrName,
+                                 @Query("include_datasets") Boolean includeDatasets,
+                                 @Query("include_dataset_count") Boolean includeDatasetCount,
+                                 @Query("include_extras") Boolean includeExtras,
+                                 @Query("include_users") Boolean includeUsers,
+                                 @Query("include_groups") Boolean includeGroups,
+                                 @Query("include_tags") Boolean includeTags,
+                                 @Query("include_followers") Boolean includeFollowers);
 
     @GET("api/3/action/group_package_show")
-    Call<List<GroupPackageShow>> groupPackageShow(@NonNull @Query("id") String idOrName,
+    Call<List<Package>> groupPackageShow(@NonNull @Query("id") String idOrName,
                                                   @Query("limit") Integer limit);
 
     @GET("api/3/action/tag_show")
-    Call<TagShow> tagShow(@NonNull @Query("id") String idOrName,
-                          @Query("vocabulary_id") String vocabularyIdOrName,
-                          @Query("include_datasets") Boolean includeDatasets);
+    Call<Tag> tagShow(@NonNull @Query("id") String idOrName,
+                      @Query("vocabulary_id") String vocabularyIdOrName,
+                      @Query("include_datasets") Boolean includeDatasets);
 
     // NOTE : user_obj 는 user dictionary 라서 막 보내기 위험해 보인다.
     @GET("api/3/action/user_show")
-    Call<UserShow> userShow(@NonNull @Query("id") String idOrName,
+    Call<User> userShow(@NonNull @Query("id") String idOrName,
 //                        @Query("user_obj") String user_obj,
                             @Query("include_datasets") Boolean includeDatasets,
                             @Query("include_num_followers") Boolean includeNumFollowers,
@@ -280,31 +280,31 @@ public interface ActionGetService {
     // TODO : vocabulary_show. api 는 리턴 데이터 확인 못함
 
     @GET("api/3/action/user_activity_list")
-    Call<List<UserActivity>> userActivityList(@Query("id") String idOrName,
-                                              @Query("offset") Integer offset,
-                                              @Query("limit") Integer limit);
+    Call<List<Activity>> userActivityList(@Query("id") String idOrName,
+                                          @Query("offset") Integer offset,
+                                          @Query("limit") Integer limit);
 
     @GET("api/3/action/package_activity_list")
-    Call<List<PackageActivity>> packageActivityList(@Query("id") String idOrName,
-                                                    @Query("offset") Integer offset,
-                                                    @Query("limit") Integer limit);
+    Call<List<Activity>> packageActivityList(@Query("id") String idOrName,
+                                             @Query("offset") Integer offset,
+                                             @Query("limit") Integer limit);
 
     @GET("api/3/action/group_activity_list")
-    Call<List<GroupActivity>> groupActivityList(@Query("id") String idOrName,
-                                                @Query("offset") Integer offset,
-                                                @Query("limit") Integer limit);
+    Call<List<Activity>> groupActivityList(@Query("id") String idOrName,
+                                           @Query("offset") Integer offset,
+                                           @Query("limit") Integer limit);
 
     @GET("api/3/action/organization_activity_list")
-    Call<List<OrganizationActivity>> organizationActivityList(@Query("id") String idOrName,
-                                                              @Query("offset") Integer offset,
-                                                              @Query("limit") Integer limit);
+    Call<List<Activity>> organizationActivityList(@Query("id") String idOrName,
+                                                  @Query("offset") Integer offset,
+                                                  @Query("limit") Integer limit);
 
     @GET("api/3/action/recently_changed_packages_activity_list")
-    Call<List<PackageActivity>> recentlyChangedPackagesActivityList(@Query("offset") Integer offset,
-                                                                    @Query("limit") Integer limit);
+    Call<List<Activity>> recentlyChangedPackagesActivityList(@Query("offset") Integer offset,
+                                                             @Query("limit") Integer limit);
 
     @GET("api/3/action/activity_detail_list")
-    Call<List<ActivityDetail>> activityDetailList(@Query("id") UUID id);
+    Call<List<Activity>> activityDetailList(@Query("id") UUID id);
 
     @GET("api/3/action/user_activity_list_html")
     Call<String> userActivityListHtml(@Query("id") String idOrName,
@@ -377,20 +377,20 @@ public interface ActionGetService {
     // TODO. followee_list.
 
     @GET("api/3/action/user_followee_list")
-    Call<List<UserFollowee>> userFolloweeList(@Query("id") String idOrName);
+    Call<List<User>> userFolloweeList(@Query("id") String idOrName);
 
     @GET("api/3/action/dataset_followee_list")
-    Call<List<DatasetFollowee>> datasetFolloweeList(@Query("id") String idOrName);
+    Call<List<Package>> datasetFolloweeList(@Query("id") String idOrName);
 
     @GET("api/3/action/group_followee_list")
-    Call<List<GroupFollowee>> groupFolloweeList(@Query("id") String idOrName);
+    Call<List<Group>> groupFolloweeList(@Query("id") String idOrName);
 
     @GET("api/3/action/organization_followee_list")
-    Call<List<OrganizationFollowee>> organizationFolloweeList(@Query("id") String idOrName);
+    Call<List<Group>> organizationFolloweeList(@Query("id") String idOrName);
 
     @GET("api/3/action/dashboard_activity_list")
-    Call<List<DashboardActivity>> dashboardActivityList(@Query("offset") Integer offset,
-                                                        @Query("limit") Integer limit);
+    Call<List<Activity>> dashboardActivityList(@Query("offset") Integer offset,
+                                               @Query("limit") Integer limit);
 
     @GET("api/3/action/dashboard_activity_list_html")
     Call<String> dashboardActivityListHtml(@Query("offset") Integer offset,

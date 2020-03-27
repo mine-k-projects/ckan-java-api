@@ -1,6 +1,6 @@
 package minek.ckan.v3;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import minek.ckan.v3.enums.State;
 
@@ -10,34 +10,35 @@ import java.util.UUID;
 @Data
 public class Resource {
     private String mimetype;
-    @SerializedName("cache_url")
+    @JsonProperty("cache_url")
     private String cacheUrl;
-    @SerializedName("tracking_summary")
-    private TrackingSummary trackingSummary;
     private String hash;
     private String description;
     private String name;
     private String format;
     private String url;
-    @SerializedName("datastore_active")
+    @JsonProperty("datastore_active")
     private boolean datastoreActive;
-    @SerializedName("cache_last_updated")
+    @JsonProperty("cache_last_updated")
     private String cacheLastUpdated;
-    @SerializedName("package_id")
+    @JsonProperty("package_id")
     private UUID packageId;
     private LocalDateTime created;
     private State state;
-    @SerializedName("mimetype_inner")
+    @JsonProperty("mimetype_inner")
     private String mimetypeInner;
-    @SerializedName("last_modified")
+    @JsonProperty("last_modified")
     private String lastModified;
     private int position;
-    @SerializedName("revision_id")
+    @JsonProperty("revision_id")
     private UUID revisionId;
-    @SerializedName("url_type")
+    @JsonProperty("url_type")
     private String urlType;
     private UUID id;
-    @SerializedName("resource_type")
+    @JsonProperty("resource_type")
     private String resourceType;
     private Integer size;
+    private Extra extras;
+    @JsonProperty("tracking_summary")
+    private TrackingSummary trackingSummary;
 }

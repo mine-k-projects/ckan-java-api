@@ -1,30 +1,30 @@
 package minek.ckan.v3;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class License {
     private String status;
     private String maintainer;
-    @SerializedName("od_conformance")
+    @JsonProperty("od_conformance")
     private String odConformance;
     private String family;
-    @SerializedName("osd_conformance")
+    @JsonProperty("osd_conformance")
     private String osdConformance;
-    @SerializedName("domain_data")
+    @JsonProperty("domain_data")
     private boolean domainData;
     private String title;
     private String url;
-    @SerializedName("is_generic")
+    @JsonProperty("is_generic")
     private boolean isGeneric;
-    @SerializedName("is_okd_compliant")
+    @JsonProperty("is_okd_compliant")
     private boolean isOkdCompliant;
-    @SerializedName("is_osi_compliant")
+    @JsonProperty("is_osi_compliant")
     private boolean isOsiCompliant;
-    @SerializedName("domain_content")
+    @JsonProperty("domain_content")
     private boolean domainContent;
-    @SerializedName("domain_software")
+    @JsonProperty("domain_software")
     private boolean domainSoftware;
     private String id;
 }

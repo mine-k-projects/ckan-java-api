@@ -1,13 +1,13 @@
 package minek.ckan.v3;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class PackageAutocomplete {
-    @SerializedName("match_field")
+    @JsonProperty("match_field")
     private String matchField;
-    @SerializedName("match_displayed")
+    @JsonProperty("match_displayed")
     private String matchDisplayed;
     private String name;
     private String title;

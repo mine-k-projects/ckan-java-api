@@ -1,6 +1,6 @@
 package minek.ckan.v3;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ public class Revision {
     private LocalDateTime timestamp;
     private String message;
     private String author;
-    @SerializedName("approved_timestamp")
+    @JsonProperty("approved_timestamp")
     private LocalDateTime approvedTimestamp;
     private List<String> packages;
     private List<String> groups;
