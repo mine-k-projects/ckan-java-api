@@ -1,6 +1,5 @@
 package minek.ckan.v3.service;
 
-import lombok.NonNull;
 import minek.ckan.v3.Package;
 import minek.ckan.v3.*;
 import retrofit2.Call;
@@ -42,9 +41,6 @@ public interface PackageService {
 
     @GET("api/3/action/resource_view_list")
     Call<List<ResourceView>> resourceViewList(@Query("id") UUID id);
-
-    @GET("api/3/action/package_revision_list")
-    Call<List<Revision>> packageRevisionList(@NonNull @Query("id") UUID id);
 
 
     // NOTE : facet.field 파라미터는

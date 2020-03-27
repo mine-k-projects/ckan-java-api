@@ -3,7 +3,6 @@ package minek.ckan.v3.service;
 import lombok.NonNull;
 import minek.ckan.v3.Group;
 import minek.ckan.v3.Package;
-import minek.ckan.v3.Revision;
 import minek.ckan.v3.enums.GroupListSortField;
 import minek.ckan.v3.enums.Role;
 import minek.ckan.v3.sort.BlankSpaceSort;
@@ -12,7 +11,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface GroupService {
 
@@ -65,10 +63,6 @@ public interface GroupService {
 
     @GET("api/3/action/group_show")
     Call<Group> groupShow(@NonNull @Query("id") String idOrName,
-                          @Query("include_datasets") Boolean includeDatasets);
-
-    @GET("api/3/action/group_show")
-    Call<Group> groupShow(@NonNull @Query("id") String idOrName,
                           @Query("include_datasets") Boolean includeDatasets,
                           @Query("include_dataset_count") Boolean includeDatasetCount,
                           @Query("include_extras") Boolean includeExtras,
@@ -77,9 +71,9 @@ public interface GroupService {
                           @Query("include_tags") Boolean includeTags,
                           @Query("include_followers") Boolean includeFollowers);
 
-    @GET("api/3/action/organization_show")
-    Call<Group> organizationShow(@NonNull @Query("id") String idOrName,
-                                 @Query("include_datasets") Boolean includeDatasets);
+    default Call<Group> groupShow(@NonNull String idOrName, Boolean includeDatasets) {
+        return groupShow(idOrName, includeDatasets, null, null, null, null, null, null);
+    }
 
     @GET("api/3/action/organization_show")
     Call<Group> organizationShow(@NonNull @Query("id") String idOrName,
@@ -91,15 +85,14 @@ public interface GroupService {
                                  @Query("include_tags") Boolean includeTags,
                                  @Query("include_followers") Boolean includeFollowers);
 
+    default Call<Group> organizationShow(@NonNull String idOrName, Boolean includeDatasets) {
+        return organizationShow(idOrName, includeDatasets, null, null, null, null, null, null);
+    }
+
     @GET("api/3/action/group_package_show")
     Call<List<Package>> groupPackageShow(@NonNull @Query("id") String idOrName,
                                          @Query("limit") Integer limit);
 
-    @GET("api/3/action/group_revision_list")
-    Call<List<Revision>> groupRevisionList(@NonNull @Query("id") UUID id);
-
-    @GET("api/3/action/organization_revision_list")
-    Call<List<Revision>> organizationRevisionList(@NonNull @Query("id") UUID id);
 
     @GET("api/3/action/am_following_group")
     Call<Boolean> amFollowingGroup(@Query("id") String idOrName);

@@ -36,13 +36,6 @@ public class PackageServiceTest extends BaseTest {
         System.out.println();
     }
 
-    @Test
-    void packageRevisionList() throws IOException {
-        Call<List<Revision>> b = packageService().packageRevisionList(UUID.fromString("020ef7ec-dd66-4e35-9ee6-4d525262dece"));
-        Response<List<Revision>> execute = b.execute();
-        List<Revision> body = execute.body();
-        System.out.println();
-    }
 
     @Test
     void packageShow() throws IOException {

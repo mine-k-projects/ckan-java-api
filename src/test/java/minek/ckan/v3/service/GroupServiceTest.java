@@ -3,7 +3,6 @@ package minek.ckan.v3.service;
 import minek.ckan.v3.BaseTest;
 import minek.ckan.v3.Group;
 import minek.ckan.v3.Package;
-import minek.ckan.v3.Revision;
 import minek.ckan.v3.enums.GroupListSortField;
 import minek.ckan.v3.enums.Role;
 import minek.ckan.v3.sort.BlankSpaceSort;
@@ -14,7 +13,6 @@ import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 public class GroupServiceTest extends BaseTest {
 
@@ -59,21 +57,6 @@ public class GroupServiceTest extends BaseTest {
         System.out.println();
     }
 
-    @Test
-    void groupRevisionList() throws IOException {
-        Call<List<Revision>> b = groupService().groupRevisionList(UUID.fromString("e5a22d53-3330-4b7c-9b41-dfd5500fc23a"));
-        Response<List<Revision>> execute = b.execute();
-        List<Revision> body = execute.body();
-        System.out.println();
-    }
-
-    @Test
-    void organizationRevisionList() throws IOException {
-        Call<List<Revision>> b = groupService().organizationRevisionList(UUID.fromString("9dbbdacc-51d1-4f6b-ae61-3e38963bbac3"));
-        Response<List<Revision>> execute = b.execute();
-        List<Revision> body = execute.body();
-        System.out.println();
-    }
 
     @Test
     void groupShow() throws IOException {
