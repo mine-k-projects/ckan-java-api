@@ -24,12 +24,11 @@ public interface TagService {
                       @Query("include_datasets") Boolean includeDatasets);
 
     @GET("api/3/action/tag_search")
-    Call<TagSearch> tagSearch(@Query("query") String query,
+    Call<TagSearch> tagSearch(@NonNull @Query("query") String query,
                               @Query("vocabulary_id") String vocabularyIdOrName,
                               @Deprecated @Query("fields") String fields,
                               @Query("offset") Integer offset,
                               @Query("limit") Integer limit);
-
 
     @GET("api/3/action/vocabulary_list")
     Call<List<Vocabulary>> vocabularyList();

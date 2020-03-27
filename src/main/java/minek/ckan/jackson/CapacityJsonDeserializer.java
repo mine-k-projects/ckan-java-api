@@ -13,7 +13,7 @@ import java.io.IOException;
 public class CapacityJsonDeserializer extends JsonDeserializer<Capacity> {
 
     @Override
-    public Capacity deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Capacity deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectCodec objectCodec = p.getCodec();
         JsonNode jsonNode = objectCodec.readTree(p);
         String s = jsonNode.asText();

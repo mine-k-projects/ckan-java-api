@@ -28,7 +28,6 @@ public interface SiteService {
     @GET("api/3/action/help_show")
     Call<String> helpShow(@NonNull @Query("name") String name);
 
-
     // TODO : task_status_show. api 는 리턴 데이터 확인 못함
 
     // TODO : term_translation_show. api 는 리턴 데이터 확인 못함

@@ -94,7 +94,6 @@ public interface GroupService {
     Call<List<Package>> groupPackageShow(@NonNull @Query("id") String idOrName,
                                          @Query("limit") Integer limit);
 
-
     @GET("api/3/action/am_following_group")
     Call<Boolean> amFollowingGroup(@NonNull @Query("id") String idOrName);
 

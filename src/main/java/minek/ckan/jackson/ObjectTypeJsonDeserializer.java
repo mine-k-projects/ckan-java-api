@@ -13,7 +13,7 @@ import java.io.IOException;
 public class ObjectTypeJsonDeserializer extends JsonDeserializer<ObjectType> {
 
     @Override
-    public ObjectType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public ObjectType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectCodec objectCodec = p.getCodec();
         JsonNode jsonNode = objectCodec.readTree(p);
         String s = jsonNode.asText();

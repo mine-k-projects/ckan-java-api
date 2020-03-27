@@ -82,7 +82,7 @@ public interface PackageService {
     }
 
     default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria criteria) {
-        return resourceSearch(criteria, null, null, null, null);
+        return resourceSearch(criteria.query(), null, null, null, null);
     }
 
     @GET("api/3/action/am_following_dataset")

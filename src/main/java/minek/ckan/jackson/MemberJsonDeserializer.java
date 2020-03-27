@@ -17,7 +17,7 @@ import java.util.UUID;
 public class MemberJsonDeserializer extends JsonDeserializer<Member> {
 
     @Override
-    public Member deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Member deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectCodec objectCodec = p.getCodec();
         JsonNode jsonNode = objectCodec.readTree(p);
         ArrayNode jsonArray = (ArrayNode) jsonNode;

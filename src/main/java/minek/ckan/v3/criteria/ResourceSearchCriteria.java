@@ -2,6 +2,7 @@ package minek.ckan.v3.criteria;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
@@ -13,12 +14,12 @@ public class ResourceSearchCriteria {
         return field + ":" + value;
     }
 
-    public static ResourceSearchCriteria of(String query) {
+    public static ResourceSearchCriteria of(@NonNull String query) {
         String[] split = query.split(":");
         return new ResourceSearchCriteria(ResourceColumn.valueOf(split[0]), split[1]);
     }
 
-    public static ResourceSearchCriteria of(ResourceColumn column, String value) {
+    public static ResourceSearchCriteria of(@NonNull ResourceColumn column, @NonNull String value) {
         return new ResourceSearchCriteria(column, value);
     }
 }

@@ -13,7 +13,7 @@ import java.io.IOException;
 public class ActivityTypeJsonDeserializer extends JsonDeserializer<ActivityType> {
 
     @Override
-    public ActivityType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public ActivityType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectCodec objectCodec = p.getCodec();
         JsonNode jsonNode = objectCodec.readTree(p);
         String s = jsonNode.asText();
