@@ -2,6 +2,8 @@ package minek.ckan.v3.service;
 
 import minek.ckan.v3.Package;
 import minek.ckan.v3.*;
+import minek.ckan.v3.criteria.ResourceColumn;
+import minek.ckan.v3.criteria.ResourceSearchCriteria;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -92,7 +94,7 @@ public class PackageServiceTest extends BaseTest {
     @Test
     void resourceSearch() throws IOException {
         Call<ResourceSearch> b = packageService().resourceSearch(
-                "name:test",
+                ResourceSearchCriteria.of(ResourceColumn.name, "test"),
                 null,
                 null,
                 0,

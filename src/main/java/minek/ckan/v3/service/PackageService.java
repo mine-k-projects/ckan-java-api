@@ -3,6 +3,7 @@ package minek.ckan.v3.service;
 import lombok.NonNull;
 import minek.ckan.v3.Package;
 import minek.ckan.v3.*;
+import minek.ckan.v3.criteria.ResourceSearchCriteria;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -61,13 +62,16 @@ public interface PackageService {
                                       @Query("include_private") Boolean includePrivate,
                                       @Query("use_default_schema") Boolean useDefaultSchema);
 
-    // NOTE : query 의 표현식이 {field}:{term} 이기 때문에 파라미터 고도화 필요
     @GET("api/3/action/resource_search")
-    Call<ResourceSearch> resourceSearch(@Query("query") String query,
+    Call<ResourceSearch> resourceSearch(@NonNull @Query("query") ResourceSearchCriteria query,
                                         @Deprecated @Query("fields") String fields,
                                         @Query("order_by") String orderBy,
                                         @Query("offset") Integer offset,
                                         @Query("limit") Integer limit);
+
+    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria query) {
+        return resourceSearch(query, null, null, null, null);
+    }
 
     @GET("api/3/action/am_following_dataset")
     Call<Boolean> amFollowingDataset(@NonNull @Query("id") String idOrName);
