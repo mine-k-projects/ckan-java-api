@@ -3,6 +3,7 @@ package minek.ckan.v3.service;
 import lombok.NonNull;
 import minek.ckan.v3.Tag;
 import minek.ckan.v3.TagSearch;
+import minek.ckan.v3.Vocabulary;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -29,8 +30,10 @@ public interface TagService {
                               @Query("offset") Integer offset,
                               @Query("limit") Integer limit);
 
-    // TODO : vocabulary_list. api 는 리턴 데이터 확인 못함
 
-    // TODO : vocabulary_show. api 는 리턴 데이터 확인 못함
+    @GET("api/3/action/vocabulary_list")
+    Call<List<Vocabulary>> vocabularyList();
 
+    @GET("api/3/action/vocabulary_show")
+    Call<Vocabulary> vocabularyShow(@NonNull @Query("id") String idOrName);
 }

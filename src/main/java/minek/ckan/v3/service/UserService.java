@@ -79,6 +79,7 @@ public interface UserService {
     @GET("api/3/action/user_follower_count")
     Call<Integer> userFollowerCount(@NonNull @Query("id") String idOrName);
 
-    // TODO : user_follower_list. api 는 리턴 데이터 확인 못함
+    @GET("api/3/action/user_follower_list")
+    Call<List<User>> userFollowerList(@NonNull @Query("id") String idOrName);
 
 }
