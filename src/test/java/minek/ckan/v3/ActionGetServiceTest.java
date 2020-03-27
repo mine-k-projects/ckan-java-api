@@ -224,25 +224,25 @@ class ActionGetServiceTest extends BaseTest {
 
     @Test
     void groupPackageShow() throws IOException {
-        Call<List<Package>> b = action().groupPackageShow("2aa1fb99-27f9-4b0b-93df-de3793dbfe6c", 10);
-        Response<List<Package>> execute = b.execute();
-        List<Package> body = execute.body();
+        Call<List<GroupPackageShow>> b = action().groupPackageShow("2aa1fb99-27f9-4b0b-93df-de3793dbfe6c", 10);
+        Response<List<GroupPackageShow>> execute = b.execute();
+        List<GroupPackageShow> body = execute.body();
         System.out.println();
     }
 
     @Test
     void tagShow() throws IOException {
-        Call<Tag> b = action().tagShow("0f0d9b61-b103-486c-bbd7-bec98bfcf406", null, true);
-        Response<Tag> execute = b.execute();
-        Tag body = execute.body();
+        Call<TagShow> b = action().tagShow("0f0d9b61-b103-486c-bbd7-bec98bfcf406", null, true);
+        Response<TagShow> execute = b.execute();
+        TagShow body = execute.body();
         System.out.println();
     }
 
     @Test
     void userShow() throws IOException {
-        Call<User> b = action().userShow("04bb13d8-845b-4716-9d0d-cdf5257477d8", true, true, true);
-        Response<User> execute = b.execute();
-        User body = execute.body();
+        Call<UserShow> b = action().userShow("allbegray", true, true, true);
+        Response<UserShow> execute = b.execute();
+        UserShow body = execute.body();
         System.out.println();
     }
 
@@ -424,7 +424,6 @@ class ActionGetServiceTest extends BaseTest {
         List<DashboardActivity> body = execute.body();
         System.out.println(body);
     }
-
 
 
 }

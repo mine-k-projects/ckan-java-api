@@ -3,27 +3,27 @@ package minek.ckan.v3;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import minek.ckan.v3.enums.ApprovalStatus;
+import minek.ckan.v3.enums.Capacity;
 import minek.ckan.v3.enums.State;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Data
-public class PackageSearch {
-    private int count;
-    private String sort;
-    private Map<String, Object> facets;
-    private List<Package> results;
-    @SerializedName("search_facets")
-    private Map<String, Object> searchFacets;
+public class TagShow {
+    @SerializedName("vocabulary_id")
+    private UUID vocabularyId;
+    private List<Package> packages;
+    @SerializedName("display_name")
+    private String displayName;
+    private UUID id;
+    private String name;
 
     @Data
     public static class Package {
-
-        @SerializedName("license_title")
-        private String licenseTitle;
+        @SerializedName("owner_org")
+        private UUID ownerOrg;
         private String maintainer;
         @SerializedName("relationships_as_object")
         private List<String> relationshipsAsObject;
@@ -43,29 +43,27 @@ public class PackageSearch {
         private String authorEmail;
         private State state;
         private String version;
-        @SerializedName("creator_user_id")
-        private UUID creatorUserId;
+        @SerializedName("license_id")
+        private String licenseId;
         private String type;
         private List<Resource> resources;
         @SerializedName("num_resources")
         private int numResources;
         private List<Tag> tags;
+        private String title;
         private List<Group> groups;
-        @SerializedName("license_id")
-        private String licenseId;
+        @SerializedName("creator_user_id")
+        private UUID creatorUserId;
         @SerializedName("relationships_as_subject")
         private List<String> relationshipsAsSubject;
-        private Organization organization;
         private String name;
         private boolean isopen;
         private String url;
         private String notes;
-        @SerializedName("owner_org")
-        private UUID ownerOrg;
+        @SerializedName("license_title")
+        private String licenseTitle;
         private List<Extra> extras;
-        @SerializedName("license_url")
-        private String licenseUrl;
-        private String title;
+        private Organization organization;
         @SerializedName("revision_id")
         private UUID revisionId;
 
@@ -115,14 +113,24 @@ public class PackageSearch {
 
         @Data
         public static class Group {
-            @SerializedName("display_name")
-            private String displayName;
-            private String description;
             @SerializedName("image_display_url")
             private String imageDisplayUrl;
+            private Capacity capacity;
+            private String description;
+            private LocalDateTime created;
             private String title;
-            private UUID id;
             private String name;
+            @SerializedName("is_organization")
+            private boolean isOrganization;
+            private State state;
+            @SerializedName("image_url")
+            private String imageUrl;
+            @SerializedName("display_name")
+            private String displayName;
+            @SerializedName("revision_id")
+            private UUID revisionId;
+            private UUID id;
+            private String type;
         }
 
         @Data

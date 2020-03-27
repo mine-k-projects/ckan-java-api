@@ -21,35 +21,39 @@ public interface ActionGetService {
     Call<Boolean> siteRead();
 
     @GET("api/3/action/package_list")
-    Call<List<String>> packageList();
+    Call<List<String>> packageList(@Query("offset") Integer offset, @Query("limit") Integer limit);
 
-    @GET("api/3/action/package_list")
-    Call<List<String>> packageList(@Query("offset") int offset, @Query("limit") int limit);
-
-    @GET("api/3/action/current_package_list_with_resources")
-    Call<List<Package>> currentPackageListWithResources();
+    default Call<List<String>> packageList() {
+        return packageList(null, null);
+    }
 
     @GET("api/3/action/current_package_list_with_resources")
-    Call<List<Package>> currentPackageListWithResources(@Query("offset") int offset, @Query("limit") int limit);
+    Call<List<Package>> currentPackageListWithResources(@Query("offset") Integer offset, @Query("limit") Integer limit);
 
-    @GET("api/3/action/revision_list")
-    Call<List<UUID>> revisionList();
+    default Call<List<Package>> currentPackageListWithResources() {
+        return currentPackageListWithResources(null, null);
+    }
 
     @GET("api/3/action/revision_list")
     Call<List<UUID>> revisionList(@Query("since_id") UUID sinceId,
                                   @Query("since_time") LocalDateTime sinceTime,
                                   @Query("sort") UnderscoreSort<RevisionListSortField> sort);
 
+    default Call<List<UUID>> revisionList() {
+        return revisionList(null, null, null);
+    }
+
     @GET("api/3/action/package_revision_list")
     Call<List<Revision>> packageRevisionList(@NonNull @Query("id") UUID id);
-
-    @GET("api/3/action/member_list")
-    Call<List<Member>> memberList(@NonNull @Query("id") UUID id);
 
     @GET("api/3/action/member_list")
     Call<List<Member>> memberList(@NonNull @Query("id") UUID id,
                                   @Query("type") ObjectType type,
                                   @Query("capacity") Capacity capacity);
+
+    default Call<List<Member>> memberList(@NonNull @Query("id") UUID id) {
+        return memberList(id, null, null);
+    }
 
     @GET("api/3/action/group_list")
     Call<List<String>> groupNameList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
@@ -94,6 +98,9 @@ public interface ActionGetService {
                                                                    @Query("permission") Role.Permission permission,
                                                                    @Query("include_dataset_count") Boolean includeDatasetCount);
 
+    default Call<List<UserAuthorizedOrganization>> organizationListForUser() {
+        return organizationListForUser(null, null, null);
+    }
 
     @GET("api/3/action/group_revision_list")
     Call<List<Revision>> groupRevisionList(@NonNull @Query("id") UUID id);
@@ -166,21 +173,21 @@ public interface ActionGetService {
                                        @Query("include_followers") Boolean includeFollowers);
 
     @GET("api/3/action/group_package_show")
-    Call<List<Package>> groupPackageShow(@NonNull @Query("id") String idOrName,
-                                         @Query("limit") Integer limit);
+    Call<List<GroupPackageShow>> groupPackageShow(@NonNull @Query("id") String idOrName,
+                                                  @Query("limit") Integer limit);
 
     @GET("api/3/action/tag_show")
-    Call<Tag> tagShow(@NonNull @Query("id") String idOrName,
-                      @Query("vocabulary_id") String vocabularyIdOrName,
-                      @Query("include_datasets") Boolean includeDatasets);
+    Call<TagShow> tagShow(@NonNull @Query("id") String idOrName,
+                          @Query("vocabulary_id") String vocabularyIdOrName,
+                          @Query("include_datasets") Boolean includeDatasets);
 
     // NOTE : user_obj 는 user dictionary 라서 막 보내기 위험해 보인다.
     @GET("api/3/action/user_show")
-    Call<User> userShow(@NonNull @Query("id") String idOrName,
+    Call<UserShow> userShow(@NonNull @Query("id") String idOrName,
 //                        @Query("user_obj") String user_obj,
-                        @Query("include_datasets") Boolean includeDatasets,
-                        @Query("include_num_followers") Boolean includeNumFollowers,
-                        @Query("include_password_hash") Boolean includePasswordHash);
+                            @Query("include_datasets") Boolean includeDatasets,
+                            @Query("include_num_followers") Boolean includeNumFollowers,
+                            @Query("include_password_hash") Boolean includePasswordHash);
 
     @GET("api/3/action/package_autocomplete")
     Call<List<PackageAutocomplete>> packageAutocomplete(@NonNull @Query("q") String q);

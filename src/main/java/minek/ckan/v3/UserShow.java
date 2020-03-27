@@ -7,17 +7,32 @@ import minek.ckan.v3.enums.State;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Data
-public class PackageSearch {
-    private int count;
-    private String sort;
-    private Map<String, Object> facets;
-    private List<Package> results;
-    @SerializedName("search_facets")
-    private Map<String, Object> searchFacets;
+public class UserShow {
+    @SerializedName("email_hash")
+    private String emailHash;
+    private String about;
+    private String apikey;
+    @SerializedName("display_name")
+    private String displayName;
+    private String name;
+    private LocalDateTime created;
+    private UUID id;
+    private boolean sysadmin;
+    @SerializedName("activity_streams_email_notifications")
+    private boolean activityStreamsEmailNotifications;
+    private State state;
+    private List<Package> datasets;
+    @SerializedName("number_of_edits")
+    private int numberOfEdits;
+    private String fullname;
+    @SerializedName("num_followers")
+    private Integer numFollowers;
+    private String email;
+    @SerializedName("number_created_packages")
+    private int numberCreatedPackages;
 
     @Data
     public static class Package {

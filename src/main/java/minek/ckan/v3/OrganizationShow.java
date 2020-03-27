@@ -3,21 +3,76 @@ package minek.ckan.v3;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import minek.ckan.v3.enums.ApprovalStatus;
+import minek.ckan.v3.enums.Capacity;
 import minek.ckan.v3.enums.State;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Data
-public class PackageSearch {
-    private int count;
-    private String sort;
-    private Map<String, Object> facets;
-    private List<Package> results;
-    @SerializedName("search_facets")
-    private Map<String, Object> searchFacets;
+public class OrganizationShow {
+
+    private List<User> users;
+    @SerializedName("display_name")
+    private String displayName;
+    private String description;
+    @SerializedName("image_display_url")
+    private String imageDisplayUrl;
+    private String title;
+    @SerializedName("package_count")
+    private int packageCount;
+    private LocalDateTime created;
+    @SerializedName("approval_status")
+    private ApprovalStatus approvalStatus;
+    @SerializedName("is_organization")
+    private boolean isOrganization;
+    private State state;
+    private List<Extra> extras;
+    @SerializedName("image_url")
+    private String imageUrl;
+    private List<Group> groups;
+    @SerializedName("revision_id")
+    private UUID revisionId;
+    private List<Package> packages;
+    private String type;
+    private UUID id;
+    private List<Tag> tags;
+    private String name;
+    @SerializedName("num_followers")
+    private Integer numFollowers;
+
+    @Data
+    public static class User {
+        @SerializedName("email_hash")
+        private String emailHash;
+        private String about;
+        private Capacity capacity;
+        private String name;
+        private LocalDateTime created;
+        private UUID id;
+        private boolean sysadmin;
+        @SerializedName("activity_streams_email_notifications")
+        private boolean activityStreamsEmailNotifications;
+        private State state;
+        @SerializedName("number_of_edits")
+        private int numberOfEdits;
+        @SerializedName("display_name")
+        private String displayName;
+        private String fullname;
+        @SerializedName("number_created_packages")
+        private int numberCreatedPackages;
+    }
+
+    @Data
+    public static class Extra {
+
+    }
+
+    @Data
+    public static class Group {
+
+    }
 
     @Data
     public static class Package {
@@ -150,4 +205,10 @@ public class PackageSearch {
             private String value;
         }
     }
+
+    @Data
+    public static class Tag {
+
+    }
+
 }

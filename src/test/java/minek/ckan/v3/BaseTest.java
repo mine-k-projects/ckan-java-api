@@ -13,7 +13,7 @@ import minek.ckan.v3.service.ActionGetService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.time.LocalDateTime;
 
@@ -42,7 +42,7 @@ public class BaseTest {
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://demo.ckan.org/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(JacksonConverterFactory.create())
                 .addConverterFactory(new ConverterFactory())
                 .client(httpClient.build())
                 .build();
