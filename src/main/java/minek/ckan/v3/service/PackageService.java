@@ -63,14 +63,26 @@ public interface PackageService {
                                       @Query("use_default_schema") Boolean useDefaultSchema);
 
     @GET("api/3/action/resource_search")
-    Call<ResourceSearch> resourceSearch(@NonNull @Query("query") ResourceSearchCriteria query,
+    Call<ResourceSearch> resourceSearch(@NonNull @Query("query") String query,
                                         @Deprecated @Query("fields") String fields,
                                         @Query("order_by") String orderBy,
                                         @Query("offset") Integer offset,
                                         @Query("limit") Integer limit);
 
-    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria query) {
+    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria criteria,
+                                                @Deprecated String fields,
+                                                String orderBy,
+                                                Integer offset,
+                                                Integer limit) {
+        return resourceSearch(criteria.query(), fields, orderBy, offset, limit);
+    }
+
+    default Call<ResourceSearch> resourceSearch(@NonNull String query) {
         return resourceSearch(query, null, null, null, null);
+    }
+
+    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria criteria) {
+        return resourceSearch(criteria, null, null, null, null);
     }
 
     @GET("api/3/action/am_following_dataset")

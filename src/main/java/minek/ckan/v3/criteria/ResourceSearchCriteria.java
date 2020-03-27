@@ -9,6 +9,10 @@ public class ResourceSearchCriteria {
     private ResourceColumn field;
     private String value;
 
+    public String query() {
+        return field + ":" + value;
+    }
+
     public static ResourceSearchCriteria of(String query) {
         String[] split = query.split(":");
         return new ResourceSearchCriteria(ResourceColumn.valueOf(split[0]), split[1]);
