@@ -1,8 +1,8 @@
 package minek.ckan.retrofit;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -10,9 +10,10 @@ import okhttp3.ResponseBody;
 
 import java.io.IOException;
 
+@AllArgsConstructor
 public class ResponseBodyInterceptor implements Interceptor {
 
-    final JsonParser jsonParser = new JsonParser();
+    private ObjectMapper objectMapper;
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -20,12 +21,11 @@ public class ResponseBodyInterceptor implements Interceptor {
         Response response = chain.proceed(request);
         if (response.code() == 200) {
             ResponseBody responseBody = response.body();
-            JsonElement jsonElement = jsonParser.parse(responseBody.charStream());
-            JsonObject jsonObject = jsonElement.getAsJsonObject();
-            String help = jsonObject.get("help").getAsString();
-            boolean success = jsonObject.get("success").getAsBoolean();
+            JsonNode jsonNode = objectMapper.readTree(responseBody.charStream());
+            String help = jsonNode.get("help").asText();
+            boolean success = jsonNode.get("success").asBoolean();
             if (success) {
-                JsonElement result = jsonObject.get("result");
+                JsonNode result = jsonNode.get("result");
                 ResponseBody body = ResponseBody.create(responseBody.contentType(), result.toString());
                 return response.newBuilder().body(body).build();
             }
