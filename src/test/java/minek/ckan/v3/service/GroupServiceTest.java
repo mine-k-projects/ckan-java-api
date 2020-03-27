@@ -51,7 +51,7 @@ public class GroupServiceTest extends BaseTest {
 
     @Test
     void organizationListForUser() throws IOException {
-        Call<List<Group>> b = groupService().organizationListForUser(null, Role.Member.manage_group, null);
+        Call<List<Group>> b = groupService().organizationListForUser(null, Role.Permission.manage_group, null);
         Response<List<Group>> execute = b.execute();
         List<Group> body = execute.body();
         System.out.println();
