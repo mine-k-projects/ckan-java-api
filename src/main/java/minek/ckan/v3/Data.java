@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Data {
 
     @JsonProperty("package")
-    private Package _package;
+    private Package package_;
     private Resource resource;
     private Group group;
 }
