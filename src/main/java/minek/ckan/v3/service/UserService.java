@@ -15,17 +15,20 @@ import java.util.UUID;
 public interface UserService {
 
     @GET("api/3/action/member_list")
-    Call<List<Member>> memberList(@NonNull @Query("id") UUID id,
+    Call<List<Member>> memberList(@NonNull @Query("id") String groupIdOrGroupName,
                                   @Query("type") ObjectType type,
                                   @Query("capacity") Capacity capacity);
 
-    default Call<List<Member>> memberList(@NonNull UUID id) {
-        return memberList(id, null, null);
+    default Call<List<Member>> memberList(@NonNull String groupIdOrGroupName) {
+        return memberList(groupIdOrGroupName, null, null);
     }
 
     // NOTE : order_by 는 name 이에 정상작동 안한다. 추후 확인
     @GET("api/3/action/user_list")
     Call<List<String>> userNameList(@Query("q") String q/*, @Query("order_by") String orderBy*/);
+
+    @GET("api/3/action/user_list?all_fields=true")
+    Call<List<User>> userList();
 
     @GET("api/3/action/user_list?all_fields=true")
     Call<List<User>> userList(@Query("q") String q/*, @Query("order_by") String orderBy*/);
@@ -48,21 +51,22 @@ public interface UserService {
     Call<SiteUser> getSiteUser(@Query("defer_commit") Boolean deferCommit);
 
     @GET("api/3/action/followee_count")
-    Call<Integer> followeeCount(@NonNull @Query("id") String idOrName);
+    Call<Integer> followeeCount(@NonNull @Query("id") UUID userId);
 
     @GET("api/3/action/user_followee_count")
-    Call<Integer> userFolloweeCount(@NonNull @Query("id") String idOrName);
+    Call<Integer> userFolloweeCount(@NonNull @Query("id") UUID userId);
 
     @GET("api/3/action/dataset_followee_count")
-    Call<Integer> datasetFolloweeCount(@NonNull @Query("id") String idOrName);
+    Call<Integer> datasetFolloweeCount(@NonNull @Query("id") UUID userId);
 
     @GET("api/3/action/group_followee_count")
-    Call<Integer> groupFolloweeCount(@NonNull @Query("id") String idOrName);
+    Call<Integer> groupFolloweeCount(@NonNull @Query("id") UUID userId);
 
-    // TODO. followee_list.
+    @GET("api/3/action/followee_list")
+    Call<List<Followee>> followeeList(@Query("id") UUID userId);
 
     @GET("api/3/action/user_followee_list")
-    Call<List<User>> userFolloweeList(@Query("id") String idOrName);
+    Call<List<User>> userFolloweeList(@Query("id") UUID userId);
 
     @GET("api/3/action/dataset_followee_list")
     Call<List<Package>> datasetFolloweeList(@Query("id") String idOrName);

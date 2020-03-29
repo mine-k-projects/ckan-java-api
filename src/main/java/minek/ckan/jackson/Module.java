@@ -2,6 +2,7 @@ package minek.ckan.jackson;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import minek.ckan.v3.Followee;
 import minek.ckan.v3.Member;
 import minek.ckan.v3.enums.ActivityType;
 import minek.ckan.v3.enums.Capacity;
@@ -18,5 +19,6 @@ public class Module extends SimpleModule {
         addDeserializer(ActivityType.class, new ActivityTypeJsonDeserializer());
         addDeserializer(Capacity.class, new CapacityJsonDeserializer());
         addDeserializer(ObjectType.class, new ObjectTypeJsonDeserializer());
+        addDeserializer(Followee.class, new FolloweeDeserializer());
     }
 }
