@@ -46,7 +46,7 @@ public class PackageServiceTest extends BaseTest {
         if (packageIdList.size() < 2)
             return;
 
-        List<PackageRelationshipType> relationshipsList = packageService().packageRelationshipsList(packageIdList.get(0), packageIdList.get(1)).execute().body();
+        List<PackageRelationship> relationshipsList = packageService().packageRelationshipsList(packageIdList.get(0), packageIdList.get(1)).execute().body();
         System.out.println();
     }
 

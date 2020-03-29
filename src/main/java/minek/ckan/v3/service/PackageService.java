@@ -28,15 +28,14 @@ public interface PackageService {
         return currentPackageListWithResources(null, null);
     }
 
-    // TODO: return 값 확인 못함
     @GET("api/3/action/package_relationships_list")
-    Call<List<PackageRelationshipType>> packageRelationshipsList(@NonNull @Query("id") String id,
-                                                @NonNull @Query("id2") String id2);
+    Call<List<PackageRelationship>> packageRelationshipsList(@NonNull @Query("id") String id,
+                                                             @NonNull @Query("id2") String id2);
 
     @GET("api/3/action/package_relationships_list")
-    Call<List<PackageRelationshipType>> packageRelationshipsList(@NonNull @Query("id") String id,
-                                                 @NonNull @Query("id2") String id2,
-                                                 @Query("rel") PackageRelationshipType rel);
+    Call<List<PackageRelationship>> packageRelationshipsList(@NonNull @Query("id") String id,
+                                                             @NonNull @Query("id2") String id2,
+                                                             @Query("rel") PackageRelationshipType rel);
 
     // NOTE : use_default_schema 는 IDatasetForm 플러그인에 의존성을 가진다. 샘플 데이터 찾기가 어렵...
     @GET("api/3/action/package_show")
