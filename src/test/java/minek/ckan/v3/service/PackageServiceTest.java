@@ -4,6 +4,7 @@ import minek.ckan.v3.Package;
 import minek.ckan.v3.*;
 import minek.ckan.v3.criteria.ResourceColumn;
 import minek.ckan.v3.criteria.ResourceSearchCriteria;
+import minek.ckan.v3.enums.PackageRelationshipType;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -38,6 +39,16 @@ public class PackageServiceTest extends BaseTest {
         System.out.println();
     }
 
+    @Test
+    void packageRelationshipsList() throws IOException {
+        final List<String> packageIdList = packageService().packageList().execute().body();
+        assert packageIdList != null;
+        if (packageIdList.size() < 2)
+            return;
+
+        List<PackageRelationshipType> relationshipsList = packageService().packageRelationshipsList(packageIdList.get(0), packageIdList.get(1)).execute().body();
+        System.out.println();
+    }
 
     @Test
     void packageShow() throws IOException {
