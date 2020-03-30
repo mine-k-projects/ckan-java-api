@@ -1,7 +1,9 @@
 package minek.ckan.v3;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import minek.ckan.jackson.Module;
 import minek.ckan.retrofit.AuthorizationInterceptor;
 import minek.ckan.retrofit.ConverterFactory;
@@ -46,6 +48,10 @@ public class BaseTest {
         return retrofit.create(UserService.class);
     }
 
+    public CreateService createService() {
+        return retrofit.create(CreateService.class);
+    }
+
     private Retrofit retrofit;
 
     public BaseTest() {
@@ -56,6 +62,7 @@ public class BaseTest {
         objectMapper.registerModule(new Module());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
         objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, true);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);

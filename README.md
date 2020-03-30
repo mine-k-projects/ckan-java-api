@@ -11,4 +11,4 @@ CKAN java client
 https://docs.ckan.org/en/2.8/api/#ckan.logic.action.create.package_create
 
 # ckan python api
-https://github.com/ckan/ckan/blob/master/ckan/logic/action/get.py
+https://docs.ckan.org/en/2.8/api/index.html#ckan.logic.action.create.resource_view_create
