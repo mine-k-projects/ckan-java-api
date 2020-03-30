@@ -78,7 +78,7 @@ public class CreateServiceTest extends BaseTest {
         Call<Resource> upload_test = createService().resourceCreate(
                 ResourceCreate.builder()
                         .packageId(id)
-                        .name("upload-test")
+                        .name("123.txt")
                         .build(),
                 file
         );

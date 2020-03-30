@@ -10,6 +10,9 @@ import java.nio.file.Files;
 
 public abstract class RetrofitUtils {
 
+    public static final MediaType TEXT_PLAIN = MediaType.get("text/plain");
+    public static final MediaType APPLICATION_OCTET_STREAM = MediaType.get("application/octet-stream");
+
     public static RequestBody createPartFromString(Object value) {
         if (value == null) {
             return null;
@@ -23,6 +26,7 @@ public abstract class RetrofitUtils {
         }
         String contentType = Files.probeContentType(file.toPath());
         RequestBody requestFile = RequestBody.create(MediaType.parse(contentType), file);
+//        RequestBody requestFile = RequestBody.create(MultipartBody.FORM, file);
         return MultipartBody.Part.createFormData(name, file.getName(), requestFile);
     }
 }
