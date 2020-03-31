@@ -12,3 +12,7 @@ https://docs.ckan.org/en/2.8/api/#ckan.logic.action.create.package_create
 
 # ckan python api
 https://docs.ckan.org/en/2.8/api/index.html#ckan.logic.action.create.resource_view_create
+
+# 커밋 메시지
+https://doublesprogramming.tistory.com/256
+https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue
