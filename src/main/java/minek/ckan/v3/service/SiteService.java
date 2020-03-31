@@ -1,15 +1,14 @@
 package minek.ckan.v3.service;
 
 import lombok.NonNull;
-import minek.ckan.v3.License;
-import minek.ckan.v3.MemberRole;
-import minek.ckan.v3.SiteStatus;
+import minek.ckan.v3.*;
 import minek.ckan.v3.enums.GroupType;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SiteService {
 
@@ -28,16 +27,33 @@ public interface SiteService {
     @GET("api/3/action/help_show")
     Call<String> helpShow(@NonNull @Query("name") String name);
 
-    // TODO : task_status_show. api 는 리턴 데이터 확인 못함
+    @GET("api/3/action/task_status_show")
+    Call<TaskStatus> taskStatusShow(@Query("id") String id,
+                                    @Query("entity_id") String entityId,
+                                    @Query("task_type") String taskType,
+                                    @Query("key") String key);
 
-    // TODO : term_translation_show. api 는 리턴 데이터 확인 못함
+    default Call<TaskStatus> taskStatusShow(@NonNull String id) {
+        return taskStatusShow(id, null, null, null);
+    }
+
+    default Call<TaskStatus> taskStatusShow(@NonNull String entityId, @NonNull String taskType, @NonNull String key) {
+        return taskStatusShow(null, entityId, taskType, key);
+    }
+
+    @GET("api/3/action/term_translation_show")
+    Call<List<TermTranslation>> termTranslationShow(@NonNull @Query("terms") List<String> terms,
+                                                    @Query("lang_codes") List<String> langCodes);
 
     // TODO. config_option_show.
 
-    // TODO. config_option_list
+    @GET("api/3/action/config_option_list")
+    Call<Map<String, Object>> configOptionList();
 
-    // TODO. job_list
+    @GET("api/3/action/job_list")
+    Call<List<Job>> jobList();
 
-    // TODO. job_show
+    @GET("api/3/action/job_show")
+    Call<Job> jobShow(@NonNull @Query("id") String id);
 
 }

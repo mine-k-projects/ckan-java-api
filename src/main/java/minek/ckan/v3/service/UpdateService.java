@@ -58,7 +58,7 @@ public interface UpdateService {
     Call<TaskStatusUpdateManyResult> taskStatusUpdateMany(@Body TaskStatusUpdateMany taskStatusUpdateMany);
 
     @POST("api/3/action/task_status_update")
-    Call<TermTranslationUpdate> taskStatusUpdate(@Body TermTranslationUpdate termTranslationUpdate);
+    Call<TermTranslation> taskStatusUpdate(@Body TermTranslation termTranslationUpdate);
 
     @POST("api/3/action/term_translation_update_many")
     Call<TermTranslationUpdateManyResult> termTranslationUpdateMany(@Body TermTranslationUpdateMany termTranslationUpdateMany);
