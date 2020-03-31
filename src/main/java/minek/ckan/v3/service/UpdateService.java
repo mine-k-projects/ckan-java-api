@@ -2,10 +2,7 @@ package minek.ckan.v3.service;
 
 import minek.ckan.v3.Package;
 import minek.ckan.v3.*;
-import minek.ckan.v3.update.BulkUpdate;
-import minek.ckan.v3.update.PackageOwnerOrgUpdate;
-import minek.ckan.v3.update.PackageResourceReorder;
-import minek.ckan.v3.update.ResourceViewReorder;
+import minek.ckan.v3.update.*;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -54,13 +51,17 @@ public interface UpdateService {
     @POST("api/3/action/user_generate_apikey")
     Call<User> userGenerateApikey(@Field("id") String idOrName);
 
-    // TODO. task_status_update
+    @POST("api/3/action/task_status_update")
+    Call<TaskStatus> taskStatusUpdate(@Body TaskStatus taskStatus);
 
-    // TODO. task_status_update_many
+    @POST("api/3/action/task_status_update_many")
+    Call<TaskStatusUpdateManyResult> taskStatusUpdateMany(@Body TaskStatusUpdateMany taskStatusUpdateMany);
 
-    // TODO. term_translation_update
+    @POST("api/3/action/task_status_update")
+    Call<TermTranslationUpdate> taskStatusUpdate(@Body TermTranslationUpdate termTranslationUpdate);
 
-    // TODO. term_translation_update_many
+    @POST("api/3/action/term_translation_update_many")
+    Call<TermTranslationUpdateManyResult> termTranslationUpdateMany(@Body TermTranslationUpdateMany termTranslationUpdateMany);
 
     @FormUrlEncoded
     @POST("api/3/action/vocabulary_update")
