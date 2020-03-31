@@ -18,7 +18,6 @@ import java.util.List;
 import static minek.ckan.retrofit.RetrofitUtils.createPartFromString;
 import static minek.ckan.retrofit.RetrofitUtils.prepareFilePart;
 
-// TODO : api 작업 후 각 service 로 이동 처리
 public interface CreateService {
 
     @POST("api/3/action/package_create")
