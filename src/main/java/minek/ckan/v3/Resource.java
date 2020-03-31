@@ -41,4 +41,5 @@ public class Resource {
     private Extra extras;
     @JsonProperty("tracking_summary")
     private TrackingSummary trackingSummary;
+    private String file;
 }

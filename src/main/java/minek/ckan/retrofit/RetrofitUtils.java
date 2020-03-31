@@ -10,8 +10,8 @@ import java.nio.file.Files;
 
 public abstract class RetrofitUtils {
 
-    public static final MediaType TEXT_PLAIN = MediaType.get("text/plain");
-    public static final MediaType APPLICATION_OCTET_STREAM = MediaType.get("application/octet-stream");
+    public static final MediaType MEDIA_TYPE_TEXT_PLAIN = MediaType.get("text/plain");
+    public static final MediaType MEDIA_TYPE_APPLICATION_OCTET_STREAM = MediaType.get("application/octet-stream");
 
     public static RequestBody createPartFromString(Object value) {
         if (value == null) {

@@ -1,12 +1,9 @@
 package minek.ckan.v3.service;
 
-import minek.ckan.v3.BaseTest;
-import minek.ckan.v3.CkanClient;
 import minek.ckan.v3.Package;
-import minek.ckan.v3.Resource;
-import minek.ckan.v3.create.PackageCreate;
-import minek.ckan.v3.create.ResourceCreate;
-import minek.ckan.v3.create.TagCreate;
+import minek.ckan.v3.*;
+import minek.ckan.v3.create.*;
+import minek.ckan.v3.enums.ResourceViewType;
 import minek.ckan.v3.enums.State;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
@@ -15,6 +12,7 @@ import retrofit2.Response;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class CreateServiceTest extends BaseTest {
@@ -84,6 +82,74 @@ public class CreateServiceTest extends BaseTest {
         );
         Response<Resource> execute = upload_test.execute();
         Resource body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void resourceViewCreate() throws IOException {
+        Call<ResourceView> upload_test = createService().resourceViewCreate(
+                ResourceViewCreate.builder()
+                        .resourceId(UUID.fromString("d6ec1145-5b93-4a37-aaeb-51d7c4198527"))
+                        .title("test-resource-view-title")
+                        .description("test-resource-description")
+                        .viewType(ResourceViewType.text_view)
+                        .build()
+        );
+        Response<ResourceView> execute = upload_test.execute();
+        ResourceView body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void resourceCreateDefaultResourceViews() throws IOException {
+        UUID resourceId = UUID.fromString("d6ec1145-5b93-4a37-aaeb-51d7c4198527");
+        Resource resource = packageService().resourceShow(resourceId, false).execute().body();
+
+        Call<List<ResourceView>> upload_test = createService().resourceCreateDefaultResourceViews(
+                ResourceCreateDefaultResourceViewsCreate.of(
+                        resource,
+                        false
+                )
+        );
+
+        Response<List<ResourceView>> execute = upload_test.execute();
+        List<ResourceView> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void packageCreateDefaultResourceViews() throws IOException {
+        Package package_ = packageService().packageShow("mine-k-asdqwe1q2w3ez", false).execute().body();
+
+        Call<List<ResourceView>> upload_test = createService().packageCreateDefaultResourceViews(
+                PackageCreateDefaultResourceViewsCreate.of(
+                        package_,
+                        false
+                )
+        );
+
+        Response<List<ResourceView>> execute = upload_test.execute();
+        List<ResourceView> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void ratingCreate() throws IOException {
+        Call<Rating> upload_test = createService().ratingCreate(
+                RatingCreate.of("mine-k-asdqwe1q2w3ez", 5)
+        );
+        Response<Rating> execute = upload_test.execute();
+        Rating body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void followGroup() throws IOException {
+        Call<Follower> upload_test = createService().followGroup(
+                FollowGroup.of("asdasdasdasda")
+        );
+        Response<Follower> execute = upload_test.execute();
+        Follower body = execute.body();
         System.out.println();
     }
 

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
+import minek.ckan.v3.PackageRelationship;
 import minek.ckan.v3.enums.State;
 
 import java.util.ArrayList;
@@ -38,9 +39,9 @@ public class PackageCreate {
     private List<TagCreate> tags;
     private List<Extra> extras;
     @JsonProperty("relationships_as_object")
-    private List<PackageRelationshipCreate> relationshipsAsObject;
+    private List<PackageRelationship> relationshipsAsObject;
     @JsonProperty("relationships_as_subject")
-    private List<PackageRelationshipCreate> relationshipsAsSubject;
+    private List<PackageRelationship> relationshipsAsSubject;
     private List<Group> groups;
     @JsonProperty("owner_org")
     private UUID ownerOrg;
