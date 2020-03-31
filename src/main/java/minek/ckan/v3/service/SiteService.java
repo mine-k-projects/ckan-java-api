@@ -45,7 +45,11 @@ public interface SiteService {
     Call<List<TermTranslation>> termTranslationShow(@NonNull @Query("terms") List<String> terms,
                                                     @Query("lang_codes") List<String> langCodes);
 
-    // TODO. config_option_show.
+    // https://github.com/ckan/ckan/blob/8f271bfe3eccaa83a419ee55e3e35042d1196c5a/ckan/tests/controllers/test_admin.py#L297
+    // https://github.com/ckan/ckan/blob/8f271bfe3eccaa83a419ee55e3e35042d1196c5a/ckan/lib/app_globals.py#L29
+    // FIXME : API 문서에는 리턴이 string 이라고만 나와 있는데, 구조체 옵션 key 로 확인을 해야 한다.
+    @GET("api/3/action/config_option_show")
+    Call<String> configOptionShow(@NonNull @Query("key") String key);
 
     @GET("api/3/action/config_option_list")
     Call<Map<String, Object>> configOptionList();
