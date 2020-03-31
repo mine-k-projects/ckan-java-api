@@ -52,6 +52,10 @@ public class BaseTest {
         return retrofit.create(CreateService.class);
     }
 
+    public DeleteService deleteService() {
+        return retrofit.create(DeleteService.class);
+    }
+
     private Retrofit retrofit;
 
     public BaseTest() {
