@@ -2,6 +2,7 @@ package minek.ckan.v3.service;
 
 import lombok.NonNull;
 import minek.ckan.v3.*;
+import minek.ckan.v3.enums.GlobalConfigOption;
 import minek.ckan.v3.enums.GroupType;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -50,6 +51,10 @@ public interface SiteService {
     // FIXME : API 문서에는 리턴이 string 이라고만 나와 있는데, 구조체 옵션 key 로 확인을 해야 한다.
     @GET("api/3/action/config_option_show")
     Call<String> configOptionShow(@NonNull @Query("key") String key);
+
+    default Call<String> configOptionShow(@NonNull GlobalConfigOption key) {
+        return configOptionShow(key.getCode());
+    }
 
     @GET("api/3/action/config_option_list")
     Call<Map<String, Object>> configOptionList();
