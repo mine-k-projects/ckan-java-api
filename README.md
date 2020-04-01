@@ -2,7 +2,7 @@
 
 ckan-java-api
 =============
-A Java client for the Ckan Action API
+A Java client for the Ckan Action API v3
 
 ## Gradle
 Step 1. Add the JitPack repository to your build file
