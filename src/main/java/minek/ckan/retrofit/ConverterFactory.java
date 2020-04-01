@@ -1,7 +1,7 @@
 package minek.ckan.retrofit;
 
-import minek.ckan.v3.criteria.ResourceSearchCriteria;
-import minek.ckan.v3.sort.Sort;
+import minek.ckan.v3.service.command.criteria.ResourceSearchCriteria;
+import minek.ckan.v3.service.command.criteria.sort.Sort;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;

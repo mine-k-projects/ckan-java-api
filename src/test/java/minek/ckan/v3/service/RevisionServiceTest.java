@@ -1,10 +1,10 @@
 package minek.ckan.v3.service;
 
 import minek.ckan.v3.BaseTest;
-import minek.ckan.v3.Revision;
-import minek.ckan.v3.enums.RevisionListSortField;
-import minek.ckan.v3.sort.Sort;
-import minek.ckan.v3.sort.UnderscoreSort;
+import minek.ckan.v3.model.Revision;
+import minek.ckan.v3.service.command.criteria.RevisionListSortField;
+import minek.ckan.v3.service.command.criteria.sort.Sort;
+import minek.ckan.v3.service.command.criteria.sort.UnderscoreSort;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;

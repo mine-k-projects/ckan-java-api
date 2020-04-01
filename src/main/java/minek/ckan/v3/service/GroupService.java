@@ -1,15 +1,18 @@
 package minek.ckan.v3.service;
 
 import lombok.NonNull;
-import minek.ckan.v3.Group;
-import minek.ckan.v3.Package;
-import minek.ckan.v3.User;
-import minek.ckan.v3.enums.GroupListSortField;
-import minek.ckan.v3.enums.Role;
-import minek.ckan.v3.sort.BlankSpaceSort;
+import minek.ckan.v3.model.Follower;
+import minek.ckan.v3.model.Group;
+import minek.ckan.v3.model.Package;
+import minek.ckan.v3.model.User;
+import minek.ckan.v3.model.enums.Role;
+import minek.ckan.v3.service.command.create.FollowGroup;
+import minek.ckan.v3.service.command.create.GroupCreate;
+import minek.ckan.v3.service.command.create.UserInvite;
+import minek.ckan.v3.service.command.criteria.GroupListSortField;
+import minek.ckan.v3.service.command.criteria.sort.BlankSpaceSort;
 import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import java.util.List;
 
@@ -108,4 +111,44 @@ public interface GroupService {
 
     @GET("api/3/action/organization_follower_list")
     Call<List<User>> organizationFollowerList(@NonNull @Query("id") String idOrName);
+
+    @POST("api/3/action/group_create")
+    Call<Group> groupCreate(@Body GroupCreate groupCreate);
+
+    @POST("api/3/action/organization_create")
+    Call<Group> organizationCreate(@Body GroupCreate groupCreate);
+
+    @POST("api/3/action/user_invite")
+    Call<User> userInvite(@Body UserInvite userInvite);
+
+    @POST("api/3/action/follow_group")
+    Call<Follower> followGroup(@Body FollowGroup followGroup);
+
+    @FormUrlEncoded
+    @POST("api/3/action/group_patch")
+    Call<Void> groupPatch(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/organization_patch")
+    Call<Void> organizationPatch(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/group_delete")
+    Call<Void> groupDelete(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/organization_delete")
+    Call<Void> organizationDelete(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/group_purge")
+    Call<Void> groupPurge(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/organization_purge")
+    Call<Void> organizationPurge(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/unfollow_group")
+    Call<Void> unfollowGroup(@Field("id") String idOrName);
 }

@@ -9,7 +9,7 @@ public class DeleteServiceTest extends BaseTest {
 
     @Test
     public void unfollow_group() throws IOException {
-        Void body = deleteService().unfollowGroup("mine-k").execute().body();
+        Void body = groupService().unfollowGroup("mine-k").execute().body();
         System.out.println();
     }
 }

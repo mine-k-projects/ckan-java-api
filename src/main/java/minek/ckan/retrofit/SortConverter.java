@@ -1,6 +1,6 @@
 package minek.ckan.retrofit;
 
-import minek.ckan.v3.sort.Sort;
+import minek.ckan.v3.service.command.criteria.sort.Sort;
 import retrofit2.Converter;
 
 import java.io.IOException;

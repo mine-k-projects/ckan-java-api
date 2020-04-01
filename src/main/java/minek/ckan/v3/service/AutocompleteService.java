@@ -1,9 +1,9 @@
 package minek.ckan.v3.service;
 
 import lombok.NonNull;
-import minek.ckan.v3.GroupAutocomplete;
-import minek.ckan.v3.PackageAutocomplete;
-import minek.ckan.v3.UserAutocomplete;
+import minek.ckan.v3.model.GroupAutocomplete;
+import minek.ckan.v3.model.PackageAutocomplete;
+import minek.ckan.v3.model.UserAutocomplete;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

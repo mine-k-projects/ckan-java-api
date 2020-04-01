@@ -1,9 +1,9 @@
 package minek.ckan.v3.service;
 
 import lombok.NonNull;
-import minek.ckan.v3.Revision;
-import minek.ckan.v3.enums.RevisionListSortField;
-import minek.ckan.v3.sort.UnderscoreSort;
+import minek.ckan.v3.model.Revision;
+import minek.ckan.v3.service.command.criteria.RevisionListSortField;
+import minek.ckan.v3.service.command.criteria.sort.UnderscoreSort;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

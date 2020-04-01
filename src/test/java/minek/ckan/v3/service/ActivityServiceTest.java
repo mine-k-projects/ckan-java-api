@@ -1,7 +1,7 @@
 package minek.ckan.v3.service;
 
-import minek.ckan.v3.Activity;
-import minek.ckan.v3.ActivityDetail;
+import minek.ckan.v3.model.Activity;
+import minek.ckan.v3.model.ActivityDetail;
 import minek.ckan.v3.BaseTest;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;

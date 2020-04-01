@@ -1,15 +1,16 @@
 package minek.ckan.v3.service;
 
 import lombok.NonNull;
-import minek.ckan.v3.*;
-import minek.ckan.v3.enums.GlobalConfigOption;
-import minek.ckan.v3.enums.GroupType;
+import minek.ckan.v3.model.*;
+import minek.ckan.v3.model.enums.GlobalConfigOption;
+import minek.ckan.v3.model.enums.GroupType;
+import minek.ckan.v3.service.command.delete.JobClear;
 import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public interface SiteService {
 
@@ -64,5 +65,16 @@ public interface SiteService {
 
     @GET("api/3/action/job_show")
     Call<Job> jobShow(@NonNull @Query("id") String id);
+
+    @FormUrlEncoded
+    @POST("api/3/action/task_status_delete")
+    Call<Void> taskStatusDelete(@Field("id") UUID id);
+
+    @POST("api/3/action/job_clear")
+    Call<List<String>> jobClear(@Body JobClear jobClear);
+
+    @FormUrlEncoded
+    @POST("api/3/action/job_cancel")
+    Call<Void> jobCancel(@Field("id") UUID id);
 
 }

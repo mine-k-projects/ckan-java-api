@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import minek.ckan.v3.enums.ObjectType;
+import minek.ckan.v3.model.enums.ObjectType;
 
 import java.io.IOException;
 

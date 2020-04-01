@@ -1,8 +1,8 @@
 package minek.ckan.v3.service;
 
 import minek.ckan.v3.BaseTest;
-import minek.ckan.v3.Tag;
-import minek.ckan.v3.TagSearch;
+import minek.ckan.v3.model.Tag;
+import minek.ckan.v3.model.TagSearch;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;

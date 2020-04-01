@@ -1,8 +1,8 @@
 package minek.ckan.v3.service;
 
-import minek.ckan.v3.Package;
-import minek.ckan.v3.*;
-import minek.ckan.v3.update.*;
+import minek.ckan.v3.model.Package;
+import minek.ckan.v3.model.*;
+import minek.ckan.v3.service.command.update.*;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;

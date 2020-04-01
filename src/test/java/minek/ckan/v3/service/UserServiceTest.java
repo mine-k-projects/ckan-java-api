@@ -1,5 +1,9 @@
 package minek.ckan.v3.service;
 
+import minek.ckan.v3.model.Followee;
+import minek.ckan.v3.model.Group;
+import minek.ckan.v3.model.Member;
+import minek.ckan.v3.model.User;
 import minek.ckan.v3.*;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
@@ -12,7 +16,7 @@ public class UserServiceTest extends BaseTest {
 
     @Test
     void memberList() throws IOException {
-        Call<List<Member>> b = userService().memberList("e5a22d53-3330-4b7c-9b41-dfd5500fc23a");
+        Call<List<Member>> b = memberService().memberList("e5a22d53-3330-4b7c-9b41-dfd5500fc23a");
         Response<List<Member>> execute = b.execute();
         List<Member> body = execute.body();
         System.out.println();
@@ -39,7 +43,7 @@ public class UserServiceTest extends BaseTest {
         final User user = userService().userShow("allbegray", true, true, true).execute().body();
         assert user != null;
 
-        final List<Followee> followeeList = userService().followeeList(user.getId()).execute().body();
+        final List<Followee<?>> followeeList = userService().followeeList(user.getId()).execute().body();
         assert followeeList != null;
 
         System.out.println();

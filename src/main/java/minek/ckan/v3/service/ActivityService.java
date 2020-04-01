@@ -1,10 +1,13 @@
 package minek.ckan.v3.service;
 
 import lombok.NonNull;
-import minek.ckan.v3.Activity;
-import minek.ckan.v3.ActivityDetail;
+import minek.ckan.v3.model.Activity;
+import minek.ckan.v3.model.ActivityDetail;
+import minek.ckan.v3.service.command.create.ActivityCreate;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 import java.util.List;
@@ -105,5 +108,8 @@ public interface ActivityService {
 
     @GET("api/3/action/dashboard_new_activities_count")
     Call<Integer> dashboardNewActivitiesCount(@NonNull @Query("id") String idOrName);
+
+    @POST("api/3/action/activity_create")
+    Call<Activity> activityCreate(@Body ActivityCreate activityCreate);
 
 }

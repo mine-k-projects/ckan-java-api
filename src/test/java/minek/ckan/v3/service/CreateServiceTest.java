@@ -1,10 +1,11 @@
 package minek.ckan.v3.service;
 
-import minek.ckan.v3.Package;
+import minek.ckan.v3.model.*;
+import minek.ckan.v3.model.Package;
 import minek.ckan.v3.*;
-import minek.ckan.v3.create.*;
-import minek.ckan.v3.enums.ResourceViewType;
-import minek.ckan.v3.enums.State;
+import minek.ckan.v3.service.command.create.*;
+import minek.ckan.v3.model.enums.ResourceViewType;
+import minek.ckan.v3.model.enums.State;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -20,7 +21,7 @@ public class CreateServiceTest extends BaseTest {
     @Test
     void packageCreate() throws IOException {
         //noinspection ArraysAsListWithZeroOrOneArgument
-        Call<Package> b = createService().packageCreate(
+        Call<Package> b = datasetService().packageCreate(
                 PackageCreate.builder("mine-k-asdqwe1q2w3ez", "mine-k-asdqwe1q2w3e", false)
                         .author("test-author")
                         .authorEmail("test-author@test.com")
@@ -56,7 +57,7 @@ public class CreateServiceTest extends BaseTest {
 
         UUID id = UUID.fromString("758244c9-b948-4658-9424-0f7e1304ea36");
 
-        Call<Resource> upload_test = createService().resourceCreate(
+        Call<Resource> upload_test = datasetService().resourceCreate(
                 ResourceCreate.builder()
                         .packageId(id)
                         .name("upload-test")
@@ -73,7 +74,7 @@ public class CreateServiceTest extends BaseTest {
 
         UUID id = UUID.fromString("758244c9-b948-4658-9424-0f7e1304ea36");
 
-        Call<Resource> upload_test = createService().resourceCreate(
+        Call<Resource> upload_test = datasetService().resourceCreate(
                 ResourceCreate.builder()
                         .packageId(id)
                         .name("123.txt")
@@ -87,7 +88,7 @@ public class CreateServiceTest extends BaseTest {
 
     @Test
     void resourceViewCreate() throws IOException {
-        Call<ResourceView> upload_test = createService().resourceViewCreate(
+        Call<ResourceView> upload_test = datasetService().resourceViewCreate(
                 ResourceViewCreate.builder()
                         .resourceId(UUID.fromString("d6ec1145-5b93-4a37-aaeb-51d7c4198527"))
                         .title("test-resource-view-title")
@@ -103,9 +104,9 @@ public class CreateServiceTest extends BaseTest {
     @Test
     void resourceCreateDefaultResourceViews() throws IOException {
         UUID resourceId = UUID.fromString("d6ec1145-5b93-4a37-aaeb-51d7c4198527");
-        Resource resource = packageService().resourceShow(resourceId, false).execute().body();
+        Resource resource = datasetService().resourceShow(resourceId, false).execute().body();
 
-        Call<List<ResourceView>> upload_test = createService().resourceCreateDefaultResourceViews(
+        Call<List<ResourceView>> upload_test = datasetService().resourceCreateDefaultResourceViews(
                 ResourceCreateDefaultResourceViewsCreate.of(
                         resource,
                         false
@@ -119,9 +120,9 @@ public class CreateServiceTest extends BaseTest {
 
     @Test
     void packageCreateDefaultResourceViews() throws IOException {
-        Package package_ = packageService().packageShow("mine-k-asdqwe1q2w3ez", false).execute().body();
+        Package package_ = datasetService().packageShow("mine-k-asdqwe1q2w3ez", false).execute().body();
 
-        Call<List<ResourceView>> upload_test = createService().packageCreateDefaultResourceViews(
+        Call<List<ResourceView>> upload_test = datasetService().packageCreateDefaultResourceViews(
                 PackageCreateDefaultResourceViewsCreate.of(
                         package_,
                         false
@@ -135,7 +136,7 @@ public class CreateServiceTest extends BaseTest {
 
     @Test
     void ratingCreate() throws IOException {
-        Call<Rating> upload_test = createService().ratingCreate(
+        Call<Rating> upload_test = datasetService().ratingCreate(
                 RatingCreate.of("mine-k-asdqwe1q2w3ez", 5)
         );
         Response<Rating> execute = upload_test.execute();
@@ -145,7 +146,7 @@ public class CreateServiceTest extends BaseTest {
 
     @Test
     void followGroup() throws IOException {
-        Call<Follower> upload_test = createService().followGroup(
+        Call<Follower> upload_test = groupService().followGroup(
                 FollowGroup.of("asdasdasdasda")
         );
         Response<Follower> execute = upload_test.execute();

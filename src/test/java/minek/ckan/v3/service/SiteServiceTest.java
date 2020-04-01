@@ -1,8 +1,8 @@
 package minek.ckan.v3.service;
 
 import minek.ckan.v3.BaseTest;
-import minek.ckan.v3.License;
-import minek.ckan.v3.SiteStatus;
+import minek.ckan.v3.model.License;
+import minek.ckan.v3.model.SiteStatus;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;

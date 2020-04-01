@@ -1,14 +1,17 @@
 package minek.ckan.v3.service;
 
 import lombok.NonNull;
-import minek.ckan.v3.Tag;
-import minek.ckan.v3.TagSearch;
-import minek.ckan.v3.Vocabulary;
+import minek.ckan.v3.model.Tag;
+import minek.ckan.v3.model.TagSearch;
+import minek.ckan.v3.model.Vocabulary;
+import minek.ckan.v3.service.command.create.TagCreate;
+import minek.ckan.v3.service.command.create.VocabularyCreate;
+import minek.ckan.v3.service.command.delete.TagDelete;
 import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface TagService {
 
@@ -35,4 +38,17 @@ public interface TagService {
 
     @GET("api/3/action/vocabulary_show")
     Call<Vocabulary> vocabularyShow(@NonNull @Query("id") String idOrName);
+
+    @POST("api/3/action/vocabulary_create")
+    Call<Vocabulary> vocabularyCreate(@Body VocabularyCreate vocabularyCreate);
+
+    @POST("api/3/action/tag_create")
+    Call<Tag> tagCreate(@Body TagCreate tagCreate);
+
+    @FormUrlEncoded
+    @POST("api/3/action/vocabulary_delete")
+    Call<Void> vocabularyDelete(@Field("id") UUID id);
+
+    @POST("api/3/action/tag_delete")
+    Call<Void> tagDelete(@Body TagDelete tagDelete);
 }

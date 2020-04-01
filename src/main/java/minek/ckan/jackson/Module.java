@@ -3,11 +3,11 @@ package minek.ckan.jackson;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import minek.ckan.v3.Followee;
-import minek.ckan.v3.Member;
-import minek.ckan.v3.enums.ActivityType;
-import minek.ckan.v3.enums.Capacity;
-import minek.ckan.v3.enums.ObjectType;
+import minek.ckan.v3.model.Followee;
+import minek.ckan.v3.model.Member;
+import minek.ckan.v3.model.enums.ActivityType;
+import minek.ckan.v3.model.enums.Capacity;
+import minek.ckan.v3.model.enums.ObjectType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,6 +1,6 @@
 package minek.ckan.retrofit;
 
-import minek.ckan.v3.criteria.ResourceSearchCriteria;
+import minek.ckan.v3.service.command.criteria.ResourceSearchCriteria;
 import retrofit2.Converter;
 
 import java.io.IOException;

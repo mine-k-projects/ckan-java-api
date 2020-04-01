@@ -3,7 +3,6 @@ package minek.ckan.v3;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import minek.ckan.jackson.Module;
 import minek.ckan.retrofit.AuthorizationInterceptor;
 import minek.ckan.retrofit.ConverterFactory;
@@ -28,8 +27,8 @@ public class BaseTest {
         return retrofit.create(GroupService.class);
     }
 
-    public PackageService packageService() {
-        return retrofit.create(PackageService.class);
+    public DatasetService datasetService() {
+        return retrofit.create(DatasetService.class);
     }
 
     public RevisionService revisionService() {
@@ -48,12 +47,8 @@ public class BaseTest {
         return retrofit.create(UserService.class);
     }
 
-    public CreateService createService() {
-        return retrofit.create(CreateService.class);
-    }
-
-    public DeleteService deleteService() {
-        return retrofit.create(DeleteService.class);
+    public MemberService memberService() {
+        return retrofit.create(MemberService.class);
     }
 
     private Retrofit retrofit;

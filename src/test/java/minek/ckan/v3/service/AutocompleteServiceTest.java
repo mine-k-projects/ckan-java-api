@@ -1,9 +1,9 @@
 package minek.ckan.v3.service;
 
 import minek.ckan.v3.BaseTest;
-import minek.ckan.v3.GroupAutocomplete;
-import minek.ckan.v3.PackageAutocomplete;
-import minek.ckan.v3.UserAutocomplete;
+import minek.ckan.v3.model.GroupAutocomplete;
+import minek.ckan.v3.model.PackageAutocomplete;
+import minek.ckan.v3.model.UserAutocomplete;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;

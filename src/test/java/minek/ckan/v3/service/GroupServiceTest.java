@@ -1,12 +1,12 @@
 package minek.ckan.v3.service;
 
 import minek.ckan.v3.BaseTest;
-import minek.ckan.v3.Group;
-import minek.ckan.v3.Package;
-import minek.ckan.v3.enums.GroupListSortField;
-import minek.ckan.v3.enums.Role;
-import minek.ckan.v3.sort.BlankSpaceSort;
-import minek.ckan.v3.sort.Sort;
+import minek.ckan.v3.model.Group;
+import minek.ckan.v3.model.Package;
+import minek.ckan.v3.service.command.criteria.GroupListSortField;
+import minek.ckan.v3.model.enums.Role;
+import minek.ckan.v3.service.command.criteria.sort.BlankSpaceSort;
+import minek.ckan.v3.service.command.criteria.sort.Sort;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
