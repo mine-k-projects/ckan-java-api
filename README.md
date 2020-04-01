@@ -13,7 +13,7 @@ repositories {
 ```
 Step 2. Add the dependency
 ```groovy
-implementation("com.github.mine-k-projects:ckan-java-api:{version}")
+implementation 'com.github.mine-k-projects:ckan-java-api:{version}'
 ```
 
 ## Maven
