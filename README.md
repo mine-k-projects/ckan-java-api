@@ -4,7 +4,6 @@ CKAN java client
 # todo
 1. 프로젝트명 그럴싸하게...
 2. README.md 파일 멋지게...
-3. client factory 만들기
 
 # ckan python api
 https://docs.ckan.org/en/2.8/api/index.html
