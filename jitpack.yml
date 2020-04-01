@@ -1,4 +1,0 @@
-jdk:
-  - oraclejdk8
-install:
-  - ./gradlew build -x test
