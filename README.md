@@ -11,7 +11,7 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 ```
-Step 2. Add the dependency in the form
+Step 2. Add the dependency
 ```groovy
 implementation("com.github.mine-k-projects:ckan-java-api:{version}")
 ```
