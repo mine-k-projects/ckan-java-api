@@ -90,4 +90,12 @@ public interface UserService {
     @POST("api/3/action/unfollow_user")
     Call<Void> unfollowUser(@Field("id") String idOrName);
 
+    @FormUrlEncoded
+    @POST("api/3/action/user_update")
+    Call<User> userUpdate(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/user_generate_apikey")
+    Call<User> userGenerateApikey(@Field("id") String idOrName);
+
 }

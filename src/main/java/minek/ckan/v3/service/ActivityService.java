@@ -112,4 +112,10 @@ public interface ActivityService {
     @POST("api/3/action/activity_create")
     Call<Activity> activityCreate(@Body ActivityCreate activityCreate);
 
+    @POST("api/3/action/dashboard_mark_activities_old")
+    Call<Void> dashboardMarkActivitiesOld();
+
+    @POST("api/3/action/send_email_notifications")
+    Call<Void> sendEmailNotifications();
+
 }

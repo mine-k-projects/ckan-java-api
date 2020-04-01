@@ -151,4 +151,12 @@ public interface GroupService {
     @FormUrlEncoded
     @POST("api/3/action/unfollow_group")
     Call<Void> unfollowGroup(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/group_update")
+    Call<Group> groupUpdate(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/organization_update")
+    Call<Group> organizationUpdate(@Field("id") String idOrName);
 }

@@ -8,6 +8,10 @@ import minek.ckan.v3.service.command.create.*;
 import minek.ckan.v3.service.command.delete.PackageRelationshipDelete;
 import minek.ckan.v3.service.command.delete.ResourceViewClear;
 import minek.ckan.v3.service.command.criteria.ResourceSearchCriteria;
+import minek.ckan.v3.service.command.update.BulkUpdate;
+import minek.ckan.v3.service.command.update.PackageOwnerOrgUpdate;
+import minek.ckan.v3.service.command.update.PackageResourceReorder;
+import minek.ckan.v3.service.command.update.ResourceViewReorder;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -211,5 +215,38 @@ public interface DatasetService {
     @FormUrlEncoded
     @POST("api/3/action/unfollow_dataset")
     Call<Void> unfollowDataset(@Field("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/resource_update")
+    Call<Resource> resourceUpdate(@Field("id") UUID id);
+
+    @FormUrlEncoded
+    @POST("api/3/action/resource_view_update")
+    Call<ResourceView> resourceviewupdate(@Field("id") UUID id);
+
+    @POST("api/3/action/resource_view_reorder")
+    Call<ResourceViewReorder> resourceViewReorder(@Body ResourceViewReorder resourceViewReorder);
+
+    @FormUrlEncoded
+    @POST("api/3/action/package_update")
+    Call<Package> packageUpdate(@Field("id") String idOrName);
+
+    @POST("api/3/action/package_resource_reorder")
+    Call<PackageResourceReorder> packageResourceReorder(@Body PackageResourceReorder packageResourceReorder);
+
+    @POST("api/3/action/package_relationship_update")
+    Call<PackageRelationship> packageRelationshipUpdate(@Body PackageRelationship packageRelationship);
+
+    @POST("api/3/action/bulk_update_private")
+    Call<Void> bulkUpdatePrivate(@Body BulkUpdate bulkUpdate);
+
+    @POST("api/3/action/bulk_update_public")
+    Call<Void> bulkUpdatePublic(@Body BulkUpdate bulkUpdate);
+
+    @POST("api/3/action/bulk_update_delete")
+    Call<Void> bulkUpdateDelete(@Body BulkUpdate bulkUpdate);
+
+    @POST("api/3/action/package_owner_org_update")
+    Call<Void> packageOwnerOrgUpdate(@Body PackageOwnerOrgUpdate packageOwnerOrgUpdate);
 
 }

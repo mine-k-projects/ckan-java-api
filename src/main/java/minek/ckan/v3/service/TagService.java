@@ -51,4 +51,8 @@ public interface TagService {
 
     @POST("api/3/action/tag_delete")
     Call<Void> tagDelete(@Body TagDelete tagDelete);
+
+    @FormUrlEncoded
+    @POST("api/3/action/vocabulary_update")
+    Call<Vocabulary> vocabularyUpdate(@Field("id") UUID id);
 }

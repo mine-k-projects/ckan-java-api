@@ -5,6 +5,10 @@ import minek.ckan.v3.model.*;
 import minek.ckan.v3.model.enums.GlobalConfigOption;
 import minek.ckan.v3.model.enums.GroupType;
 import minek.ckan.v3.service.command.delete.JobClear;
+import minek.ckan.v3.service.command.update.TaskStatusUpdateMany;
+import minek.ckan.v3.service.command.update.TaskStatusUpdateManyResult;
+import minek.ckan.v3.service.command.update.TermTranslationUpdateMany;
+import minek.ckan.v3.service.command.update.TermTranslationUpdateManyResult;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -76,5 +80,20 @@ public interface SiteService {
     @FormUrlEncoded
     @POST("api/3/action/job_cancel")
     Call<Void> jobCancel(@Field("id") UUID id);
+
+    @POST("api/3/action/task_status_update")
+    Call<TaskStatus> taskStatusUpdate(@Body TaskStatus taskStatus);
+
+    @POST("api/3/action/task_status_update_many")
+    Call<TaskStatusUpdateManyResult> taskStatusUpdateMany(@Body TaskStatusUpdateMany taskStatusUpdateMany);
+
+    @POST("api/3/action/task_status_update")
+    Call<TermTranslation> taskStatusUpdate(@Body TermTranslation termTranslationUpdate);
+
+    @POST("api/3/action/term_translation_update_many")
+    Call<TermTranslationUpdateManyResult> termTranslationUpdateMany(@Body TermTranslationUpdateMany termTranslationUpdateMany);
+
+    @POST("api/3/action/config_option_update")
+    Call<Map<String, Object>> configOptionUpdate(@Body Map<String, Object> configOptions);
 
 }
