@@ -81,24 +81,32 @@ public interface CreateService {
     @POST("api/3/action/package_relationship_create")
     Call<PackageRelationship> packageRelationshipCreate(@Body PackageRelationship packageRelationship);
 
-    // TODO. ckan.logic.action.create.member_create
+    @POST("api/3/action/member_create")
+    Call<Member> memberCreate(@Body MemberCreate memberCreate);
 
-    // TODO. ckan.logic.action.create.group_create
+    @POST("api/3/action/group_create")
+    Call<Group> groupCreate(@Body GroupCreate groupCreate);
 
-    // TODO. ckan.logic.action.create.organization_create
+    @POST("api/3/action/organization_create")
+    Call<Group> organizationCreate(@Body GroupCreate groupCreate);
 
     @POST("api/3/action/rating_create")
     Call<Rating> ratingCreate(@Body RatingCreate ratingCreate);
 
-    // TODO. ckan.logic.action.create.user_create
+    @POST("api/3/action/user_create")
+    Call<User> userCreate(@Body UserCreate userCreate);
 
-    // TODO. ckan.logic.action.create.user_invite
+    @POST("api/3/action/user_invite")
+    Call<User> userInvite(@Body UserInvite userInvite);
 
-    // TODO. ckan.logic.action.create.vocabulary_create
+    @POST("api/3/action/vocabulary_create")
+    Call<Vocabulary> vocabularyCreate(@Body VocabularyCreate vocabularyCreate);
 
-    // TODO. ckan.logic.action.create.activity_create
+    @POST("api/3/action/activity_create")
+    Call<Activity> activityCreate(@Body ActivityCreate activityCreate);
 
-    // TODO. ckan.logic.action.create.tag_create
+    @POST("api/3/action/tag_create")
+    Call<Tag> tagCreate(@Body TagCreate tagCreate);
 
     @POST("api/3/action/follow_user")
     Call<Follower> followUser(@Body FollowUser followUser);
@@ -106,9 +114,11 @@ public interface CreateService {
     @POST("api/3/action/follow_dataset")
     Call<Follower> followDataset(@Body FollowDataset followDataset);
 
-    // TODO. ckan.logic.action.create.group_member_create
+    @POST("api/3/action/group_member_create")
+    Call<Member> groupMemberCreate(@Body GroupMemberCreate groupMemberCreate);
 
-    // TODO. ckan.logic.action.create.organization_member_create
+    @POST("api/3/action/organization_member_create")
+    Call<Member> organizationMemberCreate(@Body GroupMemberCreate groupMemberCreate);
 
     @POST("api/3/action/follow_group")
     Call<Follower> followGroup(@Body FollowGroup followGroup);

@@ -1,6 +1,7 @@
 package minek.ckan.v3.service;
 
 import minek.ckan.v3.Activity;
+import minek.ckan.v3.ActivityDetail;
 import minek.ckan.v3.BaseTest;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
@@ -54,17 +55,17 @@ public class ActivityServiceTest extends BaseTest {
 
     @Test
     void activityDetailList_package() throws IOException {
-        Call<List<Activity>> b = activityService().activityDetailList(UUID.fromString("4d094867-5311-4b9c-b1ce-9c5d94a26af0"));
-        Response<List<Activity>> execute = b.execute();
-        List<Activity> body = execute.body();
+        Call<List<ActivityDetail>> b = activityService().activityDetailList(UUID.fromString("4d094867-5311-4b9c-b1ce-9c5d94a26af0"));
+        Response<List<ActivityDetail>> execute = b.execute();
+        List<ActivityDetail> body = execute.body();
         System.out.println();
     }
 
     @Test
     void activityDetailList_resources() throws IOException {
-        Call<List<Activity>> b = activityService().activityDetailList(UUID.fromString("cac31002-ca56-4a7f-96cb-ffe8ce2e1263"));
-        Response<List<Activity>> execute = b.execute();
-        List<Activity> body = execute.body();
+        Call<List<ActivityDetail>> b = activityService().activityDetailList(UUID.fromString("cac31002-ca56-4a7f-96cb-ffe8ce2e1263"));
+        Response<List<ActivityDetail>> execute = b.execute();
+        List<ActivityDetail> body = execute.body();
         System.out.println();
     }
 

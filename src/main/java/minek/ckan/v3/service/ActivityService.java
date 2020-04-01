@@ -2,6 +2,7 @@ package minek.ckan.v3.service;
 
 import lombok.NonNull;
 import minek.ckan.v3.Activity;
+import minek.ckan.v3.ActivityDetail;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -52,7 +53,7 @@ public interface ActivityService {
                                                              @Query("limit") Integer limit);
 
     @GET("api/3/action/activity_detail_list")
-    Call<List<Activity>> activityDetailList(@NonNull @Query("id") UUID id);
+    Call<List<ActivityDetail>> activityDetailList(@NonNull @Query("id") UUID id);
 
     @GET("api/3/action/user_activity_list_html")
     Call<String> userActivityListHtml(@NonNull @Query("id") String idOrName,
