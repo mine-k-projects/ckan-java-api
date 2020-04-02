@@ -88,7 +88,7 @@ public class CkanClientFactory {
         httpClient.addInterceptor(new ResponseBodyInterceptor(objectMapper));
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(baseUrl.endsWith("/") ? baseUrl : baseUrl + "/")
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .addConverterFactory(new ConverterFactory())
                 .client(httpClient.build())
