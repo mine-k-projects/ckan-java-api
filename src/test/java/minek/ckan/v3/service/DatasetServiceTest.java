@@ -1,8 +1,8 @@
 package minek.ckan.v3.service;
 
-import minek.ckan.v3.model.*;
+import minek.ckan.v3.BaseTest;
 import minek.ckan.v3.model.Package;
-import minek.ckan.v3.*;
+import minek.ckan.v3.model.*;
 import minek.ckan.v3.service.command.get.PackageSearchQuery;
 import minek.ckan.v3.service.command.get.ResourceSearchQuery;
 import org.junit.jupiter.api.Test;
@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,11 +86,11 @@ public class DatasetServiceTest extends BaseTest {
     @Test
     void packageSearch() throws IOException {
         PackageSearchQuery query = new PackageSearchQuery();
-        query.setQ("test");
-        query.setFq("tags:test");
+        query.setSolrQuery("test");
+        query.setFilterQuery("tags", "test");
         query.setRows(100);
         query.setStart(0);
-        query.setFacetField("tags");
+        query.setFacetField(Arrays.asList("tags", "type"));
 
         Call<PackageSearch> b = datasetService().packageSearch(query);
         Response<PackageSearch> execute = b.execute();

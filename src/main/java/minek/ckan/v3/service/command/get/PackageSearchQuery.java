@@ -5,15 +5,18 @@ import lombok.Data;
 import minek.ckan.v3.service.command.get.sort.Sort;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
+// https://lucene.apache.org/solr/guide/6_6/common-query-parameters.html
+// https://github.com/ckan/ckan/blob/64774670b722ed1bd3808901137fa80753d3c772/ckan/lib/search/query.py#L293
 @Data
 public class PackageSearchQuery {
 
     @JsonProperty("q")
-    private String q;
+    private String solrQuery = "*:*";
     @JsonProperty("fq")
-    private String fq;
+    private String filterQuery;
     @JsonProperty("sort")
     private String sort;
     @JsonProperty("rows")
@@ -27,7 +30,7 @@ public class PackageSearchQuery {
     @JsonProperty("facet.limit")
     private Integer facetLimit;
     @JsonProperty("facet.field")
-    private String facetField;
+    private List<String> facetField;
     @JsonProperty("include_drafts")
     private Boolean includeDrafts;
     @JsonProperty("include_private")
@@ -35,16 +38,14 @@ public class PackageSearchQuery {
     @JsonProperty("use_default_schema")
     private Boolean useDefaultSchema;
 
+    public void setFilterQuery(String field, String expression) {
+        this.filterQuery = field + ":" + expression;
+    }
+
     public void setSort(Sort... sorts) {
         this.sort = Arrays.stream(sorts)
                 .map(s -> s.getField() + "_" + s.getDirection())
                 .collect(Collectors.joining(","));
-    }
-
-    public void setFacetField(String... facetFields) {
-        this.facetField = Arrays.stream(facetFields)
-                .map(s -> "\"" + s + "\"")
-                .collect(Collectors.joining(",", "[", "]"));
     }
 
 }
