@@ -1,11 +1,11 @@
 package minek.ckan.v3.service;
 
-import minek.ckan.v3.model.*;
+import minek.ckan.v3.BaseTest;
 import minek.ckan.v3.model.Package;
-import minek.ckan.v3.*;
-import minek.ckan.v3.service.command.create.*;
+import minek.ckan.v3.model.*;
 import minek.ckan.v3.model.enums.ResourceViewType;
 import minek.ckan.v3.model.enums.State;
+import minek.ckan.v3.service.command.create.*;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -153,12 +153,4 @@ public class CreateServiceTest extends BaseTest {
         Follower body = execute.body();
         System.out.println();
     }
-
-    @Test
-    void asdsad() {
-        CkanClient ckanClient = new CkanClient("https://demo.ckan.org", "ee761722-6d84-44b5-b304-d2c8b24e4ac4");
-        ckanClient.createResource("d:\\123.txt", "758244c9-b948-4658-9424-0f7e1304ea36");
-        System.out.println();
-    }
-
 }

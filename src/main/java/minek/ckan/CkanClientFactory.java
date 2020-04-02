@@ -8,6 +8,7 @@ import minek.ckan.retrofit.AuthorizationInterceptor;
 import minek.ckan.retrofit.ConverterFactory;
 import minek.ckan.retrofit.ResponseBodyInterceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -21,6 +22,8 @@ public class CkanClientFactory {
     private Duration connectTimeout;
     private Duration readTimeout;
     private Duration writeTimeout;
+
+    private HttpLoggingInterceptor.Level loggingLevel;
 
     public CkanClientFactory(String baseUrl, String apiKey) {
         this.baseUrl = baseUrl;
@@ -67,6 +70,14 @@ public class CkanClientFactory {
         this.writeTimeout = writeTimeout;
     }
 
+    public HttpLoggingInterceptor.Level getLoggingLevel() {
+        return loggingLevel;
+    }
+
+    public void setLoggingLevel(HttpLoggingInterceptor.Level loggingLevel) {
+        this.loggingLevel = loggingLevel;
+    }
+
     public CkanClient build() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new Module());
@@ -84,6 +95,13 @@ public class CkanClientFactory {
         if (writeTimeout != null) {
             httpClient.writeTimeout(writeTimeout);
         }
+
+        if (loggingLevel != null) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(loggingLevel);
+            httpClient.addInterceptor(logging);
+        }
+
         httpClient.addInterceptor(new AuthorizationInterceptor(apiKey));
         httpClient.addInterceptor(new ResponseBodyInterceptor(objectMapper));
 

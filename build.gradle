@@ -41,13 +41,10 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 
-    compile group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.7.2'
-    compile group: 'com.squareup.retrofit2', name: 'converter-jackson', version: '2.7.2'
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.10.1'
-    testCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
-    testCompile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.12'
-
-    testCompile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.14.7'
+    implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.14.7'
+    implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.7.2'
+    implementation group: 'com.squareup.retrofit2', name: 'converter-jackson', version: '2.7.2'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.10.1'
 
     testCompile "org.junit.jupiter:junit-jupiter:5.5.2"
 }
