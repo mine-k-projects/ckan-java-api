@@ -14,17 +14,17 @@ import java.util.UUID;
 
 public interface RevisionService {
 
-    @GET("api/3/action/revision_show")
-    Call<Revision> revisionShow(@NonNull @Query("id") UUID id);
-
-    @GET("api/3/action/package_revision_list")
-    Call<List<Revision>> packageRevisionList(@NonNull @Query("id") String idOrName);
-
     @GET("api/3/action/group_revision_list")
     Call<List<Revision>> groupRevisionList(@NonNull @Query("id") String idOrName);
 
     @GET("api/3/action/organization_revision_list")
     Call<List<Revision>> organizationRevisionList(@NonNull @Query("id") String idOrName);
+
+    @GET("api/3/action/package_revision_list")
+    Call<List<Revision>> packageRevisionList(@NonNull @Query("id") String idOrName);
+
+    @GET("api/3/action/revision_show")
+    Call<Revision> revisionShow(@NonNull @Query("id") UUID id);
 
     @GET("api/3/action/revision_list")
     Call<List<UUID>> siteRevisionList(@Query("since_id") UUID sinceId,

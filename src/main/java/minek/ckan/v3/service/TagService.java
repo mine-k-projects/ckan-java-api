@@ -15,16 +15,17 @@ import java.util.UUID;
 
 public interface TagService {
 
-    @GET("api/3/action/tag_list")
-    Call<List<String>> tagNameList(@Query("query") String query, @Query("vocabulary_id") String vocabularyIdOrName);
+    @POST("api/3/action/tag_create")
+    Call<Tag> tagCreate(@Body TagCreate tagCreate);
+
+    @POST("api/3/action/tag_delete")
+    Call<Void> tagDelete(@Body TagDelete tagDelete);
 
     @GET("api/3/action/tag_list?all_fields=true")
     Call<List<Tag>> tagList(@Query("query") String query, @Query("vocabulary_id") String vocabularyIdOrName);
 
-    @GET("api/3/action/tag_show")
-    Call<Tag> tagShow(@NonNull @Query("id") String idOrName,
-                      @Query("vocabulary_id") String vocabularyIdOrName,
-                      @Query("include_datasets") Boolean includeDatasets);
+    @GET("api/3/action/tag_list")
+    Call<List<String>> tagNameList(@Query("query") String query, @Query("vocabulary_id") String vocabularyIdOrName);
 
     @GET("api/3/action/tag_search")
     Call<TagSearch> tagSearch(@NonNull @Query("query") String query,
@@ -33,24 +34,23 @@ public interface TagService {
                               @Query("offset") Integer offset,
                               @Query("limit") Integer limit);
 
-    @GET("api/3/action/vocabulary_list")
-    Call<List<Vocabulary>> vocabularyList();
-
-    @GET("api/3/action/vocabulary_show")
-    Call<Vocabulary> vocabularyShow(@NonNull @Query("id") String idOrName);
+    @GET("api/3/action/tag_show")
+    Call<Tag> tagShow(@NonNull @Query("id") String idOrName,
+                      @Query("vocabulary_id") String vocabularyIdOrName,
+                      @Query("include_datasets") Boolean includeDatasets);
 
     @POST("api/3/action/vocabulary_create")
     Call<Vocabulary> vocabularyCreate(@Body VocabularyCreate vocabularyCreate);
-
-    @POST("api/3/action/tag_create")
-    Call<Tag> tagCreate(@Body TagCreate tagCreate);
 
     @FormUrlEncoded
     @POST("api/3/action/vocabulary_delete")
     Call<Void> vocabularyDelete(@Field("id") UUID id);
 
-    @POST("api/3/action/tag_delete")
-    Call<Void> tagDelete(@Body TagDelete tagDelete);
+    @GET("api/3/action/vocabulary_list")
+    Call<List<Vocabulary>> vocabularyList();
+
+    @GET("api/3/action/vocabulary_show")
+    Call<Vocabulary> vocabularyShow(@NonNull @Query("id") String idOrName);
 
     @FormUrlEncoded
     @POST("api/3/action/vocabulary_update")

@@ -5,9 +5,9 @@ import minek.ckan.v3.model.Package;
 import minek.ckan.v3.model.*;
 import minek.ckan.v3.model.enums.PackageRelationshipType;
 import minek.ckan.v3.service.command.create.*;
+import minek.ckan.v3.service.command.criteria.ResourceSearchCriteria;
 import minek.ckan.v3.service.command.delete.PackageRelationshipDelete;
 import minek.ckan.v3.service.command.delete.ResourceViewClear;
-import minek.ckan.v3.service.command.criteria.ResourceSearchCriteria;
 import minek.ckan.v3.service.command.update.BulkUpdate;
 import minek.ckan.v3.service.command.update.PackageOwnerOrgUpdate;
 import minek.ckan.v3.service.command.update.PackageResourceReorder;
@@ -27,12 +27,17 @@ import static minek.ckan.retrofit.RetrofitUtils.prepareFilePart;
 
 public interface DatasetService {
 
-    @GET("api/3/action/package_list")
-    Call<List<String>> packageList(@Query("offset") Integer offset, @Query("limit") Integer limit);
+    @GET("api/3/action/am_following_dataset")
+    Call<Boolean> amFollowingDataset(@NonNull @Query("id") String idOrName);
 
-    default Call<List<String>> packageList() {
-        return packageList(null, null);
-    }
+    @POST("api/3/action/bulk_update_delete")
+    Call<Void> bulkUpdateDelete(@Body BulkUpdate bulkUpdate);
+
+    @POST("api/3/action/bulk_update_private")
+    Call<Void> bulkUpdatePrivate(@Body BulkUpdate bulkUpdate);
+
+    @POST("api/3/action/bulk_update_public")
+    Call<Void> bulkUpdatePublic(@Body BulkUpdate bulkUpdate);
 
     @GET("api/3/action/current_package_list_with_resources")
     Call<List<Package>> currentPackageListWithResources(@Query("offset") Integer offset, @Query("limit") Integer limit);
@@ -40,6 +45,52 @@ public interface DatasetService {
     default Call<List<Package>> currentPackageListWithResources() {
         return currentPackageListWithResources(null, null);
     }
+
+    @GET("api/3/action/dataset_follower_count")
+    Call<Integer> datasetFollowerCount(@NonNull @Query("id") String idOrName);
+
+    @GET("api/3/action/dataset_follower_list")
+    Call<List<User>> datasetFollowerList(@NonNull @Query("id") String idOrName);
+
+    @FormUrlEncoded
+    @POST("api/3/action/dataset_purge")
+    Call<Void> datasetPurge(@Field("id") String idOrName);
+
+    @POST("api/3/action/follow_dataset")
+    Call<Follower> followDataset(@Body FollowDataset followDataset);
+
+    @POST("api/3/action/package_create")
+    Call<Package> packageCreate(@Body PackageCreate packageCreate);
+
+    @POST("api/3/action/package_create_default_resource_views")
+    Call<List<ResourceView>> packageCreateDefaultResourceViews(@Body PackageCreateDefaultResourceViewsCreate packageCreateDefaultResourceViewsCreate);
+
+    @FormUrlEncoded
+    @POST("api/3/action/package_delete")
+    Call<Void> packageDelete(@Field("id") String idOrName);
+
+    @GET("api/3/action/package_list")
+    Call<List<String>> packageList(@Query("offset") Integer offset, @Query("limit") Integer limit);
+
+    default Call<List<String>> packageList() {
+        return packageList(null, null);
+    }
+
+    @POST("api/3/action/package_owner_org_update")
+    Call<Void> packageOwnerOrgUpdate(@Body PackageOwnerOrgUpdate packageOwnerOrgUpdate);
+
+    @FormUrlEncoded
+    @POST("api/3/action/package_patch")
+    Call<Void> packagePatch(@Field("id") String idOrName);
+
+    @POST("api/3/action/package_relationship_create")
+    Call<PackageRelationship> packageRelationshipCreate(@Body PackageRelationship packageRelationship);
+
+    @POST("api/3/action/package_relationship_delete")
+    Call<Void> packageRelationshipDelete(@Body PackageRelationshipDelete packageRelationshipDelete);
+
+    @POST("api/3/action/package_relationship_update")
+    Call<PackageRelationship> packageRelationshipUpdate(@Body PackageRelationship packageRelationship);
 
     @GET("api/3/action/package_relationships_list")
     Call<List<PackageRelationship>> packageRelationshipsList(@NonNull @Query("id") String id,
@@ -50,20 +101,8 @@ public interface DatasetService {
                                                              @NonNull @Query("id2") String id2,
                                                              @Query("rel") PackageRelationshipType rel);
 
-    // NOTE : use_default_schema 는 IDatasetForm 플러그인에 의존성을 가진다. 샘플 데이터 찾기가 어렵...
-    @GET("api/3/action/package_show")
-    Call<Package> packageShow(@NonNull @Query("id") String idOrName,
-            /*@Query("use_default_schema") Boolean useDefaultSchema,*/
-                              @Query("include_tracking") Boolean includeTracking);
-
-    @GET("api/3/action/resource_show")
-    Call<Resource> resourceShow(@NonNull @Query("id") UUID id, @Query("include_tracking") Boolean includeTracking);
-
-    @GET("api/3/action/resource_view_show")
-    Call<ResourceView> resourceViewShow(@NonNull @Query("id") UUID id);
-
-    @GET("api/3/action/resource_view_list")
-    Call<List<ResourceView>> resourceViewList(@NonNull @Query("id") UUID id);
+    @POST("api/3/action/package_resource_reorder")
+    Call<PackageResourceReorder> packageResourceReorder(@Body PackageResourceReorder packageResourceReorder);
 
     // NOTE : facet.field 파라미터는
     // facet.field=1&facet.field=2 로 보내면 안되고 facet.field=["1", "2"] 로 보내야 한다 -_-...
@@ -83,40 +122,18 @@ public interface DatasetService {
                                       @Query("include_private") Boolean includePrivate,
                                       @Query("use_default_schema") Boolean useDefaultSchema);
 
-    @GET("api/3/action/resource_search")
-    Call<ResourceSearch> resourceSearch(@NonNull @Query("query") String query,
-                                        @Deprecated @Query("fields") String fields,
-                                        @Query("order_by") String orderBy,
-                                        @Query("offset") Integer offset,
-                                        @Query("limit") Integer limit);
+    // NOTE : use_default_schema 는 IDatasetForm 플러그인에 의존성을 가진다. 샘플 데이터 찾기가 어렵...
+    @GET("api/3/action/package_show")
+    Call<Package> packageShow(@NonNull @Query("id") String idOrName,
+            /*@Query("use_default_schema") Boolean useDefaultSchema,*/
+                              @Query("include_tracking") Boolean includeTracking);
 
-    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria criteria,
-                                                @Deprecated String fields,
-                                                String orderBy,
-                                                Integer offset,
-                                                Integer limit) {
-        return resourceSearch(criteria.query(), fields, orderBy, offset, limit);
-    }
+    @FormUrlEncoded
+    @POST("api/3/action/package_update")
+    Call<Package> packageUpdate(@Field("id") String idOrName);
 
-    default Call<ResourceSearch> resourceSearch(@NonNull String query) {
-        return resourceSearch(query, null, null, null, null);
-    }
-
-    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria criteria) {
-        return resourceSearch(criteria.query(), null, null, null, null);
-    }
-
-    @GET("api/3/action/am_following_dataset")
-    Call<Boolean> amFollowingDataset(@NonNull @Query("id") String idOrName);
-
-    @GET("api/3/action/dataset_follower_count")
-    Call<Integer> datasetFollowerCount(@NonNull @Query("id") String idOrName);
-
-    @GET("api/3/action/dataset_follower_list")
-    Call<List<User>> datasetFollowerList(@NonNull @Query("id") String idOrName);
-
-    @POST("api/3/action/package_create")
-    Call<Package> packageCreate(@Body PackageCreate packageCreate);
+    @POST("api/3/action/rating_create")
+    Call<Rating> ratingCreate(@Body RatingCreate ratingCreate);
 
     @POST("api/3/action/resource_create")
     Call<Resource> resourceCreate(@Body ResourceCreate resourceCreate);
@@ -164,89 +181,72 @@ public interface DatasetService {
         );
     }
 
-    @POST("api/3/action/resource_view_create")
-    Call<ResourceView> resourceViewCreate(@Body ResourceViewCreate resourceViewCreate);
-
     @POST("api/3/action/resource_create_default_resource_views")
     Call<List<ResourceView>> resourceCreateDefaultResourceViews(@Body ResourceCreateDefaultResourceViewsCreate resourceCreateDefaultResourceViewsCreate);
-
-    @POST("api/3/action/package_create_default_resource_views")
-    Call<List<ResourceView>> packageCreateDefaultResourceViews(@Body PackageCreateDefaultResourceViewsCreate packageCreateDefaultResourceViewsCreate);
-
-    @POST("api/3/action/package_relationship_create")
-    Call<PackageRelationship> packageRelationshipCreate(@Body PackageRelationship packageRelationship);
-
-    @POST("api/3/action/rating_create")
-    Call<Rating> ratingCreate(@Body RatingCreate ratingCreate);
-
-    @POST("api/3/action/follow_dataset")
-    Call<Follower> followDataset(@Body FollowDataset followDataset);
-
-    @FormUrlEncoded
-    @POST("api/3/action/package_patch")
-    Call<Void> packagePatch(@Field("id") String idOrName);
-
-    @FormUrlEncoded
-    @POST("api/3/action/resource_patch")
-    Call<Void> resourcePatch(@Field("id") String idOrName);
-
-    @FormUrlEncoded
-    @POST("api/3/action/package_delete")
-    Call<Void> packageDelete(@Field("id") String idOrName);
-
-    @FormUrlEncoded
-    @POST("api/3/action/dataset_purge")
-    Call<Void> datasetPurge(@Field("id") String idOrName);
 
     @FormUrlEncoded
     @POST("api/3/action/resource_delete")
     Call<Void> resourceDelete(@Field("id") UUID id);
 
     @FormUrlEncoded
-    @POST("api/3/action/resource_view_delete")
-    Call<Void> resourceViewDelete(@Field("id") UUID id);
+    @POST("api/3/action/resource_patch")
+    Call<Void> resourcePatch(@Field("id") String idOrName);
 
-    @POST("api/3/action/resource_view_clear")
-    Call<Void> resourceViewClear(@Body ResourceViewClear resourceViewClear);
+    @GET("api/3/action/resource_search")
+    Call<ResourceSearch> resourceSearch(@NonNull @Query("query") String query,
+                                        @Deprecated @Query("fields") String fields,
+                                        @Query("order_by") String orderBy,
+                                        @Query("offset") Integer offset,
+                                        @Query("limit") Integer limit);
 
-    @POST("api/3/action/package_relationship_delete")
-    Call<Void> packageRelationshipDelete(@Body PackageRelationshipDelete packageRelationshipDelete);
+    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria criteria,
+                                                @Deprecated String fields,
+                                                String orderBy,
+                                                Integer offset,
+                                                Integer limit) {
+        return resourceSearch(criteria.query(), fields, orderBy, offset, limit);
+    }
 
-    @FormUrlEncoded
-    @POST("api/3/action/unfollow_dataset")
-    Call<Void> unfollowDataset(@Field("id") String idOrName);
+    default Call<ResourceSearch> resourceSearch(@NonNull String query) {
+        return resourceSearch(query, null, null, null, null);
+    }
+
+    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria criteria) {
+        return resourceSearch(criteria.query(), null, null, null, null);
+    }
+
+    @GET("api/3/action/resource_show")
+    Call<Resource> resourceShow(@NonNull @Query("id") UUID id, @Query("include_tracking") Boolean includeTracking);
 
     @FormUrlEncoded
     @POST("api/3/action/resource_update")
     Call<Resource> resourceUpdate(@Field("id") UUID id);
 
+    @POST("api/3/action/resource_view_clear")
+    Call<Void> resourceViewClear(@Body ResourceViewClear resourceViewClear);
+
+    @POST("api/3/action/resource_view_create")
+    Call<ResourceView> resourceViewCreate(@Body ResourceViewCreate resourceViewCreate);
+
     @FormUrlEncoded
-    @POST("api/3/action/resource_view_update")
-    Call<ResourceView> resourceviewupdate(@Field("id") UUID id);
+    @POST("api/3/action/resource_view_delete")
+    Call<Void> resourceViewDelete(@Field("id") UUID id);
+
+    @GET("api/3/action/resource_view_list")
+    Call<List<ResourceView>> resourceViewList(@NonNull @Query("id") UUID id);
 
     @POST("api/3/action/resource_view_reorder")
     Call<ResourceViewReorder> resourceViewReorder(@Body ResourceViewReorder resourceViewReorder);
 
+    @GET("api/3/action/resource_view_show")
+    Call<ResourceView> resourceViewShow(@NonNull @Query("id") UUID id);
+
     @FormUrlEncoded
-    @POST("api/3/action/package_update")
-    Call<Package> packageUpdate(@Field("id") String idOrName);
+    @POST("api/3/action/resource_view_update")
+    Call<ResourceView> resourceviewupdate(@Field("id") UUID id);
 
-    @POST("api/3/action/package_resource_reorder")
-    Call<PackageResourceReorder> packageResourceReorder(@Body PackageResourceReorder packageResourceReorder);
-
-    @POST("api/3/action/package_relationship_update")
-    Call<PackageRelationship> packageRelationshipUpdate(@Body PackageRelationship packageRelationship);
-
-    @POST("api/3/action/bulk_update_private")
-    Call<Void> bulkUpdatePrivate(@Body BulkUpdate bulkUpdate);
-
-    @POST("api/3/action/bulk_update_public")
-    Call<Void> bulkUpdatePublic(@Body BulkUpdate bulkUpdate);
-
-    @POST("api/3/action/bulk_update_delete")
-    Call<Void> bulkUpdateDelete(@Body BulkUpdate bulkUpdate);
-
-    @POST("api/3/action/package_owner_org_update")
-    Call<Void> packageOwnerOrgUpdate(@Body PackageOwnerOrgUpdate packageOwnerOrgUpdate);
+    @FormUrlEncoded
+    @POST("api/3/action/unfollow_dataset")
+    Call<Void> unfollowDataset(@Field("id") String idOrName);
 
 }
