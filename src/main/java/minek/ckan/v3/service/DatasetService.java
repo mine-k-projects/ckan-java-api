@@ -5,9 +5,10 @@ import minek.ckan.v3.model.Package;
 import minek.ckan.v3.model.*;
 import minek.ckan.v3.model.enums.PackageRelationshipType;
 import minek.ckan.v3.service.command.create.*;
-import minek.ckan.v3.service.command.criteria.ResourceSearchCriteria;
 import minek.ckan.v3.service.command.delete.PackageRelationshipDelete;
 import minek.ckan.v3.service.command.delete.ResourceViewClear;
+import minek.ckan.v3.service.command.get.PackageSearchQuery;
+import minek.ckan.v3.service.command.get.ResourceSearchQuery;
 import minek.ckan.v3.service.command.update.BulkUpdate;
 import minek.ckan.v3.service.command.update.PackageOwnerOrgUpdate;
 import minek.ckan.v3.service.command.update.PackageResourceReorder;
@@ -108,19 +109,8 @@ public interface DatasetService {
     // facet.field=1&facet.field=2 로 보내면 안되고 facet.field=["1", "2"] 로 보내야 한다 -_-...
     // sort 역시 마찬가지로 sort=relevance asc, metadata_modified desc
     // q, fq, sort 에 대해서 파라미터 고도화를 해야 한다.
-    @GET("api/3/action/package_search")
-    Call<PackageSearch> packageSearch(@Query("q") String q,
-                                      @Query("fq") String fq,
-                                      @Query("sort") String sort,
-                                      @Query("rows") Integer rows,
-                                      @Query("start") Integer start,
-                                      @Query("facet") Boolean facet,
-                                      @Query("facet.mincount") Integer facetMincount,
-                                      @Query("facet.limit") Integer facetLimit,
-                                      @Query("facet.field") String facetField,
-                                      @Query("include_drafts") Boolean includeDrafts,
-                                      @Query("include_private") Boolean includePrivate,
-                                      @Query("use_default_schema") Boolean useDefaultSchema);
+    @POST("api/3/action/package_search")
+    Call<PackageSearch> packageSearch(@Body PackageSearchQuery query);
 
     // NOTE : use_default_schema 는 IDatasetForm 플러그인에 의존성을 가진다. 샘플 데이터 찾기가 어렵...
     @GET("api/3/action/package_show")
@@ -192,27 +182,13 @@ public interface DatasetService {
     @POST("api/3/action/resource_patch")
     Call<Void> resourcePatch(@Field("id") String idOrName);
 
-    @GET("api/3/action/resource_search")
-    Call<ResourceSearch> resourceSearch(@NonNull @Query("query") String query,
-                                        @Deprecated @Query("fields") String fields,
-                                        @Query("order_by") String orderBy,
-                                        @Query("offset") Integer offset,
-                                        @Query("limit") Integer limit);
+    @POST("api/3/action/resource_search")
+    Call<ResourceSearch> resourceSearch(@Body ResourceSearchQuery query);
 
-    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria criteria,
-                                                @Deprecated String fields,
-                                                String orderBy,
-                                                Integer offset,
-                                                Integer limit) {
-        return resourceSearch(criteria.query(), fields, orderBy, offset, limit);
-    }
-
-    default Call<ResourceSearch> resourceSearch(@NonNull String query) {
-        return resourceSearch(query, null, null, null, null);
-    }
-
-    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchCriteria criteria) {
-        return resourceSearch(criteria.query(), null, null, null, null);
+    default Call<ResourceSearch> resourceSearch(@NonNull ResourceSearchQuery.ResourceColumn column, @NonNull String value) {
+        ResourceSearchQuery query = new ResourceSearchQuery();
+        query.setQuery(column, value);
+        return resourceSearch(query);
     }
 
     @GET("api/3/action/resource_show")

@@ -2,9 +2,8 @@ package minek.ckan.v3.service;
 
 import minek.ckan.v3.BaseTest;
 import minek.ckan.v3.model.Revision;
-import minek.ckan.v3.service.command.criteria.RevisionListSortField;
-import minek.ckan.v3.service.command.criteria.sort.Sort;
-import minek.ckan.v3.service.command.criteria.sort.UnderscoreSort;
+import minek.ckan.v3.service.command.get.SiteRevisionListQuery;
+import minek.ckan.v3.service.command.get.sort.Direction;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -57,12 +56,12 @@ public class RevisionServiceTest extends BaseTest {
     }
 
     @Test
-    void siteRevisionList2() throws IOException {
-        Call<List<UUID>> b = revisionService().siteRevisionList(
-                null,
-                LocalDateTime.of(2020, 3, 24, 0, 0, 0),
-                UnderscoreSort.of(RevisionListSortField.time, Sort.Direction.asc)
-        );
+    void siteRevisionListQuery() throws IOException {
+        SiteRevisionListQuery query = new SiteRevisionListQuery();
+        query.setSinceTime(LocalDateTime.of(2020, 3, 24, 0, 0, 0));
+        query.setSort(SiteRevisionListQuery.RevisionSortField.time, Direction.asc);
+
+        Call<List<UUID>> b = revisionService().siteRevisionList(query);
         Response<List<UUID>> execute = b.execute();
         List<UUID> body = execute.body();
         System.out.println();

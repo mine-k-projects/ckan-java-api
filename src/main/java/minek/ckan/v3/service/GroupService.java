@@ -9,8 +9,10 @@ import minek.ckan.v3.model.enums.Role;
 import minek.ckan.v3.service.command.create.FollowGroup;
 import minek.ckan.v3.service.command.create.GroupCreate;
 import minek.ckan.v3.service.command.create.UserInvite;
-import minek.ckan.v3.service.command.criteria.GroupListSortField;
-import minek.ckan.v3.service.command.criteria.sort.BlankSpaceSort;
+import minek.ckan.v3.service.command.get.GroupListQuery;
+import minek.ckan.v3.service.command.get.GroupNameListQuery;
+import minek.ckan.v3.service.command.get.OrganizationListQuery;
+import minek.ckan.v3.service.command.get.OrganizationNameListQuery;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -37,26 +39,19 @@ public interface GroupService {
     @GET("api/3/action/group_follower_list")
     Call<List<User>> groupFollowerList(@NonNull @Query("id") String idOrName);
 
-    @GET("api/3/action/group_list?all_fields=true")
-    Call<List<Group>> groupList(@Query("sort") BlankSpaceSort<GroupListSortField> sorts,
-                                @Query("limit") Integer limit,
-                                @Query("offset") Integer offset,
-                                @Query("groups") List<String> groups,
-                                @Query("include_dataset_count") Boolean includeDatasetCount,
-                                @Query("include_extras") Boolean includeExtras,
-                                @Query("include_tags") Boolean includeTags,
-                                @Query("include_groups") Boolean includeGroups,
-                                @Query("include_users") Boolean includeUsers);
+    @POST("api/3/action/group_list")
+    Call<List<Group>> groupList(@Body GroupListQuery query);
 
     @GET("api/3/action/group_list_authz")
     Call<List<Group>> groupListAuthz(@Query("available_only") Boolean availableOnly,
                                      @Query("am_member") Boolean amMember);
 
-    @GET("api/3/action/group_list")
-    Call<List<String>> groupNameList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
-                                     @Query("limit") Integer limit,
-                                     @Query("offset") Integer offset,
-                                     @Query("groups") List<String> groups);
+    @POST("api/3/action/group_list")
+    Call<List<String>> groupNameList(@Body GroupNameListQuery query);
+
+    default Call<List<String>> groupNameList() {
+        return groupNameList(new GroupNameListQuery());
+    }
 
     @GET("api/3/action/group_package_show")
     Call<List<Package>> groupPackageShow(@NonNull @Query("id") String idOrName,
@@ -101,16 +96,8 @@ public interface GroupService {
     @GET("api/3/action/organization_follower_list")
     Call<List<User>> organizationFollowerList(@NonNull @Query("id") String idOrName);
 
-    @GET("api/3/action/organization_list?all_fields=true")
-    Call<List<Group>> organizationList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
-                                       @Query("limit") Integer limit,
-                                       @Query("offset") Integer offset,
-                                       @Query("organizations") List<String> organizations,
-                                       @Query("include_dataset_count") Boolean includeDatasetCount,
-                                       @Query("include_extras") Boolean includeExtras,
-                                       @Query("include_tags") Boolean includeTags,
-                                       @Query("include_groups") Boolean includeGroups,
-                                       @Query("include_users") Boolean includeUsers);
+    @POST("api/3/action/organization_list")
+    Call<List<Group>> organizationList(@Body OrganizationListQuery query);
 
     @GET("api/3/action/organization_list_for_user")
     Call<List<Group>> organizationListForUser(@Query("id") String idOrName,
@@ -121,11 +108,12 @@ public interface GroupService {
         return organizationListForUser(null, null, null);
     }
 
-    @GET("api/3/action/organization_list")
-    Call<List<String>> organizationNameList(@Query("sort") BlankSpaceSort<GroupListSortField> sort,
-                                            @Query("limit") Integer limit,
-                                            @Query("offset") Integer offset,
-                                            @Query("organizations") List<String> organizations);
+    @POST("api/3/action/organization_list")
+    Call<List<String>> organizationNameList(@Body OrganizationNameListQuery query);
+
+    default Call<List<String>> organizationNameList() {
+        return organizationNameList(new OrganizationNameListQuery());
+    }
 
     @FormUrlEncoded
     @POST("api/3/action/organization_patch")

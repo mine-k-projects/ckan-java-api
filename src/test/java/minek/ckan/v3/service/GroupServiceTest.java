@@ -3,22 +3,35 @@ package minek.ckan.v3.service;
 import minek.ckan.v3.BaseTest;
 import minek.ckan.v3.model.Group;
 import minek.ckan.v3.model.Package;
-import minek.ckan.v3.service.command.criteria.GroupListSortField;
+import minek.ckan.v3.service.command.get.*;
 import minek.ckan.v3.model.enums.Role;
-import minek.ckan.v3.service.command.criteria.sort.BlankSpaceSort;
-import minek.ckan.v3.service.command.criteria.sort.Sort;
+import minek.ckan.v3.service.command.get.sort.Direction;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class GroupServiceTest extends BaseTest {
 
     @Test
     void groupNameList() throws IOException {
-        Call<List<String>> b = groupService().groupNameList(null, null, null, null);
+        GroupNameListQuery query = new GroupNameListQuery();
+
+        Call<List<String>> b = groupService().groupNameList(query);
+        Response<List<String>> execute = b.execute();
+        List<String> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void groupNameList2() throws IOException {
+        GroupNameListQuery query = new GroupNameListQuery();
+        query.setGroups(Arrays.asList("wine", "miso123"));
+
+        Call<List<String>> b = groupService().groupNameList(query);
         Response<List<String>> execute = b.execute();
         List<String> body = execute.body();
         System.out.println();
@@ -26,16 +39,12 @@ public class GroupServiceTest extends BaseTest {
 
     @Test
     void groupList() throws IOException {
-        Call<List<Group>> b = groupService().groupList(
-                BlankSpaceSort.of(GroupListSortField.name, Sort.Direction.desc),
-                10,
-                20,
-                null,
-                true,
-                true,
-                true,
-                true,
-                true);
+        GroupListQuery query = new GroupListQuery();
+        query.setSort(GroupSortField.name, Direction.desc);
+        query.setOffset(0);
+        query.setLimit(20);
+
+        Call<List<Group>> b = groupService().groupList(query);
         Response<List<Group>> execute = b.execute();
         List<Group> body = execute.body();
         System.out.println();
@@ -50,13 +59,23 @@ public class GroupServiceTest extends BaseTest {
     }
 
     @Test
+    void organizationNameList() throws IOException {
+        OrganizationNameListQuery query = new OrganizationNameListQuery();
+        query.setOrganizations(Arrays.asList("misoinfo", "hahaha"));
+
+        Call<List<String>> b = groupService().organizationNameList(query);
+        Response<List<String>> execute = b.execute();
+        List<String> body = execute.body();
+        System.out.println();
+    }
+
+    @Test
     void organizationListForUser() throws IOException {
         Call<List<Group>> b = groupService().organizationListForUser(null, Role.Permission.manage_group, null);
         Response<List<Group>> execute = b.execute();
         List<Group> body = execute.body();
         System.out.println();
     }
-
 
     @Test
     void groupShow() throws IOException {

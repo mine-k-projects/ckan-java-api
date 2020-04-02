@@ -3,8 +3,8 @@ package minek.ckan.v3.service;
 import minek.ckan.v3.model.*;
 import minek.ckan.v3.model.Package;
 import minek.ckan.v3.*;
-import minek.ckan.v3.service.command.criteria.ResourceColumn;
-import minek.ckan.v3.service.command.criteria.ResourceSearchCriteria;
+import minek.ckan.v3.service.command.get.PackageSearchQuery;
+import minek.ckan.v3.service.command.get.ResourceSearchQuery;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -84,19 +84,14 @@ public class DatasetServiceTest extends BaseTest {
 
     @Test
     void packageSearch() throws IOException {
-        Call<PackageSearch> b = datasetService().packageSearch(
-                "test",
-                "tags:test",
-                null,
-                100,
-                0,
-                null,
-                null,
-                null,
-                "[\"tags\"]",
-                true,
-                true,
-                true);
+        PackageSearchQuery query = new PackageSearchQuery();
+        query.setQ("test");
+        query.setFq("tags:test");
+        query.setRows(100);
+        query.setStart(0);
+        query.setFacetField("tags");
+
+        Call<PackageSearch> b = datasetService().packageSearch(query);
         Response<PackageSearch> execute = b.execute();
         PackageSearch body = execute.body();
         System.out.println();
@@ -104,12 +99,12 @@ public class DatasetServiceTest extends BaseTest {
 
     @Test
     void resourceSearch() throws IOException {
-        Call<ResourceSearch> b = datasetService().resourceSearch(
-                ResourceSearchCriteria.of(ResourceColumn.name, "test"),
-                null,
-                null,
-                0,
-                10);
+        ResourceSearchQuery query = new ResourceSearchQuery();
+        query.setQuery(ResourceSearchQuery.ResourceColumn.name, "test");
+        query.setOffset(0);
+        query.setLimit(10);
+
+        Call<ResourceSearch> b = datasetService().resourceSearch(query);
         Response<ResourceSearch> execute = b.execute();
         ResourceSearch body = execute.body();
         System.out.println();
