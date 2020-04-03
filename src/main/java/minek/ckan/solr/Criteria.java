@@ -192,7 +192,8 @@ public class Criteria extends Node {
         if (!Float.isNaN(distance) && (distance < 0 || distance > 1)) {
             throw new IllegalArgumentException("Levenshtein Distance has to be within its bounds (0.0 - 1.0).");
         }
-        predicates.add(new Predicate(Operation.FUZZY, new Object[]{value, distance}));
+        //noinspection UnnecessaryBoxing
+        predicates.add(new Predicate(Operation.FUZZY, new Object[]{value, Float.valueOf(distance)}));
         return this;
     }
 
@@ -204,7 +205,8 @@ public class Criteria extends Node {
         if (!StringUtils.contains(phrase, CRITERIA_VALUE_SEPARATOR)) {
             throw new IllegalArgumentException("Phrase must consist of multiple terms, separated with spaces.");
         }
-        predicates.add(new Predicate(Operation.SLOPPY, new Object[]{phrase, distance}));
+        //noinspection UnnecessaryBoxing
+        predicates.add(new Predicate(Operation.SLOPPY, new Object[]{phrase, Integer.valueOf(distance)}));
         return this;
     }
 
@@ -293,7 +295,7 @@ public class Criteria extends Node {
         }
     }
 
-    static Criteria where(String field) {
+    public static Criteria where(String field) {
         return new Criteria(field);
     }
 }

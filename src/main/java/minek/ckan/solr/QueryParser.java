@@ -22,6 +22,8 @@ public class QueryParser {
         predicateProcessorMap.put(Criteria.Operation.ENDS_WITH, new EndsWithProcessor());
         predicateProcessorMap.put(Criteria.Operation.EXPRESSION, new ExpressionProcessor());
         predicateProcessorMap.put(Criteria.Operation.BETWEEN, new BetweenProcessor());
+        predicateProcessorMap.put(Criteria.Operation.FUZZY, new FuzzyProcessor());
+        predicateProcessorMap.put(Criteria.Operation.SLOPPY, new SloppyProcessor());
     }
 
     public static QueryParser getInstance() {
@@ -35,7 +37,7 @@ public class QueryParser {
         return createQuery(node, 0);
     }
 
-    public String createQuery(Node node, int position) {
+    private String createQuery(Node node, int position) {
         StringBuilder query = new StringBuilder();
         if (position > 0) {
             query.append(node.isOr() ? " OR " : " AND ");
@@ -197,11 +199,11 @@ public class QueryParser {
 
         @Override
         public String process(String field, Criteria.Predicate predicate) {
-            Object[] value = (Object[]) predicate.getValue();
-            Object lowerBound = value[0];
-            Object upperBound = value[1];
-            boolean includeLowerBound = (boolean) value[2];
-            boolean includeUpperBound = (boolean) value[3];
+            Object[] args = (Object[]) predicate.getValue();
+            Object lowerBound = args[0];
+            Object upperBound = args[1];
+            boolean includeLowerBound = (boolean) args[2];
+            boolean includeUpperBound = (boolean) args[3];
 
             String fragment = "";
             fragment += includeLowerBound ? "[" : "{";
@@ -211,6 +213,28 @@ public class QueryParser {
             fragment += includeUpperBound ? "]" : "}";
 
             return fragment;
+        }
+    }
+
+    static class FuzzyProcessor extends DefaultPredicateProcessor {
+
+        @Override
+        public String process(String field, Criteria.Predicate predicate) {
+            Object[] args = (Object[]) predicate.getValue();
+            String value = (String) args[0];
+            Float distance = (Float) args[1];
+            return filterCriteriaValue(value) + "~" + (distance.isNaN() ? "" : distance);
+        }
+    }
+
+    static class SloppyProcessor extends DefaultPredicateProcessor {
+
+        @Override
+        public String process(String field, Criteria.Predicate predicate) {
+            Object[] args = (Object[]) predicate.getValue();
+            String phrase = (String) args[0];
+            Integer distance = (Integer) args[1];
+            return filterCriteriaValue(phrase) + "~" + distance;
         }
     }
 

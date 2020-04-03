@@ -9,6 +9,30 @@ class CriteriaTest {
     private QueryParser parser = QueryParser.getInstance();
 
     @Test
+    public void sloppy_test() {
+        Criteria criteria = new Criteria("field_1").sloppy("value1 value2", 2);
+
+        String query = parser.createQuery(criteria);
+        assertEquals("field_1:\"value1 value2\"~2", query);
+    }
+
+    @Test
+    public void fuzzy_test() {
+        Criteria criteria = new Criteria("field_1").fuzzy("value");
+
+        String query = parser.createQuery(criteria);
+        assertEquals("field_1:value~", query);
+    }
+
+    @Test
+    public void fuzzy_distance_test() {
+        Criteria criteria = new Criteria("field_1").fuzzy("value", 0.5f);
+
+        String query = parser.createQuery(criteria);
+        assertEquals("field_1:value~0.5", query);
+    }
+
+    @Test
     public void boost_test() {
         Criteria criteria = new Criteria("field_1").is("value_1").boost(2f);
 

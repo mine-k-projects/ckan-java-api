@@ -1,5 +1,6 @@
 package minek.ckan.v3.service;
 
+import minek.ckan.solr.Criteria;
 import minek.ckan.v3.BaseTest;
 import minek.ckan.v3.model.Package;
 import minek.ckan.v3.model.*;
@@ -87,7 +88,7 @@ public class DatasetServiceTest extends BaseTest {
     void packageSearch() throws IOException {
         PackageSearchQuery query = new PackageSearchQuery();
         query.setSolrQuery("test");
-        query.setFilterQuery("tags", "test");
+        query.setFilterQuery(Criteria.where("tags").is("test"));
         query.setRows(100);
         query.setStart(0);
         query.setFacetField(Arrays.asList("tags", "type"));

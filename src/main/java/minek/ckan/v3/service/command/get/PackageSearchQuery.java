@@ -2,6 +2,8 @@ package minek.ckan.v3.service.command.get;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import minek.ckan.solr.Criteria;
+import minek.ckan.solr.QueryParser;
 import minek.ckan.v3.service.command.get.sort.Sort;
 
 import java.util.Arrays;
@@ -38,8 +40,20 @@ public class PackageSearchQuery {
     @JsonProperty("use_default_schema")
     private Boolean useDefaultSchema;
 
-    public void setFilterQuery(String field, String expression) {
-        this.filterQuery = field + ":" + expression;
+    public void setSolrQuery(String solrQuery) {
+        this.solrQuery = solrQuery;
+    }
+
+    public void setSolrQuery(Criteria criteria) {
+        this.solrQuery = QueryParser.getInstance().createQuery(criteria);
+    }
+
+    public void setFilterQuery(String filterQuery) {
+        this.filterQuery = filterQuery;
+    }
+
+    public void setFilterQuery(Criteria criteria) {
+        this.filterQuery = QueryParser.getInstance().createQuery(criteria);
     }
 
     public void setSort(Sort... sorts) {
@@ -47,5 +61,4 @@ public class PackageSearchQuery {
                 .map(s -> s.getField() + "_" + s.getDirection())
                 .collect(Collectors.joining(","));
     }
-
 }
