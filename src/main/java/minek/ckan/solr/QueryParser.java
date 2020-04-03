@@ -30,7 +30,39 @@ public class QueryParser {
         return instance;
     }
 
-    public String createQuery(Criteria criteria) {
+    public String createQueryStringFromNode(Node node) {
+        return createQueryStringFromNode(node, 0);
+    }
+
+    public String createQueryStringFromNode(Node node, int position) {
+        StringBuilder query = new StringBuilder();
+        if (position > 0) {
+            query.append(node.isOr() ? " OR " : " AND ");
+        }
+
+        if (node.hasSiblings()) {
+            if (node.isNegating()) {
+                query.append("-");
+            }
+            if (!node.isRoot() || (node.isRoot() && node.isNegating())) {
+                query.append('(');
+            }
+
+            int i = 0;
+            for (Node nested : node.getSiblings()) {
+                query.append(createQueryStringFromNode(nested, i++));
+            }
+
+            if (!node.isRoot() || (node.isRoot() && node.isNegating())) {
+                query.append(')');
+            }
+        } else {
+            query.append(createQueryFragmentForCriteria((Criteria) node));
+        }
+        return query.toString();
+    }
+
+    public String createQueryFragmentForCriteria(Criteria criteria) {
         StringBuilder sb = new StringBuilder();
 
         String field = criteria.getField();
