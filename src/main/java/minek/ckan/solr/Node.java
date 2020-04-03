@@ -90,7 +90,15 @@ public abstract class Node {
 
     public abstract Node not();
 
-    public abstract Node expression(String nativeSolrQueryExpression);
+//    public abstract Node fuzzy(String value);
+
+//    public abstract Node fuzzy(String values, float distance);
+
+//    public abstract Node sloppy(String phrase, int distance);
+
+    public abstract Node expression(String expression);
+
+//    public abstract Node boost(float value);
 
     public abstract Node between(Object lowerBound, Object upperBound);
 
@@ -107,5 +115,11 @@ public abstract class Node {
     public abstract Node in(Object... values);
 
     public abstract Node in(Iterable<?> values);
+
+//    public abstract Node within(Point location, Distance distance);
+//
+//    public abstract Node near(Box box);
+//
+//    public abstract Node near(Point location, Distance distance);
 
 }

@@ -127,8 +127,8 @@ public class Crotch extends Criteria {
     }
 
     @Override
-    public Crotch expression(String nativeSolrQueryExpression) {
-        mostRecentSibling.expression(nativeSolrQueryExpression);
+    public Crotch expression(String expression) {
+        mostRecentSibling.expression(expression);
         return this;
     }
 
