@@ -1,12 +1,16 @@
 package minek.ckan.solr;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.*;
 
 public class Criteria extends Node {
 
+    protected static final String CRITERIA_VALUE_SEPARATOR = " ";
     public static final String WILDCARD = "*";
 
     private String field;
+    private float boost = Float.NaN;
     private Set<Predicate> predicates = new LinkedHashSet<>();
 
     public Criteria() {
@@ -18,6 +22,10 @@ public class Criteria extends Node {
 
     public String getField() {
         return field;
+    }
+
+    public float getBoost() {
+        return boost;
     }
 
     public Set<Predicate> getPredicates() {
@@ -175,8 +183,43 @@ public class Criteria extends Node {
     }
 
     @Override
+    public Criteria fuzzy(String value) {
+        return fuzzy(value, Float.NaN);
+    }
+
+    @Override
+    public Criteria fuzzy(String value, float distance) {
+        if (!Float.isNaN(distance) && (distance < 0 || distance > 1)) {
+            throw new IllegalArgumentException("Levenshtein Distance has to be within its bounds (0.0 - 1.0).");
+        }
+        predicates.add(new Predicate(Operation.FUZZY, new Object[]{value, distance}));
+        return this;
+    }
+
+    @Override
+    public Criteria sloppy(String phrase, int distance) {
+        if (distance <= 0) {
+            throw new IllegalArgumentException("Slop distance has to be greater than 0.");
+        }
+        if (!StringUtils.contains(phrase, CRITERIA_VALUE_SEPARATOR)) {
+            throw new IllegalArgumentException("Phrase must consist of multiple terms, separated with spaces.");
+        }
+        predicates.add(new Predicate(Operation.SLOPPY, new Object[]{phrase, distance}));
+        return this;
+    }
+
+    @Override
     public Criteria expression(String expression) {
         predicates.add(new Predicate(Operation.EXPRESSION, expression));
+        return this;
+    }
+
+    @Override
+    public Criteria boost(float boost) {
+        if (boost < 0) {
+            throw new IllegalArgumentException("Boost must not be negative.");
+        }
+        this.boost = boost;
         return this;
     }
 
@@ -229,7 +272,7 @@ public class Criteria extends Node {
     }
 
     public enum Operation {
-        EQUALS, CONTAINS, STARTS_WITH, ENDS_WITH, EXPRESSION, BETWEEN
+        EQUALS, CONTAINS, STARTS_WITH, ENDS_WITH, EXPRESSION, BETWEEN, NEAR, WITHIN, FUZZY, SLOPPY
     }
 
     public static class Predicate {

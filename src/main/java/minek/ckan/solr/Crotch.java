@@ -180,6 +180,30 @@ public class Crotch extends Criteria {
         return this;
     }
 
+    @Override
+    public Crotch fuzzy(String value) {
+        mostRecentSibling.fuzzy(value);
+        return this;
+    }
+
+    @Override
+    public Crotch fuzzy(String value, float distance) {
+        mostRecentSibling.fuzzy(value, distance);
+        return this;
+    }
+
+    @Override
+    public Crotch sloppy(String phrase, int distance) {
+        mostRecentSibling.sloppy(phrase, distance);
+        return this;
+    }
+
+    @Override
+    public Crotch boost(float boost) {
+        mostRecentSibling.boost(boost);
+        return this;
+    }
+
     // conjunctions
 
     void add(Node node) {

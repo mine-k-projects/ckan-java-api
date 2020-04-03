@@ -10,6 +10,7 @@ public class QueryParser {
     protected static final String CRITERIA_VALUE_SEPARATOR = " ";
     protected static final String DELIMINATOR = ":";
     protected static final String NOT = "-";
+    protected static final String BOOST = "^";
 
     private static QueryParser instance = null;
     private Map<Criteria.Operation, PredicateProcessor> predicateProcessorMap = new HashMap<>();
@@ -97,6 +98,10 @@ public class QueryParser {
 
         if (oneMorePredicate) {
             query.append(")");
+        }
+
+        if (!Float.isNaN(criteria.getBoost())) {
+            query.append(BOOST).append(criteria.getBoost());
         }
 
         return query.toString();

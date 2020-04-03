@@ -9,6 +9,22 @@ class CriteriaTest {
     private QueryParser parser = QueryParser.getInstance();
 
     @Test
+    public void boost_test() {
+        Criteria criteria = new Criteria("field_1").is("value_1").boost(2f);
+
+        String query = parser.createQuery(criteria);
+        assertEquals("field_1:value_1^2.0", query);
+    }
+
+    @Test
+    public void boost_multiple_test() {
+        Criteria criteria = new Criteria("field_1").is("value_1").is("value_2").boost(2f);
+
+        String query = parser.createQuery(criteria);
+        assertEquals("field_1:(value_1 value_2)^2.0", query);
+    }
+
+    @Test
     public void not_operator_test() {
         Criteria part1 = Criteria.where("z").is("roo");
         Criteria part2 = Criteria.where("x").is("foo").or("y").is("bar").notOperator();

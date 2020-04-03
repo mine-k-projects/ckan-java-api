@@ -90,15 +90,15 @@ public abstract class Node {
 
     public abstract Node not();
 
-//    public abstract Node fuzzy(String value);
+    public abstract Node fuzzy(String value);
 
-//    public abstract Node fuzzy(String values, float distance);
+    public abstract Node fuzzy(String value, float distance);
 
-//    public abstract Node sloppy(String phrase, int distance);
+    public abstract Node sloppy(String phrase, int distance);
 
     public abstract Node expression(String expression);
 
-//    public abstract Node boost(float value);
+    public abstract Node boost(float value);
 
     public abstract Node between(Object lowerBound, Object upperBound);
 
