@@ -217,7 +217,7 @@ public class Criteria extends Node {
         Crotch crotch = new Crotch();
         crotch.setParent(this.getParent());
         crotch.add(this);
-        crotch.add((Criteria) node);
+        crotch.add(node);
         return crotch;
     }
 

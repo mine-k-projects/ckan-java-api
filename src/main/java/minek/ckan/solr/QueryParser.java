@@ -30,11 +30,11 @@ public class QueryParser {
         return instance;
     }
 
-    public String createQueryStringFromNode(Node node) {
-        return createQueryStringFromNode(node, 0);
+    public String createQuery(Node node) {
+        return createQuery(node, 0);
     }
 
-    public String createQueryStringFromNode(Node node, int position) {
+    public String createQuery(Node node, int position) {
         StringBuilder query = new StringBuilder();
         if (position > 0) {
             query.append(node.isOr() ? " OR " : " AND ");
@@ -42,7 +42,7 @@ public class QueryParser {
 
         if (node.hasSiblings()) {
             if (node.isNegating()) {
-                query.append("-");
+                query.append(NOT);
             }
             if (!node.isRoot() || (node.isRoot() && node.isNegating())) {
                 query.append('(');
@@ -50,39 +50,39 @@ public class QueryParser {
 
             int i = 0;
             for (Node nested : node.getSiblings()) {
-                query.append(createQueryStringFromNode(nested, i++));
+                query.append(createQuery(nested, i++));
             }
 
             if (!node.isRoot() || (node.isRoot() && node.isNegating())) {
                 query.append(')');
             }
         } else {
-            query.append(createQueryFragmentForCriteria((Criteria) node));
+            query.append(createQueryFragment((Criteria) node));
         }
         return query.toString();
     }
 
-    public String createQueryFragmentForCriteria(Criteria criteria) {
-        StringBuilder sb = new StringBuilder();
+    private String createQueryFragment(Criteria criteria) {
+        StringBuilder query = new StringBuilder();
 
         String field = criteria.getField();
 
         if (criteria.isNegating()) {
-            sb.append(NOT);
+            query.append(NOT);
         }
-        sb.append(field);
-        sb.append(DELIMINATOR);
+        query.append(field);
+        query.append(DELIMINATOR);
 
         Set<Criteria.Predicate> predicates = criteria.getPredicates();
 
         if (predicates.isEmpty()) {
-            sb.append("[* TO *]");
-            return sb.toString();
+            query.append("[* TO *]");
+            return query.toString();
         }
 
         boolean oneMorePredicate = predicates.size() > 1;
         if (oneMorePredicate) {
-            sb.append("(");
+            query.append("(");
         }
 
         String collect = predicates.stream()
@@ -93,13 +93,13 @@ public class QueryParser {
                 })
                 .filter(Objects::nonNull)
                 .collect(Collectors.joining(CRITERIA_VALUE_SEPARATOR));
-        sb.append(collect);
+        query.append(collect);
 
         if (oneMorePredicate) {
-            sb.append(")");
+            query.append(")");
         }
 
-        return sb.toString();
+        return query.toString();
     }
 
     interface PredicateProcessor {
