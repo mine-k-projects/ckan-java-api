@@ -35,6 +35,10 @@ Step 2. Add the dependency in the form
 
 ## Change Logs
 
+### v1.1.0.RELEASE
+
+can use Solr Query Criteria when using the 'package_search' api
+
 ### v1.0.0.RELEASE
 
 ckan-java-api v1.0.0.RELEASE Available
