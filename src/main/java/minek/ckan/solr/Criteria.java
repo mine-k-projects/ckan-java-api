@@ -138,7 +138,6 @@ public class Criteria {
         public Object getValue() {
             return value;
         }
-
     }
 
     static Criteria where(String field) {

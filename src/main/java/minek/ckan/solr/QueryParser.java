@@ -3,6 +3,7 @@ package minek.ckan.solr;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class QueryParser {
 
@@ -52,16 +53,15 @@ public class QueryParser {
             sb.append("(");
         }
 
-        StringBuilder predicateSb = new StringBuilder();
-        for (Criteria.Predicate predicate : predicates) {
-            if (predicateSb.length() > 0) {
-                predicateSb.append(CRITERIA_VALUE_SEPARATOR);
-            }
-            Criteria.Operation key = predicate.getKey();
-            PredicateProcessor predicateProcessor = predicateProcessorMap.get(key);
-            predicateSb.append(predicateProcessor.process(field, predicate));
-        }
-        sb.append(predicateSb);
+        String collect = predicates.stream()
+                .map(predicate -> {
+                    Criteria.Operation key = predicate.getKey();
+                    PredicateProcessor predicateProcessor = predicateProcessorMap.get(key);
+                    return predicateProcessor.process(field, predicate);
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.joining(CRITERIA_VALUE_SEPARATOR));
+        sb.append(collect);
 
         if (oneMorePredicate) {
             sb.append(")");
@@ -76,19 +76,19 @@ public class QueryParser {
 
     static class DefaultPredicateProcessor implements PredicateProcessor {
 
-        protected static final String DOUBLEQUOTE = "\"";
+        protected static final String DOUBLE_QUOTE = "\"";
 
         protected final Set<String> BOOLEAN_OPERATORS = new HashSet<>(Arrays.asList("NOT", "AND", "OR"));
 
         protected final String[] RESERVED_CHARS = {
-                DOUBLEQUOTE, "+", "-", "&&", "||",
+                DOUBLE_QUOTE, "+", "-", "&&", "||",
                 "!", "(", ")", "{", "}",
                 "[", "]", "^", "~", "*",
                 "?", ":", "\\"
         };
 
         protected String[] RESERVED_CHARS_REPLACEMENT = {
-                "\\" + DOUBLEQUOTE, "\\+", "\\-", "\\&\\&", "\\|\\|",
+                "\\" + DOUBLE_QUOTE, "\\+", "\\-", "\\&\\&", "\\|\\|",
                 "\\!", "\\(", "\\)", "\\{", "\\}",
                 "\\[", "\\]", "\\^", "\\~", "\\*",
                 "\\?", "\\:", "\\\\"
@@ -96,6 +96,9 @@ public class QueryParser {
 
         @Override
         public String process(String field, Criteria.Predicate predicate) {
+            if (predicate == null || predicate.getValue() == null) {
+                return null;
+            }
             return (String) filterCriteriaValue(predicate.getValue());
         }
 
@@ -110,7 +113,7 @@ public class QueryParser {
 
         private String processWhiteSpaces(String criteriaValue) {
             if (StringUtils.contains(criteriaValue, CRITERIA_VALUE_SEPARATOR) || BOOLEAN_OPERATORS.contains(criteriaValue)) {
-                return DOUBLEQUOTE + criteriaValue + DOUBLEQUOTE;
+                return DOUBLE_QUOTE + criteriaValue + DOUBLE_QUOTE;
             }
             return criteriaValue;
         }
@@ -120,6 +123,7 @@ public class QueryParser {
     }
 
     static class ContainsProcessor extends DefaultPredicateProcessor {
+
         @Override
         public String process(String field, Criteria.Predicate predicate) {
             return Criteria.WILDCARD + filterCriteriaValue(predicate.getValue()) + Criteria.WILDCARD;
@@ -127,6 +131,7 @@ public class QueryParser {
     }
 
     static class StartsWithProcessor extends DefaultPredicateProcessor {
+
         @Override
         public String process(String field, Criteria.Predicate predicate) {
             return filterCriteriaValue(predicate.getValue()) + Criteria.WILDCARD;
@@ -134,6 +139,7 @@ public class QueryParser {
     }
 
     static class EndsWithProcessor extends DefaultPredicateProcessor {
+
         @Override
         public String process(String field, Criteria.Predicate predicate) {
             return Criteria.WILDCARD + filterCriteriaValue(predicate.getValue());
@@ -141,6 +147,7 @@ public class QueryParser {
     }
 
     static class ExpressionProcessor implements PredicateProcessor {
+
         @Override
         public String process(String field, Criteria.Predicate predicate) {
             return predicate.getValue().toString();
