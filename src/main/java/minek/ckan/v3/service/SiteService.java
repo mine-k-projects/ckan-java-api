@@ -19,7 +19,7 @@ import java.util.UUID;
 public interface SiteService {
 
     @GET("api/3/action/config_option_list")
-    Call<Map<String, Object>> configOptionList();
+    Call<List<String>> configOptionList();
 
     // https://github.com/ckan/ckan/blob/8f271bfe3eccaa83a419ee55e3e35042d1196c5a/ckan/tests/controllers/test_admin.py#L297
     // https://github.com/ckan/ckan/blob/8f271bfe3eccaa83a419ee55e3e35042d1196c5a/ckan/lib/app_globals.py#L29
