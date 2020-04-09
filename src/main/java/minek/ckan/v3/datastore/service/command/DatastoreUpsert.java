@@ -1,4 +1,4 @@
-package minek.ckan.v3.datastore.service.command.create;
+package minek.ckan.v3.datastore.service.command;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

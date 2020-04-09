@@ -1,13 +1,12 @@
 package minek.ckan.v3.datastore.service;
 
 import minek.ckan.v3.BaseTest;
-import minek.ckan.v3.datastore.model.DatastoreCreateResult;
-import minek.ckan.v3.datastore.model.DatastoreInfo;
-import minek.ckan.v3.datastore.model.DatastoreUpsertResult;
-import minek.ckan.v3.datastore.model.Field;
+import minek.ckan.v3.datastore.model.*;
 import minek.ckan.v3.datastore.model.enums.Method;
-import minek.ckan.v3.datastore.service.command.create.DatastoreCreate;
-import minek.ckan.v3.datastore.service.command.create.DatastoreUpsert;
+import minek.ckan.v3.datastore.service.command.DatastoreCreate;
+import minek.ckan.v3.datastore.service.command.DatastoreDelete;
+import minek.ckan.v3.datastore.service.command.DatastoreFunctionCreate;
+import minek.ckan.v3.datastore.service.command.DatastoreUpsert;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -75,5 +74,52 @@ class DatastoreServiceTest extends BaseTest {
         System.out.println(body);
     }
 
+    @Test
+    void datastoreDelete() throws IOException {
+        DatastoreDelete datastoreDelete = new DatastoreDelete();
+        datastoreDelete.setForce(true);
+        datastoreDelete.setResourceId(UUID.fromString("9e323c0a-b40b-4bf7-a200-2b423f158120"));
+        HashMap<String, Object> filters = new HashMap<>();
+        filters.put("hahaha1", "test1");
+        datastoreDelete.setFilters(filters);
 
+        DatastoreDeleteResult body = dataStoreService().datastoreDelete(
+                datastoreDelete
+        ).execute().body();
+        System.out.println(body);
+    }
+
+    @Test
+    void datastoreSearchSql() throws IOException {
+        DatastoreSearchSqlResult body = dataStoreService().datastoreSearchSql(
+                "select * from \"9e323c0a-b40b-4bf7-a200-2b423f158120\""
+        ).execute().body();
+        System.out.println(body);
+    }
+
+    @Test
+    void datastoreFunctionCreate() throws IOException {
+        DatastoreFunctionCreate datastoreFunctionCreate = new DatastoreFunctionCreate();
+        datastoreFunctionCreate.setName("test_fun");
+        datastoreFunctionCreate.setDefinition(""+
+                "BEGIN\n" +
+                "RETURN $1 + 1;\n" +
+                "END;\n" +
+                "");
+
+        Void body = dataStoreService().datastoreFunctionCreate(datastoreFunctionCreate).execute().body();
+        System.out.println(body);
+    }
+
+    @Test
+    void datastoreFunctionDelete() throws IOException {
+        Void body = dataStoreService().datastoreFunctionDelete("test_fun").execute().body();
+        System.out.println(body);
+    }
+
+//    @Test
+//    void setDatastoreActiveFlag() throws IOException {
+//        Void body = dataStoreService().setDatastoreActiveFlag().execute().body();
+//        System.out.println(body);
+//    }
 }

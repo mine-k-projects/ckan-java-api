@@ -12,7 +12,9 @@ public enum FieldType implements EnumCode {
     int_("int"),
     float_("float"),
     bool("bool"),
-    number("number");
+    number("number"),
+    int4("int4"),
+    tsvector("tsvector");
 
     @Getter
     private String code;
