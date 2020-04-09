@@ -10,7 +10,7 @@ import java.util.Map;
 public class PackageSearch {
     private int count;
     private String sort;
-    private Map<String, Object> facets;
+    private Map<String, Map<String, Integer>> facets;
     private List<Package> results;
     @JsonProperty("search_facets")
     private Map<String, SearchFacet> searchFacets;
