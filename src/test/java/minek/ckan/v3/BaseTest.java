@@ -7,7 +7,8 @@ import minek.ckan.jackson.Module;
 import minek.ckan.retrofit.AuthorizationInterceptor;
 import minek.ckan.retrofit.ConverterFactory;
 import minek.ckan.retrofit.ResponseBodyInterceptor;
-import minek.ckan.v3.service.*;
+import minek.ckan.v3.basic.service.*;
+import minek.ckan.v3.datastore.service.DatastoreService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -51,6 +52,10 @@ public class BaseTest {
         return retrofit.create(MemberService.class);
     }
 
+    public DatastoreService dataStoreService() {
+        return retrofit.create(DatastoreService.class);
+    }
+
     private Retrofit retrofit;
 
     public BaseTest() {
@@ -65,11 +70,11 @@ public class BaseTest {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
-        httpClient.addInterceptor(new AuthorizationInterceptor("f257a70e-c0a9-4f46-9383-127ea19e064a"));
+        httpClient.addInterceptor(new AuthorizationInterceptor("77e4e2a0-d557-4447-a1a4-df3a47017b5c"));
         httpClient.addInterceptor(new ResponseBodyInterceptor(objectMapper));
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://demo.ckan.org/")
+                .baseUrl("http://192.168.0.45/")
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .addConverterFactory(new ConverterFactory())
                 .client(httpClient.build())

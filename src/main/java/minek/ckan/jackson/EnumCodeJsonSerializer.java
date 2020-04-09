@@ -3,7 +3,7 @@ package minek.ckan.jackson;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import minek.ckan.v3.model.enums.EnumCode;
+import minek.ckan.v3.basic.model.enums.EnumCode;
 
 import java.io.IOException;
 

@@ -5,11 +5,11 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import minek.ckan.v3.model.Followee;
-import minek.ckan.v3.model.Group;
-import minek.ckan.v3.model.Package;
-import minek.ckan.v3.model.User;
-import minek.ckan.v3.model.enums.FolloweeType;
+import minek.ckan.v3.basic.model.Followee;
+import minek.ckan.v3.basic.model.Group;
+import minek.ckan.v3.basic.model.Package;
+import minek.ckan.v3.basic.model.User;
+import minek.ckan.v3.basic.model.enums.FolloweeType;
 
 import java.io.IOException;
 

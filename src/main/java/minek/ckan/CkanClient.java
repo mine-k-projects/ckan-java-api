@@ -1,6 +1,7 @@
 package minek.ckan;
 
-import minek.ckan.v3.service.*;
+import minek.ckan.v3.basic.service.*;
+import minek.ckan.v3.datastore.service.DatastoreService;
 import retrofit2.Retrofit;
 
 public class CkanClient {
@@ -45,5 +46,9 @@ public class CkanClient {
 
     public UserService userService() {
         return retrofit.create(UserService.class);
+    }
+
+    public DatastoreService dataStoreService() {
+        return retrofit.create(DatastoreService.class);
     }
 }

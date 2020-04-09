@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import minek.ckan.v3.model.Member;
-import minek.ckan.v3.model.enums.Capacity;
-import minek.ckan.v3.model.enums.ObjectType;
+import minek.ckan.v3.basic.model.Member;
+import minek.ckan.v3.basic.model.enums.Capacity;
+import minek.ckan.v3.basic.model.enums.ObjectType;
 
 import java.io.IOException;
 import java.util.Arrays;
