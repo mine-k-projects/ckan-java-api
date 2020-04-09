@@ -13,6 +13,8 @@ import retrofit2.http.POST;
 
 import java.util.UUID;
 
+// https://docs.ckan.org/en/2.8/maintaining/datastore.html#ckanext.datastore.logic.action.datastore_delete
+// https://github.com/ckan/ckan/blob/master/ckanext/datastore/logic/action.py
 public interface DatastoreService {
 
     @POST("api/3/action/datastore_create")
