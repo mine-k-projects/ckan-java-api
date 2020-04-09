@@ -17,7 +17,7 @@ public class RevisionServiceTest extends BaseTest {
 
     @Test
     void revisionShow() throws IOException {
-        Call<Revision> b = revisionService().revisionShow(UUID.fromString("4df1cb61-f0c9-4981-b3e2-717ed57e6ead"));
+        Call<Revision> b = revisionService().revisionShow(UUID.fromString("acf29135-913c-4fa1-9d18-d2b25d6bd1b6"));
         Response<Revision> execute = b.execute();
         Revision body = execute.body();
         System.out.println();
@@ -25,7 +25,7 @@ public class RevisionServiceTest extends BaseTest {
 
     @Test
     void groupRevisionList() throws IOException {
-        Call<List<Revision>> b = revisionService().groupRevisionList("e5a22d53-3330-4b7c-9b41-dfd5500fc23a");
+        Call<List<Revision>> b = revisionService().groupRevisionList("test-group");
         Response<List<Revision>> execute = b.execute();
         List<Revision> body = execute.body();
         System.out.println();

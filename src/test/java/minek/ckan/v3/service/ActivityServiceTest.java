@@ -15,7 +15,7 @@ public class ActivityServiceTest extends BaseTest {
 
     @Test
     void userActivityList() throws IOException {
-        Call<List<Activity>> b = activityService().userActivityList("allbegray", 0, 10);
+        Call<List<Activity>> b = activityService().userActivityList("minek", 0, 10);
         Response<List<Activity>> execute = b.execute();
         List<Activity> body = execute.body();
         System.out.println();

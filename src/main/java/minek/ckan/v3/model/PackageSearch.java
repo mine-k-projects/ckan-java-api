@@ -13,5 +13,19 @@ public class PackageSearch {
     private Map<String, Object> facets;
     private List<Package> results;
     @JsonProperty("search_facets")
-    private Map<String, Object> searchFacets;
+    private Map<String, SearchFacet> searchFacets;
+
+    @Data
+    public static class SearchFacet {
+        private String title;
+        private List<Item> items;
+
+        @Data
+        public static class Item {
+            private String name;
+            @JsonProperty("display_name")
+            private String displayName;
+            private int count;
+        }
+    }
 }

@@ -15,6 +15,14 @@ import java.util.List;
 public class UserServiceTest extends BaseTest {
 
     @Test
+    void amFollowingUser() throws IOException {
+        Call<Boolean> b = userService().amFollowingUser("minek");
+        Response<Boolean> execute = b.execute();
+        Boolean body = execute.body();
+        System.out.println();
+    }
+
+    @Test
     void memberList() throws IOException {
         Call<List<Member>> b = memberService().memberList("e5a22d53-3330-4b7c-9b41-dfd5500fc23a");
         Response<List<Member>> execute = b.execute();

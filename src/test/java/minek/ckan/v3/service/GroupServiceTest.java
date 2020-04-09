@@ -3,8 +3,14 @@ package minek.ckan.v3.service;
 import minek.ckan.v3.BaseTest;
 import minek.ckan.v3.model.Group;
 import minek.ckan.v3.model.Package;
-import minek.ckan.v3.service.command.get.*;
+import minek.ckan.v3.model.User;
+import minek.ckan.v3.model.enums.GroupType;
 import minek.ckan.v3.model.enums.Role;
+import minek.ckan.v3.service.command.create.GroupCreate;
+import minek.ckan.v3.service.command.get.GroupListQuery;
+import minek.ckan.v3.service.command.get.GroupNameListQuery;
+import minek.ckan.v3.service.command.get.GroupSortField;
+import minek.ckan.v3.service.command.get.OrganizationNameListQuery;
 import minek.ckan.v3.service.command.get.sort.Direction;
 import org.junit.jupiter.api.Test;
 import retrofit2.Call;
@@ -15,6 +21,35 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GroupServiceTest extends BaseTest {
+
+    @Test
+    void groupCreate() throws IOException {
+        GroupCreate groupCreate = GroupCreate.builder()
+                .name("test-group")
+                .type(GroupType.group)
+                .build();
+
+        Call<Group> b = groupService().groupCreate(groupCreate);
+        Response<Group> execute = b.execute();
+        Group body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void groupFollowerCount() throws IOException {
+        Call<Integer> b = groupService().groupFollowerCount("test-group");
+        Response<Integer> execute = b.execute();
+        Integer body = execute.body();
+        System.out.println();
+    }
+
+    @Test
+    void groupFollowerList() throws IOException {
+        Call<List<User>> b = groupService().groupFollowerList("test-group");
+        Response<List<User>> execute = b.execute();
+        List<User> body = execute.body();
+        System.out.println();
+    }
 
     @Test
     void groupNameList() throws IOException {
