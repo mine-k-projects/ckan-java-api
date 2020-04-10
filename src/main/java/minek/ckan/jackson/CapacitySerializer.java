@@ -7,7 +7,7 @@ import minek.ckan.v3.basic.model.enums.Capacity;
 
 import java.io.IOException;
 
-public class CapacityJsonSerializer extends JsonSerializer<Capacity> {
+public class CapacitySerializer extends JsonSerializer<Capacity> {
 
     @Override
     public void serialize(Capacity value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
-public class MemberJsonDeserializer extends JsonDeserializer<Member> {
+public class MemberDeserializer extends JsonDeserializer<Member> {
 
     @Override
     public Member deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {

@@ -1,7 +1,6 @@
 package minek.ckan.jackson;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import minek.ckan.v3.basic.model.Followee;
 import minek.ckan.v3.basic.model.Member;
@@ -18,22 +17,22 @@ public class Module extends SimpleModule {
 
     public Module() {
         addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
-        addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")));
+        addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
 
-        addDeserializer(Member.class, new MemberJsonDeserializer());
+        addDeserializer(Member.class, new MemberDeserializer());
         addDeserializer(Followee.class, new FolloweeDeserializer());
         addDeserializer(DatastoreSearchResult.class, new DatastoreSearchResultDeserializer());
 
-        addSerializer(ActivityType.class, new ActivityTypeJsonSerializer());
-        addDeserializer(ActivityType.class, new ActivityTypeJsonDeserializer());
+        addSerializer(ActivityType.class, new ActivityTypeSerializer());
+        addDeserializer(ActivityType.class, new ActivityTypeDeserializer());
 
-        addSerializer(Capacity.class, new CapacityJsonSerializer());
-        addDeserializer(Capacity.class, new CapacityJsonDeserializer());
+        addSerializer(Capacity.class, new CapacitySerializer());
+        addDeserializer(Capacity.class, new CapacityDeserializer());
 
-        addSerializer(ObjectType.class, new ObjectTypeJsonSerializer());
-        addDeserializer(ObjectType.class, new ObjectTypeJsonDeserializer());
+        addSerializer(ObjectType.class, new ObjectTypeSerializer());
+        addDeserializer(ObjectType.class, new ObjectTypeDeserializer());
 
-        addSerializer(FieldType.class, new FieldTypeJsonSerializer());
-        addDeserializer(FieldType.class, new FieldTypeJsonDeserializer());
+        addSerializer(FieldType.class, new FieldTypeSerializer());
+        addDeserializer(FieldType.class, new FieldTypeDeserializer());
     }
 }

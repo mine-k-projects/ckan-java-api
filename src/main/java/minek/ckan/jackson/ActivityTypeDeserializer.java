@@ -9,7 +9,7 @@ import minek.ckan.v3.basic.model.enums.ActivityType;
 
 import java.io.IOException;
 
-public class ActivityTypeJsonDeserializer extends JsonDeserializer<ActivityType> {
+public class ActivityTypeDeserializer extends JsonDeserializer<ActivityType> {
 
     @Override
     public ActivityType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {

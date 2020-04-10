@@ -7,7 +7,7 @@ import minek.ckan.v3.basic.model.enums.ActivityType;
 
 import java.io.IOException;
 
-public class ActivityTypeJsonSerializer extends JsonSerializer<ActivityType> {
+public class ActivityTypeSerializer extends JsonSerializer<ActivityType> {
 
     @Override
     public void serialize(ActivityType value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

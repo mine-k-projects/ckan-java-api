@@ -9,6 +9,7 @@ import minek.ckan.retrofit.ConverterFactory;
 import minek.ckan.retrofit.ResponseBodyInterceptor;
 import minek.ckan.v3.basic.service.*;
 import minek.ckan.v3.datastore.service.DatastoreService;
+import minek.ckan.v3.harvest.service.HarvestService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -54,6 +55,10 @@ public class BaseTest {
 
     public DatastoreService dataStoreService() {
         return retrofit.create(DatastoreService.class);
+    }
+
+    public HarvestService harvestService() {
+        return retrofit.create(HarvestService.class);
     }
 
     private Retrofit retrofit;

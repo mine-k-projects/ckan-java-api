@@ -5,18 +5,18 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import minek.ckan.v3.basic.model.enums.ObjectType;
+import minek.ckan.v3.datastore.model.enums.FieldType;
 
 import java.io.IOException;
 
-public class ObjectTypeJsonDeserializer extends JsonDeserializer<ObjectType> {
+public class FieldTypeDeserializer extends JsonDeserializer<FieldType> {
 
     @Override
-    public ObjectType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public FieldType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectCodec objectCodec = p.getCodec();
         JsonNode jsonNode = objectCodec.readTree(p);
         String s = jsonNode.asText();
-        for (ObjectType value : ObjectType.values()) {
+        for (FieldType value : FieldType.values()) {
             if (value.getCode().equals(s)) {
                 return value;
             }
