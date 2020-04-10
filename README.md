@@ -35,6 +35,11 @@ Step 2. Add the dependency in the form
 
 ## Change Logs
 
+### v1.2.0.RELEASE
+
+add DatastoreService  
+https://docs.ckan.org/en/2.8/maintaining/datastore.html#the-datastore-api
+
 ### v1.1.0.RELEASE
 
 can use Solr Query Criteria when using the 'package_search' api
@@ -64,6 +69,8 @@ RevisionService revisionService = client.revisionService();
 SiteService siteService = client.siteService();
 TagService tagService = client.tagService();
 UserService userService = client.userService();
+
+DatastoreService dataStoreService = client.dataStoreService();
 ```
 
 # Ckan API guide
