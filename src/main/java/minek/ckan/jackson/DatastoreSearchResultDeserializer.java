@@ -45,7 +45,7 @@ public class DatastoreSearchResultDeserializer extends JsonDeserializer<Datastor
         result.setLinks(
                 objectCodec.readValue(links.toString(), DatastoreSearchResult.Link.class)
         );
-        if (total.isNumber()) {
+        if (include_total) {
             result.setTotal(total.asInt());
         }
 
