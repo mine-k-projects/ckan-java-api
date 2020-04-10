@@ -30,6 +30,7 @@ public class DatastoreSearchResultDeserializer extends JsonDeserializer<Datastor
         JsonNode records = jsonNode.get("records");
         JsonNode fields = jsonNode.get("fields");
         JsonNode links = jsonNode.get("_links");
+        JsonNode total = jsonNode.get("total");
 
         DatastoreSearchResult result = new DatastoreSearchResult();
         result.setIncludeTotal(include_total);
@@ -44,6 +45,9 @@ public class DatastoreSearchResultDeserializer extends JsonDeserializer<Datastor
         result.setLinks(
                 objectCodec.readValue(links.toString(), DatastoreSearchResult.Link.class)
         );
+        if (total.isNumber()) {
+            result.setTotal(total.asInt());
+        }
 
         switch (result.getRecordsFormat()) {
             case objects:
