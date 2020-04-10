@@ -101,7 +101,7 @@ class DatastoreServiceTest extends BaseTest {
     void datastoreFunctionCreate() throws IOException {
         DatastoreFunctionCreate datastoreFunctionCreate = new DatastoreFunctionCreate();
         datastoreFunctionCreate.setName("test_fun");
-        datastoreFunctionCreate.setDefinition(""+
+        datastoreFunctionCreate.setDefinition("" +
                 "BEGIN\n" +
                 "RETURN $1 + 1;\n" +
                 "END;\n" +

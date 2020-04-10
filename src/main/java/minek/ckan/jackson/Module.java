@@ -8,6 +8,7 @@ import minek.ckan.v3.basic.model.Member;
 import minek.ckan.v3.basic.model.enums.ActivityType;
 import minek.ckan.v3.basic.model.enums.Capacity;
 import minek.ckan.v3.basic.model.enums.ObjectType;
+import minek.ckan.v3.datastore.model.DatastoreSearchResult;
 import minek.ckan.v3.datastore.model.enums.FieldType;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class Module extends SimpleModule {
 
         addDeserializer(Member.class, new MemberJsonDeserializer());
         addDeserializer(Followee.class, new FolloweeDeserializer());
+        addDeserializer(DatastoreSearchResult.class, new DatastoreSearchResultDeserializer());
 
         addSerializer(ActivityType.class, new ActivityTypeJsonSerializer());
         addDeserializer(ActivityType.class, new ActivityTypeJsonDeserializer());

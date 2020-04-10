@@ -31,15 +31,12 @@ public interface DatastoreService {
     @POST("api/3/action/datastore_delete")
     Call<DatastoreDeleteResult> datastoreDelete(@Body DatastoreDelete datastoreDelete);
 
-    // datastore_search
+    @POST("api/3/action/datastore_search")
+    Call<DatastoreSearchResult> datastoreSearch(@Body DatastoreSearch datastoreSearch);
 
     @FormUrlEncoded
     @POST("api/3/action/datastore_search_sql")
     Call<DatastoreSearchSqlResult> datastoreSearchSql(@Field("sql") String sql);
-
-    default Call<DatastoreSearchSqlResult> datastoreSearchSql(DatastoreSearchSql datastoreSearchSql) {
-        return datastoreSearchSql(datastoreSearchSql.query());
-    }
 
 //    @POST("api/3/action/set_datastore_active_flag")
 //    Call<Void> setDatastoreActiveFlag();
